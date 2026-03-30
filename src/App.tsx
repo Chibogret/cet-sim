@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { useExamEngine } from './engine/examEngine';
 import { useSheetEngine } from './engine/sheetEngine';
 import { useDeckEngine } from './engine/deckEngine';
@@ -141,11 +142,12 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
 
   if (examState === 'start') {
     return (
-      <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
-        style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-      >
-        <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm relative">
-          <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">University Admission Test</h1>
+      <>
+        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
+          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
+        >
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm relative">
+            <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">University Admission Test</h1>
           <p className="text-sm mb-6 text-justify">
             INSTRUCTIONS: This examination consists of multiple sections. You will be timed per section.
             Do not turn the page until instructed to do so. Shade your answers completely on the provided answer sheet.
@@ -162,15 +164,18 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
           </button>
         </div>
       </div>
+      <Analytics />
+    </>
     );
   }
 
   if (examState === 'section_end') {
     return (
-      <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
-        style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-      >
-        <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm">
+      <>
+        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
+          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
+        >
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm">
           <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Time is Up / Section Ended</h2>
           <p className="text-sm mb-6">
             Pencils down. The time for {currentSection?.name} has concluded.
@@ -187,6 +192,8 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
           </button>
         </div>
       </div>
+      <Analytics />
+    </>
     );
   }
 
@@ -194,10 +201,11 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
     const allQuestions = flattenQuestions(dailyQuestionGroups);
     const totalScore = getScore(allQuestions);
     return (
-      <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
-        style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-      >
-        <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm">
+      <>
+        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
+          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
+        >
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm">
           <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Examination Concluded</h2>
           <p className="text-sm mb-6">
             Please submit your test booklets and answer sheets.
@@ -262,6 +270,8 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
           </button>
         </div>
       </div>
+      <Analytics />
+    </>
     );
   }
 
@@ -289,9 +299,10 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
   };
 
   return (
-    <div className="h-screen flex flex-col bg-white font-serif text-black overflow-hidden relative">
-      {/* Proctor Penalty Overlay */}
-      {proctorPenalty && (
+    <>
+      <div className="h-screen flex flex-col bg-white font-serif text-black overflow-hidden relative">
+        {/* Proctor Penalty Overlay */}
+        {proctorPenalty && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
           <div className="bg-white border-4 border-red-700 p-8 max-w-sm text-center font-serif shadow-2xl">
             <h2 className="text-2xl font-bold uppercase tracking-widest text-red-700 mb-4">Proctor Warning</h2>
@@ -401,5 +412,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
         </div>
       </div>
     </div>
+    <Analytics />
+  </>
   );
 }
