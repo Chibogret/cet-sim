@@ -1,4 +1,4 @@
-# University Admission Test Simulator (Beta)
+# CET Simulator (Beta)
 
 Welcome to the Beta Release of the Deterministic University Admission Test Simulator, designed specifically for UPCAT, ACET, DCAT, and USTET readiness. This application focuses on delivering a deterministic, proctored, high-fidelity daily simulation of high-stakes exams.
 

@@ -147,7 +147,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
         >
           <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm relative">
-            <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">University Admission Test</h1>
+            <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">CET Simulator</h1>
           <p className="text-sm mb-6 text-justify">
             INSTRUCTIONS: This examination consists of multiple sections. You will be timed per section.
             Do not turn the page until instructed to do so. Shade your answers completely on the provided answer sheet.

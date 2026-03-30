@@ -1,7 +1,7 @@
-# The Curve: Examination Simulator
+# CET Simulator
 
 ## Overview
-"The Curve" is a high-stakes, test-taking simulation game built with React. Players must navigate a grueling exam by answering questions, managing their time, and utilizing strategic "Tactic" cards to survive. The game features a distinct "test paper" aesthetic, utilizing SVG noise textures, serif typography, and ink-like blending to simulate a physical examination document.
+"CET Simulator" is a high-stakes, test-taking simulation game built with React. Players must navigate a grueling exam by answering questions, managing their time, and utilizing strategic "Tactic" cards to survive. The game features a distinct "test paper" aesthetic, utilizing SVG noise textures, serif typography, and ink-like blending to simulate a physical examination document.
 
 ---
 
