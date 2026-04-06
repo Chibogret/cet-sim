@@ -7,7 +7,7 @@ import { PaperView } from './ui/PaperView';
 import { AnswerSheet } from './ui/AnswerSheet';
 import { TimerBar } from './ui/TimerBar';
 import { flattenQuestions } from './data/questions';
-import { VocabStudy } from './ui/VocabStudy';
+import { DailyStudy } from './ui/DailyStudy';
 
 export default function App() {
   const {
@@ -132,7 +132,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
 
   if (appMode === 'study') {
     return (
-      <VocabStudy onExit={() => setAppMode('exam')} />
+      <DailyStudy onExit={() => setAppMode('exam')} />
     );
   }
 

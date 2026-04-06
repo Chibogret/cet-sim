@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion'; // Ensure you're using 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react';
 import { VocabWord } from '../types/vocab';
 
 interface CardProps {
@@ -11,8 +11,6 @@ const HighlightedText: React.FC<{ text: string; highlight: string }> = ({ text, 
     if (!text) return null;
     if (!highlight) return <>{text}</>;
 
-    // Use regex to find the word, case-insensitive.
-    // We use word boundaries \b to ensure we match the full word.
     const regex = new RegExp(`(\\b${highlight}\\b)`, 'gi');
     const parts = text.split(regex);
 
@@ -20,7 +18,7 @@ const HighlightedText: React.FC<{ text: string; highlight: string }> = ({ text, 
         <>
             {parts.map((part, i) => (
                 part.toLowerCase() === highlight.toLowerCase() ? (
-                    <strong key={i} className="font-extrabold text-neutral-900 underline decoration-indigo-400/30 decoration-2 underline-offset-2">
+                    <strong key={i} className="font-bold" style={{ color: '#1E3A5F', borderBottom: '2px solid #3B82F6' }}>
                         {part}
                     </strong>
                 ) : (
@@ -42,46 +40,87 @@ export const VocabFlashcard: React.FC<CardProps> = ({ vocab, onAction }) => {
 
     return (
         <div
-            className="perspective-1000 w-full max-w-sm aspect-[3/4] cursor-pointer mx-auto"
+            className="perspective-1000 w-full max-w-[min(420px,calc(100vw-3rem))] aspect-[4/5] cursor-pointer mx-auto relative"
             onClick={() => setShowBack(!showBack)}
         >
             <motion.div
                 animate={{ rotateY: showBack ? 180 : 0 }}
-                transition={{ type: "spring", stiffness: 260, damping: 25 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                 className="relative w-full h-full preserve-3d"
             >
                 {/* FRONT */}
-                <div className="absolute inset-0 backface-hidden bg-[#F9F9F7] rounded-xl border border-neutral-200 p-10 flex flex-col shadow-sm">
+                <div
+                    className="absolute inset-0 backface-hidden rounded-2xl flex flex-col items-center justify-center text-center p-8 gap-4"
+                    style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 4px 24px 0 rgba(0,0,0,0.06)' }}
+                >
+                    <span className="text-xs font-medium text-slate-400 uppercase tracking-widest mb-2">Vocabulary</span>
 
-                    <h2 className="text-6xl font-serif text-neutral-900 font-bold ">{vocab.word}</h2>
+                    <h2
+                        className="text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-none"
+                        style={{ fontFamily: 'Inter, sans-serif' }}
+                    >
+                        {vocab.word}
+                    </h2>
 
-                    <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-8">Meaning</span>
-                    <h3 className="text-4xl font-serif text-neutral-800 leading-tight mb-8">
-                        {vocab.definition}
-                    </h3>
+                    <div className="w-10 h-0.5 rounded-full mt-1" style={{ background: '#F57799' }} />
 
-                    <div className="border-l-2 border-neutral-200 pl-4 mb-8">
-                        <p className="text-neutral-500 text-sm italic leading-relaxed">
-                            "<HighlightedText text={vocab.sample_sentence} highlight={vocab.word} />"
-                        </p>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-auto">
-                        {vocab.synonyms.slice(0, 3).map(s => (
-                            <span key={s} className="text-[9px] bg-[#fdfd96] font-bold uppercase border border-neutral-200 px-2 py-1 rounded">
-                                {s}
-                            </span>
-                        ))}
-                    </div>
-
-                    <p className="text-[10px] text-neutral-400 uppercase tracking-widest text-center mt-6">Click to flip</p>
+                    <p className="text-sm text-slate-400 mt-6">Tap to reveal</p>
                 </div>
 
-                {/* BACK (Placeholder for the word itself) */}
-                <div className="absolute inset-0 backface-hidden bg-white rounded-xl border border-neutral-200 p-12 flex flex-col items-center justify-center rotate-y-180">
-                    <h2 className="text-6xl font-serif text-neutral-900">{vocab.word}</h2>
+                {/* BACK */}
+                <div
+                    className="absolute inset-0 backface-hidden rounded-2xl flex flex-col rotate-y-180 overflow-hidden"
+                    style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 4px 24px 0 rgba(0,0,0,0.06)' }}
+                >
+                    {/* Back header */}
+                    <div className="px-6 pt-6 pb-4 border-b" style={{ borderColor: '#F1F5F9' }}>
+                        <h2
+                            className="text-xl font-bold text-slate-900 tracking-tight"
+                            style={{ fontFamily: 'Inter, sans-serif' }}
+                        >
+                            {vocab.word}
+                        </h2>
+                    </div>
+
+                    <div className="flex-1 overflow-hidden px-6 py-5 flex flex-col gap-4">
+                        <p className="text-base text-slate-700 leading-relaxed">
+                            {vocab.definition}
+                        </p>
+
+                        {vocab.sample_sentence && (
+                            <div className="rounded-lg p-4 flex-1" style={{ background: '#F7F8FA', border: '1px solid #E5E7EB' }}>
+                                <p className="text-sm text-slate-500 italic leading-relaxed">
+                                    "<HighlightedText text={vocab.sample_sentence} highlight={vocab.word} />"
+                                </p>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 p-5 border-t" style={{ borderColor: '#F1F5F9' }}>
+                        <button
+                            onClick={(e) => handleAction(e, false)}
+                            className="py-3 text-sm font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-slate-600 hover:bg-slate-50"
+                            style={{ border: '1px solid #E5E7EB' }}
+                        >
+                            <span>↺</span> Again
+                        </button>
+                        <button
+                            onClick={(e) => handleAction(e, true)}
+                            className="py-3 text-sm font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-white"
+                            style={{ background: '#F57799' }}
+                        >
+                            <span>✓</span> Got it
+                        </button>
+                    </div>
                 </div>
             </motion.div>
+
+            <style>{`
+                .rotate-y-180 { transform: rotateY(180deg); }
+                .backface-hidden { backface-visibility: hidden; }
+                .perspective-1000 { perspective: 1000px; }
+                .preserve-3d { transform-style: preserve-3d; }
+            `}</style>
         </div>
     );
 };
@@ -92,80 +131,121 @@ export const VocabDetail: React.FC<{ vocab: VocabWord; onClose: () => void; onAc
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-white/80 backdrop-blur-sm p-4 flex items-center justify-center"
+            className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-6"
+            style={{ background: 'rgba(15, 23, 42, 0.5)', backdropFilter: 'blur(4px)' }}
             onClick={onClose}
         >
             <motion.div
-                initial={{ y: 50, opacity: 0 }}
+                initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="bg-[#FDFDFB] max-w-xl w-full rounded-xl shadow-2xl border border-neutral-200 flex flex-col relative"
+                exit={{ y: 40, opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full max-w-xl flex flex-col overflow-hidden md:rounded-2xl"
+                style={{
+                    background: '#FFFFFF',
+                    maxHeight: '92dvh',
+                    borderTop: '1px solid #E5E7EB',
+                    boxShadow: '0 -8px 40px rgba(0,0,0,0.12)',
+                }}
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header with Close */}
-                <div className="p-6 border-b border-neutral-100 flex justify-between items-center">
-                    <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-[0.2em]">Vocabulary</span>
-                    <button onClick={onClose} className="p-2 hover:bg-neutral-100 rounded-full transition-colors border border-neutral-200">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeWidth="1.5" /></svg>
+                {/* Header */}
+                <div className="px-6 py-5 flex items-center justify-between border-b" style={{ borderColor: '#E5E7EB' }}>
+                    <div>
+                        <p className="text-xs font-medium text-slate-400 uppercase tracking-widest">Word Detail</p>
+                        <h2
+                            className="text-2xl font-bold text-slate-900 tracking-tight mt-0.5"
+                            style={{ fontFamily: 'Inter, sans-serif' }}
+                        >
+                            {vocab.word}
+                        </h2>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" />
+                        </svg>
                     </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar">
-                    {/* Main Word */}
-                    <h1 className="text-7xl font-serif text-neutral-900 tracking-tight">{vocab.word}</h1>
-
+                {/* Scrollable body */}
+                <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 custom-scrollbar">
+                    {/* Definition */}
                     <section>
-                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-3">Definition</h4>
-                        <p className="text-3xl font-serif font-bold text-neutral-800 leading-tight">
+                        <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Definition</p>
+                        <p className="text-xl md:text-2xl font-bold text-slate-800 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
                             {vocab.definition}
                         </p>
                     </section>
 
-                    <section>
-                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-4">Synonym Network</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {vocab.synonyms.map(s => (
-                                <span key={s} className="bg-[#E9F5F2] text-[#4A8B7E] px-4 py-1 rounded text-xs font-bold uppercase tracking-wider border border-[#D1E7E2]">
-                                    {s}
-                                </span>
-                            ))}
-                        </div>
-                    </section>
+                    {/* Sample sentence */}
+                    {vocab.sample_sentence && (
+                        <section>
+                            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Example</p>
+                            <div className="rounded-xl p-5" style={{ background: '#F7F8FA', border: '1px solid #E5E7EB', borderLeft: '3px solid #F57799' }}>
+                                <p className="text-base text-slate-700 italic leading-relaxed">
+                                    "<HighlightedText text={vocab.sample_sentence} highlight={vocab.word} />"
+                                </p>
+                            </div>
+                        </section>
+                    )}
 
-                    <section>
-                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-3">Context / Usage</h4>
-                        <div className="border-l-4 border-[#D9A74A] pl-6 py-1">
-                            <p className="text-neutral-700 text-lg leading-relaxed font-medium">
-                                "<HighlightedText text={vocab.sample_sentence} highlight={vocab.word} />"
+                    {/* Synonyms */}
+                    {vocab.synonyms?.length > 0 && (
+                        <section>
+                            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Synonyms</p>
+                            <div className="flex flex-wrap gap-2">
+                                {vocab.synonyms.map(s => (
+                                    <span
+                                        key={s}
+                                        className="text-sm font-medium px-3 py-1.5 rounded-lg"
+                                        style={{ background: '#FFF7CD', color: '#000000ff', border: '1px solid #FFF7CD' }}
+                                    >
+                                        {s}
+                                    </span>
+                                ))}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* Memory aid */}
+                    {vocab.root_or_helper && (
+                        <section>
+                            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">Memory Aid</p>
+                            <p className="text-base text-slate-600 leading-relaxed italic font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+                                {vocab.root_or_helper}
                             </p>
-                        </div>
-                    </section>
-
-                    <section className="pt-6 border-t border-neutral-100">
-                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-3">Pro-Tip / Helper</h4>
-                        <p className="text-neutral-600 text-base">
-                            From Greek <span className="bg-[#FEF3C7] px-1 rounded">auto</span> (self) + <span className="bg-[#FEF3C7] px-1 rounded">kratos</span> (power)
-                        </p>
-                    </section>
+                        </section>
+                    )}
                 </div>
 
-                {/* Footer Actions */}
-                <div className="p-8 grid grid-cols-2 gap-4 bg-white border-t border-neutral-100">
+                {/* Footer */}
+                <div className="px-6 py-5 grid grid-cols-2 gap-3 border-t" style={{ borderColor: '#E5E7EB' }}>
                     <button
                         onClick={() => onAction(false)}
-                        className="py-4 rounded-xl border border-neutral-200 text-neutral-800 font-bold text-sm uppercase flex flex-col items-center justify-center hover:bg-neutral-50 transition-all"
+                        className="py-3 text-sm font-medium rounded-xl transition-colors text-slate-600 hover:bg-slate-50 flex items-center justify-center gap-2"
+                        style={{ border: '1px solid #E5E7EB' }}
                     >
-                        <span className="text-lg">↺</span>
-                        Show Again
+                        <span>↺</span> Review Again
                     </button>
                     <button
                         onClick={() => onAction(true)}
-                        className="py-4 rounded-xl border border-neutral-200 text-neutral-800 font-bold text-sm uppercase flex flex-col items-center justify-center hover:bg-neutral-50 transition-all"
+                        className="py-3 text-sm font-medium rounded-xl transition-colors text-white flex items-center justify-center gap-2"
+                        style={{ background: '#F57799' }}
                     >
-                        <span className="text-lg">✓</span>
-                        I Know This
+                        <span>✓</span> I Know This
                     </button>
                 </div>
             </motion.div>
+
+            <style>{`
+                .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+                .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+                .custom-scrollbar::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+                .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #CBD5E1 transparent; }
+            `}</style>
         </motion.div>
     );
 };
