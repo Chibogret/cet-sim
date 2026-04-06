@@ -13,7 +13,7 @@ export const lessons: Lesson[] = [
     subject: 'Language Proficiency',
     category: 'English',
     content: 'The building blocks of language: Nouns, Verbs, Adjectives, and more.',
-    highlights: ['Nouns', 'Verbs', 'Adjectives'],
+    highlights: ['Nouns', 'Pronouns', 'Verbs', 'Adjectives', 'Adverbs', 'Prepositions', 'Conjunctions', 'Interjections', 'Determiners'],
     Component: Lesson101,
     quiz: [
       {

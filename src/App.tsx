@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Analytics } from '@vercel/analytics/react';
 import { useExamEngine } from './engine/examEngine';
 import { useSheetEngine } from './engine/sheetEngine';
@@ -130,155 +131,6 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
     return { promptText, correct, incorrect, unanswered, allQuestions, score };
   };
 
-  if (appMode === 'study') {
-    return (
-      <DailyStudy onExit={() => setAppMode('exam')} />
-    );
-  }
-
-  if (examState === 'start') {
-    return (
-      <>
-        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
-          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-        >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white relative">
-            <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">CET Simulator</h1>
-          <p className="text-sm mb-6 text-justify">
-            INSTRUCTIONS: This examination consists of multiple sections. You will be timed per section.
-            Do not turn the page until instructed to do so. Shade your answers completely on the provided answer sheet.
-            Any form of cheating, including leaving the exam tab, will result in immediate disqualification or time penalties.
-          </p>
-          <div className="mb-8 p-3 border border-dotted border-black text-[10px] uppercase tracking-tighter opacity-70">
-            Daily Exam Mode: Active. No customization permitted. Standard Rules Apply.
-          </div>
-          <div className="flex flex-col gap-3">
-            <button
-              onClick={handleStartExam}
-              className="border border-black px-8 py-3 font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
-            >
-              Begin Full Simulation
-            </button>
-            <button
-              onClick={() => setAppMode('study')}
-              className="border border-black px-8 py-3 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
-            >
-              Enter Study Mode
-            </button>
-          </div>
-        </div>
-      </div>
-      <Analytics />
-    </>
-    );
-  }
-
-  if (examState === 'section_end') {
-    return (
-      <>
-        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
-          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-        >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white">
-          <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Time is Up / Section Ended</h2>
-          <p className="text-sm mb-6">
-            Pencils down. The time for {currentSection?.name} has concluded.
-            Please wait for instructions to proceed to the next section.
-          </p>
-          <button
-            onClick={() => {
-              logEvent('MANUAL_SECTION_ADVANCE');
-              nextSection();
-            }}
-            className="border border-black px-8 py-2 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
-          >
-            Proceed to Next Section
-          </button>
-        </div>
-      </div>
-      <Analytics />
-    </>
-    );
-  }
-
-  if (examState === 'finished') {
-    const allQuestions = flattenQuestions(dailyQuestionGroups);
-    const totalScore = getScore(allQuestions);
-    return (
-      <>
-        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
-          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-        >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white">
-          <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Examination Concluded</h2>
-          <p className="text-sm mb-6">
-            Please submit your test booklets and answer sheets.
-          </p>
-          <div className="border-t border-b border-black py-4 mb-6">
-            <p className="text-lg font-bold">Raw Score: {totalScore} / {allQuestions.length}</p>
-          </div>
-          <div className="flex justify-center items-center gap-2">
-            <button
-              onClick={() => {
-                const { correct, incorrect, unanswered, allQuestions } = getAIPromptData();
-
-                const questionsWithAnswers = allQuestions.map((q, i) =>
-                  `${i + 1}. ${q.prompt}\nStudent Answer: ${answers[q.id] || '(Unanswered)'}\nCorrect Answer: ${q.answer}\n`
-                ).join('\n---\n');
-
-                const summary = {
-                  total: allQuestions.length,
-                  correct: correct.length,
-                  wrong: incorrect.length,
-                  unanswered: unanswered.length
-                };
-
-                const content = `EXAM RECAP\n==========\n\n${questionsWithAnswers}\n\nSUMMARY JSON:\n${JSON.stringify(summary, null, 2)}`;
-
-                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.setAttribute("href", url);
-                link.setAttribute("download", `exam_recap_${new Date().toISOString().split('T')[0]}.txt`);
-                document.body.appendChild(link);
-                link.click();
-                link.remove();
-                setTimeout(() => URL.revokeObjectURL(url), 100);
-              }}
-              className="text-[10px] border border-black px-4 py-1.5 font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors"
-            >
-              Export (.txt)
-            </button>
-            <button
-              onClick={() => {
-                const { promptText, correct, incorrect } = getAIPromptData();
-                const compactData = `Correct:${correct.length},Incorrect:${incorrect.length},Mistakes:${JSON.stringify(incorrect.map(q => ({ id: q.id, u: answers[q.id], c: q.answer })))}`;
-                const fullContent = `${promptText}\n\n[DATA: ${compactData}]`;
-                const aiLink = `https://claude.ai/new?q=${encodeURIComponent(fullContent).replace(/%20/g, '+')}`;
-                window.open(aiLink, "_blank");
-              }}
-              className="text-[10px] border border-black px-4 py-1.5 font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
-            >
-              Send to AI (Yuck)
-            </button>
-          </div>
-          <button
-            onClick={() => {
-              clearAllAnswers();
-              localStorage.clear();
-              window.location.reload();
-            }}
-            className="mt-6 text-[10px] uppercase tracking-widest underline opacity-50 hover:opacity-100 transition-opacity block mx-auto"
-          >
-            Retake Exam
-          </button>
-        </div>
-      </div>
-      <Analytics />
-    </>
-    );
-  }
-
   const handleAnswer = (questionId: string, answer: string) => {
     const currentAnswer = getAnswer(questionId);
     if (currentAnswer === answer) return;
@@ -296,74 +148,243 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
     setAnswer(questionId, answer);
   };
 
-  return (
-    <>
-      <div className="h-screen flex flex-col bg-white font-serif text-black overflow-hidden relative">
-        {/* Proctor Penalty Overlay */}
-        {proctorPenalty && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="bg-white border-4 border-red-700 p-8 max-w-sm text-center font-serif shadow-2xl">
-            <h2 className="text-2xl font-bold uppercase tracking-widest text-red-700 mb-4">Proctor Warning</h2>
+  // Determine which exam view to show
+  const renderExamContent = () => {
+    if (examState === 'start') {
+      return (
+        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
+          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
+        >
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white relative">
+            <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">CET Simulator</h1>
+            <p className="text-sm mb-6 text-justify">
+              INSTRUCTIONS: This examination consists of multiple sections. You will be timed per section.
+              Do not turn the page until instructed to do so. Shade your answers completely on the provided answer sheet.
+              Any form of cheating, including leaving the exam tab, will result in immediate disqualification or time penalties.
+            </p>
+            <div className="mb-8 p-3 border border-dotted border-black text-[10px] uppercase tracking-tighter opacity-70">
+              Daily Exam Mode: Active. No customization permitted. Standard Rules Apply.
+            </div>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleStartExam}
+                className="border border-black px-8 py-3 font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
+              >
+                Begin Full Simulation
+              </button>
+              <button
+                onClick={() => setAppMode('study')}
+                className="border border-black px-8 py-3 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
+              >
+                Enter Study Mode
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (examState === 'section_end') {
+      return (
+        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
+          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
+        >
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white">
+            <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Time is Up / Section Ended</h2>
             <p className="text-sm mb-6">
-              You have left the examination environment. <strong>5 seconds</strong> have been deducted from your time. Further infractions may lead to automatic disqualification.
+              Pencils down. The time for {currentSection?.name} has concluded.
+              Please wait for instructions to proceed to the next section.
             </p>
             <button
-              onClick={() => setProctorPenalty(false)}
-              className="border-2 border-red-700 text-red-700 px-6 py-2 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-colors w-full"
+              onClick={() => {
+                logEvent('MANUAL_SECTION_ADVANCE');
+                nextSection();
+              }}
+              className="border border-black px-8 py-2 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
             >
-              Acknowledge
+              Proceed to Next Section
             </button>
           </div>
         </div>
-      )}
+      );
+    }
 
-      <div className="p-4 bg-white border-b border-black z-10"
-        style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-      >
-        <div className="flex justify-between items-center gap-4">
-          <div className="flex-1">
-            <TimerBar
-              timeLeft={timeLeft}
-              totalTime={currentSection.timeLimitSeconds}
-              sectionName={currentSection.name}
+    if (examState === 'finished') {
+      const allQuestions = flattenQuestions(dailyQuestionGroups);
+      const totalScore = getScore(allQuestions);
+      return (
+        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
+          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
+        >
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white">
+            <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Examination Concluded</h2>
+            <p className="text-sm mb-6">
+              Please submit your test booklets and answer sheets.
+            </p>
+            <div className="border-t border-b border-black py-4 mb-6">
+              <p className="text-lg font-bold">Raw Score: {totalScore} / {allQuestions.length}</p>
+            </div>
+            <div className="flex justify-center items-center gap-2">
+              <button
+                onClick={() => {
+                  const { correct, incorrect, unanswered, allQuestions } = getAIPromptData();
+
+                  const questionsWithAnswers = allQuestions.map((q, i) =>
+                    `${i + 1}. ${q.prompt}\nStudent Answer: ${answers[q.id] || '(Unanswered)'}\nCorrect Answer: ${q.answer}\n`
+                  ).join('\n---\n');
+
+                  const summary = {
+                    total: allQuestions.length,
+                    correct: correct.length,
+                    wrong: incorrect.length,
+                    unanswered: unanswered.length
+                  };
+
+                  const content = `EXAM RECAP\n==========\n\n${questionsWithAnswers}\n\nSUMMARY JSON:\n${JSON.stringify(summary, null, 2)}`;
+
+                  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+                  const url = URL.createObjectURL(blob);
+                  const link = document.createElement('a');
+                  link.setAttribute("href", url);
+                  link.setAttribute("download", `exam_recap_${new Date().toISOString().split('T')[0]}.txt`);
+                  document.body.appendChild(link);
+                  link.click();
+                  link.remove();
+                  setTimeout(() => URL.revokeObjectURL(url), 100);
+                }}
+                className="text-[10px] border border-black px-4 py-1.5 font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors"
+              >
+                Export (.txt)
+              </button>
+              <button
+                onClick={() => {
+                  const { promptText, correct, incorrect } = getAIPromptData();
+                  const compactData = `Correct:${correct.length},Incorrect:${incorrect.length},Mistakes:${JSON.stringify(incorrect.map(q => ({ id: q.id, u: answers[q.id], c: q.answer })))}`;
+                  const fullContent = `${promptText}\n\n[DATA: ${compactData}]`;
+                  const aiLink = `https://claude.ai/new?q=${encodeURIComponent(fullContent).replace(/%20/g, '+')}`;
+                  window.open(aiLink, "_blank");
+                }}
+                className="text-[10px] border border-black px-4 py-1.5 font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
+              >
+                Send to AI (Yuck)
+              </button>
+            </div>
+            <button
+              onClick={() => {
+                clearAllAnswers();
+                localStorage.clear();
+                window.location.reload();
+              }}
+              className="mt-6 text-[10px] uppercase tracking-widest underline opacity-50 hover:opacity-100 transition-opacity block mx-auto"
+            >
+              Retake Exam
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="h-screen flex flex-col bg-white font-serif text-black overflow-hidden relative">
+        {/* Proctor Penalty Overlay */}
+        {proctorPenalty && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+            <div className="bg-white border-4 border-red-700 p-8 max-w-sm text-center font-serif shadow-2xl">
+              <h2 className="text-2xl font-bold uppercase tracking-widest text-red-700 mb-4">Proctor Warning</h2>
+              <p className="text-sm mb-6">
+                You have left the examination environment. <strong>5 seconds</strong> have been deducted from your time. Further infractions may lead to automatic disqualification.
+              </p>
+              <button
+                onClick={() => setProctorPenalty(false)}
+                className="border-2 border-red-700 text-red-700 px-6 py-2 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-colors w-full"
+              >
+                Acknowledge
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="p-4 bg-white border-b border-black z-10"
+          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
+        >
+          <div className="flex justify-between items-center gap-4">
+            <div className="flex-1">
+              <TimerBar
+                timeLeft={timeLeft}
+                totalTime={currentSection.timeLimitSeconds}
+                sectionName={currentSection.name}
+              />
+            </div>
+            <button
+              onClick={() => {
+                if (window.confirm("Abort current examination? This will lose all progress.")) {
+                  setExamState('start');
+                }
+              }}
+              className="text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
+            >
+              Abort Exam
+            </button>
+          </div>
+        </div>
+
+        <div className="flex-1 flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory no-scrollbar relative">
+          <div className="absolute bottom-4 right-4 md:hidden text-[10px] font-bold uppercase tracking-widest bg-white border border-black px-3 py-2 pointer-events-none z-20 opacity-90 flex items-center gap-2">
+            <span>Swipe</span>
+            <span className="text-lg leading-none">↔</span>
+          </div>
+          <div className="w-full shrink-0 snap-center md:flex-1 h-full">
+            <PaperView
+              groups={currentSectionGroups}
+              fatigueLevel={fatigueLevel}
             />
           </div>
-          <button 
-            onClick={() => {
-              if (window.confirm("Abort current examination? This will lose all progress.")) {
-                setExamState('start');
-              }
-            }}
-            className="text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
-          >
-            Abort Exam
-          </button>
+          <div className="w-full shrink-0 snap-center md:w-64 h-full">
+            <AnswerSheet
+              questions={sectionQuestions}
+              answers={answers}
+              crossouts={crossouts}
+              changesRemaining={changesRemaining}
+              onAnswer={handleAnswer}
+            />
+          </div>
         </div>
       </div>
+    );
+  };
 
-      <div className="flex-1 flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory no-scrollbar relative">
-        <div className="absolute bottom-4 right-4 md:hidden text-[10px] font-bold uppercase tracking-widest bg-white border border-black px-3 py-2 pointer-events-none z-20 opacity-90 flex items-center gap-2">
-          <span>Swipe</span>
-          <span className="text-lg leading-none">↔</span>
-        </div>
-        <div className="w-full shrink-0 snap-center md:flex-1 h-full">
-          <PaperView
-            groups={currentSectionGroups}
-            fatigueLevel={fatigueLevel}
-          />
-        </div>
-        <div className="w-full shrink-0 snap-center md:w-64 h-full">
-          <AnswerSheet
-            questions={sectionQuestions}
-            answers={answers}
-            crossouts={crossouts}
-            changesRemaining={changesRemaining}
-            onAnswer={handleAnswer}
-          />
-        </div>
-      </div>
+  return (
+    <div className="relative w-full h-screen overflow-hidden bg-black">
+      <motion.div
+        className="w-full h-full overflow-hidden"
+      >
+        {renderExamContent()}
+      </motion.div>
+
+      <AnimatePresence>
+        {appMode === 'study' && (
+          <motion.div
+            key="study-mode"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ 
+              type: "spring", 
+              damping: 30, 
+              stiffness: 300, 
+              mass: 0.8 
+            }}
+            className="fixed inset-0 z-50 overflow-hidden"
+            style={{ 
+              background: '#F7F8FA' 
+            }}
+          >
+            <DailyStudy onExit={() => setAppMode('exam')} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Analytics />
     </div>
-    <Analytics />
-  </>
   );
 }

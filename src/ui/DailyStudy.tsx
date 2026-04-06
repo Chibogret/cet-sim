@@ -148,23 +148,26 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                             <section className="w-full" style={{ background: '#FFFFFF', borderBottom: '1px solid #E5E7EB' }}>
                                 {/* Section label + dots */}
                                 <div className="px-5 md:px-8 pt-6 pb-4 flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Vocabulary</span>
-                                        <span className="text-xs text-slate-300">·</span>
-                                        <span className="text-xs text-slate-400">{heroIndex + 1} of {dailyContent.vocab.length}</span>
-                                    </div>
-                                    <div className="flex gap-1.5">
-                                        {dailyContent.vocab.map((_, i) => (
-                                            <button
-                                                key={i}
-                                                onClick={() => setHeroIndex(i)}
-                                                className="h-1.5 rounded-full transition-all outline-none"
-                                                style={{
-                                                    width: heroIndex === i ? '2rem' : '0.5rem',
-                                                    background: heroIndex === i ? '#F57799' : '#E5E7EB'
-                                                }}
-                                            />
-                                        ))}
+                                    <div className="flex items-center gap-2 max-w-5xl mx-auto w-full">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Vocabulary</span>
+                                            <span className="text-xs text-slate-300">·</span>
+                                            <span className="text-xs text-slate-400">{heroIndex + 1} of {dailyContent.vocab.length}</span>
+                                        </div>
+                                        <div className="flex-1" />
+                                        <div className="flex gap-1.5">
+                                            {dailyContent.vocab.map((_, i) => (
+                                                <button
+                                                    key={i}
+                                                    onClick={() => setHeroIndex(i)}
+                                                    className="h-1.5 rounded-full transition-all outline-none"
+                                                    style={{
+                                                        width: heroIndex === i ? '2rem' : '0.5rem',
+                                                        background: heroIndex === i ? '#F57799' : '#E5E7EB'
+                                                    }}
+                                                />
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -177,7 +180,7 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                                             animate={{ x: 0, opacity: 1 }}
                                             exit={{ x: -20, opacity: 0 }}
                                             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                                            className="grid lg:grid-cols-2 gap-6 lg:gap-10 max-w-5xl"
+                                            className="grid lg:grid-cols-2 gap-6 lg:gap-10 max-w-5xl mx-auto"
                                         >
                                             {/* Word + Definition */}
                                             <div className="flex flex-col justify-center gap-4">
@@ -221,7 +224,7 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                             </section>
 
                             {/* Lessons Section */}
-                            <section className="px-5 md:px-8 py-8 max-w-5xl w-full pb-28 md:pb-12">
+                            <section className="px-5 md:px-8 py-8 max-w-5xl w-full mx-auto pb-28 md:pb-12">
                                 <div className="flex items-center gap-3 mb-6">
                                     <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Today's Lessons</span>
                                     <div className="flex-1 h-px" style={{ background: '#E5E7EB' }} />

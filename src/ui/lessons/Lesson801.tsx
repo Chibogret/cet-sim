@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ImageViewer } from '../ImageViewer';
+
 
 const Lesson801: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const [dateStr, setDateStr] = useState("");
+    const [zoomedImage, setZoomedImage] = useState<{ src: string, alt: string } | null>(null);
+
 
     useEffect(() => {
         const today = new Date();
@@ -9,7 +14,8 @@ const Lesson801: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }, []);
 
     return (
-        <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md overflow-y-auto px-0 sm:px-4 py-0 sm:py-8 flex justify-center items-start">
+        <div className={`fixed inset-0 z-[100] bg-slate-900/60 px-0 sm:px-4 py-0 sm:py-8 flex justify-center items-start ${zoomedImage ? 'overflow-hidden' : 'overflow-y-auto backdrop-blur-md'}`}>
+
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kalam:wght@300;400;700&family=Roboto+Mono:ital,wght@0,400;0,600;1,400&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap');
                 
@@ -161,6 +167,16 @@ const Lesson801: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                                     <span className="font-bold text-pen-blue">Level 4:</span> Add / Sub <span className="highlight-pink font-bold">LEFT TO RIGHT</span>
                                 </li>
                             </ul>
+                            <div className="mt-6 flex flex-col items-center">
+                                <img
+                                    src="/assets/lessons/801/pemdas_pyramid.png"
+                                    alt="PEMDAS Operations Pyramid"
+                                    className="w-full max-w-[480px] h-auto rounded p-2 cursor-zoom-in hover:shadow-md transition-shadow"
+                                    onClick={() => setZoomedImage({ src: "/assets/lessons/801/pemdas_pyramid.png", alt: "PEMDAS Operations Pyramid" })}
+                                />
+                                <span className="text-[10px] text-slate-500 italic mt-1 font-math">FIG_PEMDAS_PYRAMID: The visual hierarchy of operations.</span>
+                            </div>
+
                         </div>
 
                         {/* Edge Case Lab & Exam Tips Grid */}
@@ -291,8 +307,18 @@ const Lesson801: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     </div>
                 </div>
             </div>
+            <AnimatePresence>
+                {zoomedImage && (
+                    <ImageViewer
+                        src={zoomedImage.src}
+                        alt={zoomedImage.alt}
+                        onClose={() => setZoomedImage(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 };
+
 
 export default Lesson801;
