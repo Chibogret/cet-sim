@@ -15,9 +15,3 @@ Manages the user's answers and scoring.
 - Stores the user's selected answers in a dictionary (`answers`).
 - Provides a function to update answers (`setAnswer`).
 - Calculates the final raw score (`getScore`).
-
-## deckEngine.ts
-Manages the roguelike "Cognitive Tactics" system.
-- Maintains a deck of available tactics.
-- Handles drawing new tactics at the start of sections (`drawTactic`).
-- Executes the logic for specific tactics (e.g., 'Process of Elimination' updates the `eliminatedOptions` state).

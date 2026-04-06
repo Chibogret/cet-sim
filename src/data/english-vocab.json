@@ -1,0 +1,2645 @@
+[
+    {
+        "word": "acrimonious",
+        "definition": "angry, bitter",
+        "synonyms": [
+            "rancorous",
+            "hostile",
+            "caustic"
+        ],
+        "root_or_helper": "From Latin 'acer' (sharp or sour)",
+        "sample_sentence": "The debate became so acrimonious that the opposing candidates refused to shake hands after the event."
+    },
+    {
+        "word": "adroit",
+        "definition": "skillful",
+        "synonyms": [
+            "adept",
+            "nimble",
+            "dexterous"
+        ],
+        "root_or_helper": "From French 'à droit' (according to right/properly)",
+        "sample_sentence": "The adroit mechanic was able to diagnose and fix the complex engine issue in under an hour."
+    },
+    {
+        "word": "affable",
+        "definition": "friendly",
+        "synonyms": [
+            "amiable",
+            "genial",
+            "cordial"
+        ],
+        "root_or_helper": "From Latin 'affabilis' (easy to converse with)",
+        "sample_sentence": "Despite his intimidating size, the security guard was quite affable and greeted every guest with a warm smile."
+    },
+    {
+        "word": "alimentary",
+        "definition": "nourishment, sustenance",
+        "synonyms": [
+            "nutritious",
+            "nourishing"
+        ],
+        "root_or_helper": "From Latin 'alimentum' (nourishment)",
+        "sample_sentence": "The doctor explained that the disease primarily affects the alimentary canal, hindering the patient's ability to digest food properly."
+    },
+    {
+        "word": "amalgam",
+        "definition": "mixture, blend",
+        "synonyms": [
+            "composite",
+            "synthesis",
+            "fusion"
+        ],
+        "root_or_helper": "Helper: Think 'amalgamate' (to bring together)",
+        "sample_sentence": "The new musical genre was an intriguing amalgam of traditional folk melodies and modern electronic beats."
+    },
+    {
+        "word": "ambivalent",
+        "definition": "mixed feelings",
+        "synonyms": [
+            "conflicted",
+            "uncertain",
+            "equivocal"
+        ],
+        "root_or_helper": "Prefix 'ambi-' means both",
+        "sample_sentence": "She remained ambivalent about the job offer, torn between the higher salary and the significantly longer commute."
+    },
+    {
+        "word": "ameliorate",
+        "definition": "make better",
+        "synonyms": [
+            "improve",
+            "enhance",
+            "mitigate"
+        ],
+        "root_or_helper": "From Latin 'melior' (better)",
+        "sample_sentence": "The government implemented new social policies to ameliorate the living conditions in the impoverished neighborhoods."
+    },
+    {
+        "word": "amicable",
+        "definition": "agreeable",
+        "synonyms": [
+            "friendly",
+            "peaceful",
+            "harmonious"
+        ],
+        "root_or_helper": "From Latin 'amicus' (friend)",
+        "sample_sentence": "Although they decided to close their business together, their separation was entirely amicable, and they remained close friends."
+    },
+    {
+        "word": "anachronism",
+        "definition": "from another time",
+        "synonyms": [
+            "misdating",
+            "throwback"
+        ],
+        "root_or_helper": "From Greek 'ana-' (against/back) + 'chronos' (time)",
+        "sample_sentence": "In the historical drama set in the 1800s, the digital watch visibly strapped to the actor's wrist was a glaring anachronism."
+    },
+    {
+        "word": "aplomb",
+        "definition": "assurance, self-confidence",
+        "synonyms": [
+            "poise",
+            "composure",
+            "sangfroid"
+        ],
+        "root_or_helper": "From French 'à plomb' (straight/perpendicular)",
+        "sample_sentence": "Despite the severe technical difficulties during her presentation, she handled the situation with remarkable aplomb and finished her speech flawlessly."
+    },
+    {
+        "word": "arid",
+        "definition": "dry out",
+        "synonyms": [
+            "parched",
+            "waterless",
+            "barren"
+        ],
+        "root_or_helper": "From Latin 'aridus' (dry)",
+        "sample_sentence": "The arid desert landscape offered little respite or vegetation for the exhausted travelers seeking water."
+    },
+    {
+        "word": "ascetic",
+        "definition": "abstinent, non-indulgent",
+        "synonyms": [
+            "austere",
+            "self-denying",
+            "spartan"
+        ],
+        "root_or_helper": "From Greek 'askētikos' (rigorously trained/monk-like)",
+        "sample_sentence": "The monk lived a strictly ascetic lifestyle, owning only a single robe and eating plain rice every day."
+    },
+    {
+        "word": "assuage",
+        "definition": "to ease",
+        "synonyms": [
+            "alleviate",
+            "mitigate",
+            "soothe"
+        ],
+        "root_or_helper": "From Latin 'suavis' (sweet)",
+        "sample_sentence": "To assuage the angry customer's frustration, the manager offered a full refund and a complimentary meal."
+    },
+    {
+        "word": "autocrat",
+        "definition": "a ruler with absolute power",
+        "synonyms": [
+            "dictator",
+            "despot",
+            "tyrant"
+        ],
+        "root_or_helper": "From Greek 'auto' (self) + 'kratos' (power)",
+        "sample_sentence": "The company's founder ruled like an autocrat, making all major decisions without ever consulting his board of directors."
+    },
+    {
+        "word": "avarice",
+        "definition": "extremely greedy",
+        "synonyms": [
+            "greed",
+            "acquisitiveness",
+            "cupidity"
+        ],
+        "root_or_helper": "From Latin 'avaritia' (greed)",
+        "sample_sentence": "Driven by pure avarice, the corrupt politician embezzled millions of dollars from the city's infrastructure fund."
+    },
+    {
+        "word": "axiom",
+        "definition": "accepted truth",
+        "synonyms": [
+            "truism",
+            "principle",
+            "maxim"
+        ],
+        "root_or_helper": "From Greek 'axiōma' (that which is thought fitting)",
+        "sample_sentence": "It is a widely accepted axiom in the retail industry that the customer is always right."
+    },
+    {
+        "word": "beatitude",
+        "definition": "state of bliss",
+        "synonyms": [
+            "blessedness",
+            "joy",
+            "ecstasy"
+        ],
+        "root_or_helper": "From Latin 'beatus' (blessed)",
+        "sample_sentence": "Sitting by the tranquil, isolated mountain lake, the poet felt a profound sense of beatitude and inner peace."
+    },
+    {
+        "word": "beleaguer",
+        "definition": "to cause problems for",
+        "synonyms": [
+            "harass",
+            "besiege",
+            "pester"
+        ],
+        "root_or_helper": "Helper: 'Be-' + Dutch 'leger' (camp); to surround with a camp",
+        "sample_sentence": "Constant supply chain issues and labor shortages continue to beleaguer the manufacturing industry this quarter."
+    },
+    {
+        "word": "belie",
+        "definition": "give false impression",
+        "synonyms": [
+            "contradict",
+            "debunk",
+            "conceal"
+        ],
+        "root_or_helper": "Prefix 'be-' + 'lie' (to disguise with lies)",
+        "sample_sentence": "His calm, steady voice completely belied the intense anxiety he felt before stepping onto the stage."
+    },
+    {
+        "word": "belligerent",
+        "definition": "hostile",
+        "synonyms": [
+            "aggressive",
+            "combative",
+            "pugnacious"
+        ],
+        "root_or_helper": "From Latin 'bellum' (war)",
+        "sample_sentence": "The belligerent patron was escorted out of the restaurant after attempting to start a physical fight with the waiter."
+    },
+    {
+        "word": "benediction",
+        "definition": "blessing",
+        "synonyms": [
+            "prayer",
+            "invocation",
+            "grace"
+        ],
+        "root_or_helper": "From Latin 'bene' (good) + 'dictio' (speaking)",
+        "sample_sentence": "The priest offered a final benediction of peace and safety before the congregation dismissed for the week."
+    },
+    {
+        "word": "bowdlerize",
+        "definition": "censor, expurgate",
+        "synonyms": [
+            "sanitize",
+            "cut",
+            "redact"
+        ],
+        "root_or_helper": "Named after Thomas Bowdler, who published a censored Shakespeare edition",
+        "sample_sentence": "The publisher decided to bowdlerize the classic novel, removing all the profanity and violent scenes to make it suitable for middle schoolers."
+    },
+    {
+        "word": "brazen",
+        "definition": "bold",
+        "synonyms": [
+            "shameless",
+            "unabashed",
+            "audacious"
+        ],
+        "root_or_helper": "Helper: Think 'made of brass' (unyielding, bold)",
+        "sample_sentence": "The thief's brazen daylight robbery of the jewelry store, right in front of a police station, left the witnesses in shock."
+    },
+    {
+        "word": "brusque",
+        "definition": "abrupt in one's mannerisms",
+        "synonyms": [
+            "curt",
+            "blunt",
+            "terse"
+        ],
+        "root_or_helper": "From Italian 'brusco' (tart/rough)",
+        "sample_sentence": "The doctor's brusque bedside manner offended many patients, even though his medical expertise was universally recognized."
+    },
+    {
+        "word": "bungler",
+        "definition": "amateur, incompetent",
+        "synonyms": [
+            "blunderer",
+            "botcher",
+            "fumbler"
+        ],
+        "root_or_helper": "Helper: One who 'bungles' or messes things up",
+        "sample_sentence": "The contractor proved to be a complete bungler, installing the plumbing backwards and causing a massive leak in the basement."
+    },
+    {
+        "word": "cacophony",
+        "definition": "harsh mixture of sounds",
+        "synonyms": [
+            "din",
+            "racket",
+            "discord"
+        ],
+        "root_or_helper": "From Greek 'kakos' (bad) + 'phonē' (sound)",
+        "sample_sentence": "As the middle school orchestra tuned their instruments, a cacophony of screeching strings and blaring horns filled the auditorium."
+    },
+    {
+        "word": "capacious",
+        "definition": "spacious",
+        "synonyms": [
+            "roomy",
+            "commodious",
+            "vast"
+        ],
+        "root_or_helper": "From Latin 'capax' (capable of holding a lot)",
+        "sample_sentence": "The capacious trunk of the new SUV easily accommodated all the heavy luggage and camping gear needed for their cross-country road trip."
+    },
+    {
+        "word": "castigate",
+        "definition": "punish",
+        "synonyms": [
+            "reprimand",
+            "rebuke",
+            "chastise"
+        ],
+        "root_or_helper": "From Latin 'castigare' (to make pure/reprove)",
+        "sample_sentence": "The principal castigated the students during the assembly for their reckless vandalism of the school gymnasium."
+    },
+    {
+        "word": "caustic",
+        "definition": "corrosive; sarcastic",
+        "synonyms": [
+            "mordant",
+            "acidic",
+            "scathing"
+        ],
+        "root_or_helper": "From Greek 'kaustos' (combustible)",
+        "sample_sentence": "The film critic's caustic review of the play deeply offended the playwright and discouraged audiences from attending."
+    },
+    {
+        "word": "cerebral",
+        "definition": "intellectual",
+        "synonyms": [
+            "analytical",
+            "logical",
+            "academic"
+        ],
+        "root_or_helper": "From Latin 'cerebrum' (brain)",
+        "sample_sentence": "Rather than relying on cheap action sequences, the psychological thriller offered a much more cerebral and thought-provoking narrative."
+    },
+    {
+        "word": "chaff",
+        "definition": "worthless thing; husk of corn",
+        "synonyms": [
+            "rubbish",
+            "refuse",
+            "waste"
+        ],
+        "root_or_helper": "Helper: 'Separating the wheat from the chaff'",
+        "sample_sentence": "The experienced literary agent quickly separated the wheat from the chaff, rejecting dozens of poorly written manuscripts to find one masterpiece."
+    },
+    {
+        "word": "chicanery",
+        "definition": "the use of deception",
+        "synonyms": [
+            "trickery",
+            "deceit",
+            "subterfuge"
+        ],
+        "root_or_helper": "From French 'chicaner' (to quibble)",
+        "sample_sentence": "The accountant was investigated for corporate chicanery after millions of dollars mysteriously vanished from the company's pension fund."
+    },
+    {
+        "word": "chimerical",
+        "definition": "illusory, imagination",
+        "synonyms": [
+            "mythical",
+            "fanciful",
+            "unreal"
+        ],
+        "root_or_helper": "From 'Chimera' (a mythical fire-breathing monster)",
+        "sample_sentence": "His chimerical plan to build a floating, self-sustaining city in the sky was instantly dismissed by investors as a mere fantasy."
+    },
+    {
+        "word": "compunction",
+        "definition": "feeling remorse",
+        "synonyms": [
+            "guilt",
+            "regret",
+            "qualm"
+        ],
+        "root_or_helper": "From Latin 'pungere' (to prick fiercely)",
+        "sample_sentence": "The ruthless executive felt absolutely no compunction about firing half his staff just before the holidays to increase the profit margin."
+    },
+    {
+        "word": "concomitant",
+        "definition": "naturally accompanying",
+        "synonyms": [
+            "associated",
+            "collateral",
+            "concurrent"
+        ],
+        "root_or_helper": "From Latin 'comes' (companion)",
+        "sample_sentence": "Decline in short-term memory is often considered a natural concomitant of old age for many individuals."
+    },
+    {
+        "word": "coniferous",
+        "definition": "needle-like or scale-like",
+        "synonyms": [
+            "cone-bearing",
+            "evergreen"
+        ],
+        "root_or_helper": "From Latin 'conus' (cone) + 'ferre' (to bear)",
+        "sample_sentence": "The snowy, mountainous landscape was dotted with tall coniferous trees that retained their green needles throughout the harsh winter."
+    },
+    {
+        "word": "conjecture",
+        "definition": "guess, speculation",
+        "synonyms": [
+            "surmise",
+            "assumption",
+            "hypothesis"
+        ],
+        "root_or_helper": "From Latin 'conicere' (to throw together)",
+        "sample_sentence": "Without any concrete forensic evidence, the detective's theory about the suspect's underlying motive remained mere conjecture."
+    },
+    {
+        "word": "consternation",
+        "definition": "anxious, dismayed",
+        "synonyms": [
+            "alarm",
+            "bewilderment",
+            "panic"
+        ],
+        "root_or_helper": "From Latin 'consternare' (to throw into confusion)",
+        "sample_sentence": "Much to the consternation of the assembled wedding guests, the groom never showed up to the altar."
+    },
+    {
+        "word": "contentious",
+        "definition": "likely to cause argument",
+        "synonyms": [
+            "controversial",
+            "disputable",
+            "argumentative"
+        ],
+        "root_or_helper": "Helper: Tending to 'contend' or argue",
+        "sample_sentence": "The proposal to build a massive new highway through the protected nature reserve proved to be a highly contentious issue among the townspeople."
+    },
+    {
+        "word": "contiguous",
+        "definition": "next, together",
+        "synonyms": [
+            "adjacent",
+            "neighboring",
+            "adjoining"
+        ],
+        "root_or_helper": "From Latin 'contingere' (to touch together)",
+        "sample_sentence": "The United States consists of 48 contiguous states that share borders, along with two non-contiguous states, Alaska and Hawaii."
+    },
+    {
+        "word": "contingent",
+        "definition": "subject to change",
+        "synonyms": [
+            "dependent",
+            "conditional",
+            "possible"
+        ],
+        "root_or_helper": "From Latin 'contingere' (to befall/touch)",
+        "sample_sentence": "Our plans for a relaxing weekend beach trip are entirely contingent on the local weather forecast remaining sunny."
+    },
+    {
+        "word": "convivial",
+        "definition": "friendly, lively",
+        "synonyms": [
+            "sociable",
+            "gregarious",
+            "jovial"
+        ],
+        "root_or_helper": "From Latin 'convivium' (a feast)",
+        "sample_sentence": "The host's convivial nature ensured that every single guest at the large dinner party felt welcome, entertained, and well-fed."
+    },
+    {
+        "word": "corpulent",
+        "definition": "fat",
+        "synonyms": [
+            "obese",
+            "plump",
+            "portly"
+        ],
+        "root_or_helper": "From Latin 'corpus' (body)",
+        "sample_sentence": "The surprisingly corpulent cat struggled to squeeze its large body through the small pet door it had easily navigated as a kitten."
+    },
+    {
+        "word": "corroborate",
+        "definition": "confirm, verify",
+        "synonyms": [
+            "endorse",
+            "authenticate",
+            "validate"
+        ],
+        "root_or_helper": "From Latin 'robur' (strength)",
+        "sample_sentence": "The security camera footage was brought into court to corroborate the defendant's alibi, proving he was at the store during the crime."
+    },
+    {
+        "word": "craven",
+        "definition": "cowardly",
+        "synonyms": [
+            "timid",
+            "fearful",
+            "spineless"
+        ],
+        "root_or_helper": "Helper: Think 'caving in' due to fear",
+        "sample_sentence": "The craven soldier abandoned his post and fled at the very first sound of enemy artillery fire."
+    },
+    {
+        "word": "credulity",
+        "definition": "readiness to believe",
+        "synonyms": [
+            "gullibility",
+            "naivety",
+            "innocence"
+        ],
+        "root_or_helper": "From Latin 'credere' (to believe)",
+        "sample_sentence": "The con artist preyed on the credulity of elderly residents, easily selling them entirely fake retirement investment portfolios."
+    },
+    {
+        "word": "credulous",
+        "definition": "gullible, naive",
+        "synonyms": [
+            "trusting",
+            "unsuspecting",
+            "easily deceived"
+        ],
+        "root_or_helper": "From Latin 'credere' (to believe)",
+        "sample_sentence": "The credulous young child genuinely believed his older brother's ridiculous story about a monster living in the basement."
+    },
+    {
+        "word": "culpable",
+        "definition": "deserving blame",
+        "synonyms": [
+            "guilty",
+            "accountable",
+            "liable"
+        ],
+        "root_or_helper": "From Latin 'culpa' (fault/blame)",
+        "sample_sentence": "Although he didn't pull the trigger himself, the getaway driver was still held legally culpable for his role in the bank robbery."
+    },
+    {
+        "word": "curtail",
+        "definition": "to deprive, to reduce",
+        "synonyms": [
+            "shorten",
+            "truncate",
+            "diminish"
+        ],
+        "root_or_helper": "Helper: Think 'cut the tail' off something",
+        "sample_sentence": "Due to severe budget cuts, the school board was forced to curtail funding for all extracurricular arts and music programs."
+    },
+    {
+        "word": "dearth",
+        "definition": "scarcity",
+        "synonyms": [
+            "shortage",
+            "lack",
+            "paucity"
+        ],
+        "root_or_helper": "Helper: Think 'dead earth' = no crops = scarcity",
+        "sample_sentence": "The unprecedented summer drought led to a severe dearth of fresh produce in the local farmers' markets."
+    },
+    {
+        "word": "decant",
+        "definition": "to pour",
+        "synonyms": [
+            "draw off",
+            "drain",
+            "transfer"
+        ],
+        "root_or_helper": "From Latin 'canthus' (edge of a cup)",
+        "sample_sentence": "The sommelier carefully decanted the expensive vintage wine to separate the liquid from its natural sediment before serving it to the table."
+    },
+    {
+        "word": "decrepit",
+        "definition": "elderly, worn out from age",
+        "synonyms": [
+            "feeble",
+            "frail",
+            "dilapidated"
+        ],
+        "root_or_helper": "From Latin 'crepare' (to creak or rattle)",
+        "sample_sentence": "The decrepit old mansion, with its severely peeling paint and sagging roof, looked like it might collapse entirely during the next storm."
+    },
+    {
+        "word": "deference",
+        "definition": "respect, submission",
+        "synonyms": [
+            "reverence",
+            "veneration",
+            "acquiescence"
+        ],
+        "root_or_helper": "Helper: To 'defer' to someone's authority",
+        "sample_sentence": "In deference to his grandmother's strict traditional beliefs, he politely removed his hat before entering her home."
+    },
+    {
+        "word": "deleterious",
+        "definition": "harmful",
+        "synonyms": [
+            "detrimental",
+            "damaging",
+            "injurious"
+        ],
+        "root_or_helper": "From Greek 'dēlētērios' (noxious)",
+        "sample_sentence": "Medical studies have proven that prolonged exposure to heavy ultraviolet radiation has a deeply deleterious effect on the skin."
+    },
+    {
+        "word": "demagogue",
+        "definition": "agitator",
+        "synonyms": [
+            "rabble-rouser",
+            "firebrand",
+            "instigator"
+        ],
+        "root_or_helper": "From Greek 'dēmos' (people) + 'agōgos' (leading)",
+        "sample_sentence": "The populist demagogue won the national election primarily by exploiting the deep-seated fears and prejudices of the working-class voters."
+    },
+    {
+        "word": "desecrate",
+        "definition": "to disrespect",
+        "synonyms": [
+            "violate",
+            "profane",
+            "defile"
+        ],
+        "root_or_helper": "Prefix 'de-' (opposite of) + 'sacer' (sacred)",
+        "sample_sentence": "The teenage vandals were arrested after attempting to desecrate the historic military cemetery by toppling several headstones."
+    },
+    {
+        "word": "desiccate",
+        "definition": "to dry out",
+        "synonyms": [
+            "dehydrate",
+            "parch",
+            "shrivel"
+        ],
+        "root_or_helper": "From Latin 'siccus' (dry)",
+        "sample_sentence": "The intense, unrelenting desert heat will quickly desiccate any fragile plants that are not heavily watered every day."
+    },
+    {
+        "word": "desist",
+        "definition": "stop, cease, or abstain",
+        "synonyms": [
+            "discontinue",
+            "halt",
+            "refrain"
+        ],
+        "root_or_helper": "From Latin 'desistere' (to stand apart/leave off)",
+        "sample_sentence": "The federal judge ordered the manufacturing corporation to immediately desist from dumping toxic chemical waste into the nearby river."
+    },
+    {
+        "word": "despot",
+        "definition": "a ruler with absolute power",
+        "synonyms": [
+            "tyrant",
+            "dictator",
+            "autocrat"
+        ],
+        "root_or_helper": "From Greek 'despotēs' (master/lord)",
+        "sample_sentence": "The country was ruled by a ruthless despot who swiftly imprisoned anyone who dared to publicly criticize his political regime."
+    },
+    {
+        "word": "diatribe",
+        "definition": "bitter verbal attack",
+        "synonyms": [
+            "tirade",
+            "harangue",
+            "denunciation"
+        ],
+        "root_or_helper": "From Greek 'diatribē' (discourse/pastime)",
+        "sample_sentence": "The opposing senator launched into a fiery, hour-long diatribe against the proposed tax increases, calling them an unacceptable burden."
+    },
+    {
+        "word": "didactic",
+        "definition": "to instruct",
+        "synonyms": [
+            "educational",
+            "instructive",
+            "pedagogic"
+        ],
+        "root_or_helper": "From Greek 'didaskein' (to teach)",
+        "sample_sentence": "While the animal fable was certainly entertaining, its primary purpose was entirely didactic, aiming to teach children the lifelong value of honesty."
+    },
+    {
+        "word": "diffident",
+        "definition": "shy, lacks self-confidence",
+        "synonyms": [
+            "bashful",
+            "modest",
+            "unassuming"
+        ],
+        "root_or_helper": "From Latin 'dis-' (reversing) + 'fidere' (to trust)",
+        "sample_sentence": "The diffident young student rarely raised her hand during class discussions, constantly afraid that her answers might be completely incorrect."
+    },
+    {
+        "word": "dilatory",
+        "definition": "slow, unhurried, tardy",
+        "synonyms": [
+            "sluggish",
+            "delaying",
+            "procrastinating"
+        ],
+        "root_or_helper": "From Latin 'differre' (to postpone)",
+        "sample_sentence": "The defense lawyer intentionally used dilatory tactics to prolong the high-profile trial, hoping to eventually wear down the prosecution's limited resources."
+    },
+    {
+        "word": "dilettante",
+        "definition": "amateur",
+        "synonyms": [
+            "dabbler",
+            "nonprofessional",
+            "layman"
+        ],
+        "root_or_helper": "From Italian 'dilettare' (to delight)",
+        "sample_sentence": "Although he owned the most expensive paints and professional canvases, he was merely a dilettante who rarely possessed the patience to finish a piece of art."
+    },
+    {
+        "word": "dirge",
+        "definition": "funeral hymn, mournful music",
+        "synonyms": [
+            "elegy",
+            "lament",
+            "requiem"
+        ],
+        "root_or_helper": "From Latin 'dirige' (direct), first word of the Office of the Dead",
+        "sample_sentence": "The incredibly mournful sounds of a slow, somber dirge echoed throughout the gothic church as the wooden coffin was carried down the center aisle."
+    },
+    {
+        "word": "discomfit",
+        "definition": "to embarrass",
+        "synonyms": [
+            "abash",
+            "unsettle",
+            "confuse"
+        ],
+        "root_or_helper": "From Latin 'dis-' + 'conficere' (to put together/accomplish)",
+        "sample_sentence": "The aggressive, rapid-fire questioning by the skilled prosecution was specifically designed to discomfit the witness and make him stumble over his prepared testimony."
+    },
+    {
+        "word": "disconsolate",
+        "definition": "unhappy, doleful",
+        "synonyms": [
+            "sad",
+            "dejected",
+            "melancholy"
+        ],
+        "root_or_helper": "Prefix 'dis-' (not) + 'consolatus' (consoled)",
+        "sample_sentence": "The disconsolate widow wept silently at the lonely graveside, completely refusing all attempts at comfort from her gathered family members."
+    },
+    {
+        "word": "disingenuous",
+        "definition": "insincere",
+        "synonyms": [
+            "dishonest",
+            "deceitful",
+            "duplicitous"
+        ],
+        "root_or_helper": "Prefix 'dis-' (not) + 'ingenuous' (frank, open)",
+        "sample_sentence": "It was entirely disingenuous of him to publicly claim he had absolutely no knowledge of the corrupt deal, considering his official signature was on the main contract."
+    },
+    {
+        "word": "disparage",
+        "definition": "to belittle",
+        "synonyms": [
+            "denigrate",
+            "depreciate",
+            "trivialize"
+        ],
+        "root_or_helper": "From Old French 'desparagier' (marry below one's class)",
+        "sample_sentence": "The veteran basketball coach honorably refused to disparage his opposing team to the press, even after securing a decisive and humiliating victory."
+    },
+    {
+        "word": "dissembler",
+        "definition": "hypocrite",
+        "synonyms": [
+            "deceiver",
+            "pretender",
+            "phony"
+        ],
+        "root_or_helper": "Helper: One who 'dissembles' (conceals true motives)",
+        "sample_sentence": "As a highly trained and skilled dissembler, the undercover spy seamlessly blended into the foreign embassy's staff without raising any initial suspicion."
+    },
+    {
+        "word": "dissolute",
+        "definition": "unprincipled, promiscuous",
+        "synonyms": [
+            "decadent",
+            "immoral",
+            "depraved"
+        ],
+        "root_or_helper": "From Latin 'dissolutus' (loose)",
+        "sample_sentence": "The arrogant young heir quickly squandered his entire family fortune on a dissolute lifestyle characterized by heavy gambling, drinking, and extravagant parties."
+    },
+    {
+        "word": "diurnal",
+        "definition": "daily",
+        "synonyms": [
+            "everyday",
+            "daytime"
+        ],
+        "root_or_helper": "From Latin 'dies' (day)",
+        "sample_sentence": "Unlike naturally nocturnal owls that hunt in darkness, eagles are diurnal birds of prey that hunt exclusively during the bright daylight hours."
+    },
+    {
+        "word": "dolorous",
+        "definition": "doleful, distressed",
+        "synonyms": [
+            "mournful",
+            "sorrowful",
+            "woeful"
+        ],
+        "root_or_helper": "From Latin 'dolor' (pain/grief)",
+        "sample_sentence": "The independent film's incredibly dolorous soundtrack perfectly captured the protagonist's profound sense of tragic loss and internal despair."
+    },
+    {
+        "word": "draconian",
+        "definition": "strict rules",
+        "synonyms": [
+            "harsh",
+            "severe",
+            "oppressive"
+        ],
+        "root_or_helper": "Named after Draco, an Athenian lawmaker known for harsh laws",
+        "sample_sentence": "The new high school principal implemented draconian disciplinary policies, instantly expelling students for even the most minor and harmless infractions."
+    },
+    {
+        "word": "dregs",
+        "definition": "remnant, leftovers",
+        "synonyms": [
+            "sediment",
+            "residue",
+            "scum"
+        ],
+        "root_or_helper": "Helper: The dregs at the bottom of a barrel",
+        "sample_sentence": "After carefully filtering the strong morning coffee, she unceremoniously discarded the bitter, dark dregs left resting at the bottom of the pot."
+    },
+    {
+        "word": "ductile",
+        "definition": "pliable",
+        "synonyms": [
+            "flexible",
+            "malleable",
+            "tractable"
+        ],
+        "root_or_helper": "From Latin 'ducere' (to lead)",
+        "sample_sentence": "Pure gold is a highly ductile metal, allowing it to be easily drawn into remarkably fine, continuous wires for crafting intricate jewelry."
+    },
+    {
+        "word": "duplicitous",
+        "definition": "deceitful",
+        "synonyms": [
+            "two-faced",
+            "treacherous",
+            "underhanded"
+        ],
+        "root_or_helper": "From Latin 'duplex' (twofold)",
+        "sample_sentence": "The duplicitous used-car salesman enthusiastically assured the naive customer the vehicle was in perfect condition, despite fully knowing the transmission was failing."
+    },
+    {
+        "word": "eclectic",
+        "definition": "extensive",
+        "synonyms": [
+            "diverse",
+            "wide-ranging",
+            "multifarious"
+        ],
+        "root_or_helper": "From Greek 'eklektikos' (selective)",
+        "sample_sentence": "Her personal musical tastes are incredibly eclectic, ranging seamlessly from classical Italian opera to 1990s underground hip-hop."
+    },
+    {
+        "word": "edify",
+        "definition": "to instruct",
+        "synonyms": [
+            "educate",
+            "enlighten",
+            "cultivate"
+        ],
+        "root_or_helper": "From Latin 'aedificare' (to build/construct)",
+        "sample_sentence": "The passionate pastor deeply hoped his Sunday sermon would edify the entire congregation and actively inspire them to act with greater daily compassion."
+    },
+    {
+        "word": "effigy",
+        "definition": "sculpture or model of a person",
+        "synonyms": [
+            "statue",
+            "figure",
+            "dummy"
+        ],
+        "root_or_helper": "From Latin 'effingere' (to fashion)",
+        "sample_sentence": "The angry political protestors marched aggressively through the city streets, eventually stopping to burn a crude effigy of the deeply unpopular prime minister."
+    },
+    {
+        "word": "effusive",
+        "definition": "to express gratitude",
+        "synonyms": [
+            "gushing",
+            "unrestrained",
+            "demonstrative"
+        ],
+        "root_or_helper": "From Latin 'effundere' (to pour out)",
+        "sample_sentence": "The surprised award winner was remarkably effusive in her public thanks, openly crying tears of joy as she praised her supportive family and colleagues."
+    },
+    {
+        "word": "elucidate",
+        "definition": "to clarify",
+        "synonyms": [
+            "explain",
+            "illuminate",
+            "explicate"
+        ],
+        "root_or_helper": "From Latin 'lucidus' (lucid/clear)",
+        "sample_sentence": "The brilliant physics professor used a surprisingly simple, everyday analogy to help elucidate the incredibly complex theories of quantum mechanics for his freshman class."
+    },
+    {
+        "word": "emaciated",
+        "definition": "thin or weak",
+        "synonyms": [
+            "skeletal",
+            "gaunt",
+            "wasted"
+        ],
+        "root_or_helper": "From Latin 'emaciare' (to make thin)",
+        "sample_sentence": "When the abandoned stray dog was finally rescued from the alley, it was so terribly emaciated that its ribs were clearly visible through its matted fur."
+    },
+    {
+        "word": "empirical",
+        "definition": "observed, seen",
+        "synonyms": [
+            "factual",
+            "experiential",
+            "pragmatic"
+        ],
+        "root_or_helper": "From Greek 'empeiria' (experience)",
+        "sample_sentence": "The skeptical scientist absolutely refused to accept the new chemical theory without hard empirical evidence gathered through rigorous, repeatable laboratory experiments."
+    },
+    {
+        "word": "enervating",
+        "definition": "tiring",
+        "synonyms": [
+            "exhausting",
+            "draining",
+            "fatiguing"
+        ],
+        "root_or_helper": "From Latin 'nervus' (sinew/nerve)",
+        "sample_sentence": "The intensely enervating humidity of the tropical summer afternoon left the visiting tourists feeling completely drained of all their physical energy."
+    },
+    {
+        "word": "entomology",
+        "definition": "the study of insects",
+        "synonyms": [
+            "insectology",
+            "bug science"
+        ],
+        "root_or_helper": "From Greek 'entomon' (insect) + '-logy' (study of)",
+        "sample_sentence": "His intense lifelong fascination with observing beetles and categorizing rare butterflies naturally led him to pursue an advanced university degree in entomology."
+    },
+    {
+        "word": "entrench",
+        "definition": "firmly establish",
+        "synonyms": [
+            "embed",
+            "ingrain",
+            "root"
+        ],
+        "root_or_helper": "Helper: To dig a trench to secure a position",
+        "sample_sentence": "The massive international corporation actively sought to entrench its global monopoly by aggressively buying out all the smaller, innovative competitors in the market."
+    },
+    {
+        "word": "epitaph",
+        "definition": "elegy, commemoration",
+        "synonyms": [
+            "inscription",
+            "eulogy"
+        ],
+        "root_or_helper": "From Greek 'epi' (upon) + 'taphos' (tomb)",
+        "sample_sentence": "Before his passing, the legendary poet explicitly requested that his favorite, most famous verse be deeply inscribed as the epitaph on his marble tombstone."
+    },
+    {
+        "word": "euphony",
+        "definition": "pleasing sound",
+        "synonyms": [
+            "melody",
+            "harmony",
+            "musicality"
+        ],
+        "root_or_helper": "From Greek 'eu' (good) + 'phonē' (sound)",
+        "sample_sentence": "The talented poet carefully chose her specific words to create a pleasing euphony that sounded almost like soft music when it was read aloud."
+    },
+    {
+        "word": "evanescent",
+        "definition": "not lasting long",
+        "synonyms": [
+            "fleeting",
+            "ephemeral",
+            "transient"
+        ],
+        "root_or_helper": "From Latin 'vanescere' (to disappear)",
+        "sample_sentence": "The bright, vibrant beauty of the double rainbow was sadly evanescent, fading completely away just minutes after the heavy storm had finally passed."
+    },
+    {
+        "word": "evocation",
+        "definition": "imaginative recreation",
+        "synonyms": [
+            "calling forth",
+            "invocation",
+            "summoning"
+        ],
+        "root_or_helper": "From Latin 'evocare' (to call out)",
+        "sample_sentence": "The author's incredibly vivid descriptions of sensory details served as a powerful evocation of her joyful childhood home in the peaceful countryside."
+    },
+    {
+        "word": "exacerbate",
+        "definition": "to worsen",
+        "synonyms": [
+            "aggravate",
+            "compound",
+            "intensify"
+        ],
+        "root_or_helper": "From Latin 'acerbus' (harsh/bitter)",
+        "sample_sentence": "The doctor warned that intensely scratching a mosquito bite will only exacerbate the severe itching and potentially cause a dangerous bacterial infection."
+    },
+    {
+        "word": "excoriate",
+        "definition": "to criticize",
+        "synonyms": [
+            "condemn",
+            "castigate",
+            "lambaste"
+        ],
+        "root_or_helper": "From Latin 'corium' (skin/hide); literally to strip off skin",
+        "sample_sentence": "The daily newspaper's leading editorial proceeded to brutally excoriate the mayor for his utter and complete mishandling of the city's growing financial crisis."
+    },
+    {
+        "word": "extemporize",
+        "definition": "to improvise",
+        "synonyms": [
+            "ad-lib",
+            "play it by ear",
+            "invent"
+        ],
+        "root_or_helper": "From Latin 'ex tempore' (on the spur of the moment)",
+        "sample_sentence": "When the electronic teleprompter unexpectedly failed mid-sentence, the highly charismatic political speaker was forced to skillfully extemporize the rest of his important speech."
+    },
+    {
+        "word": "fastidious",
+        "definition": "hard to please",
+        "synonyms": [
+            "meticulous",
+            "scrupulous",
+            "fussy"
+        ],
+        "root_or_helper": "From Latin 'fastidium' (loathing/squeamishness)",
+        "sample_sentence": "The fastidious master baker precisely measured every single ingredient to the exact gram to ensure the wedding cake would be absolutely perfect."
+    },
+    {
+        "word": "fecund",
+        "definition": "producing many new ideas",
+        "synonyms": [
+            "fertile",
+            "fruitful",
+            "productive"
+        ],
+        "root_or_helper": "From Latin 'fecundus' (fruitful)",
+        "sample_sentence": "The incredibly fecund soil of the flooded river valley effortlessly produced an unusually abundant harvest for the local farmers year after year."
+    },
+    {
+        "word": "fickle",
+        "definition": "changing frequently",
+        "synonyms": [
+            "capricious",
+            "variable",
+            "volatile"
+        ],
+        "root_or_helper": "Old English 'ficol' (deceitful)",
+        "sample_sentence": "The general public's notoriously fickle taste in high fashion means that today's most popular trendy styles will likely be considered entirely obsolete by next year."
+    },
+    {
+        "word": "flippant",
+        "definition": "treating things lightly",
+        "synonyms": [
+            "frivolous",
+            "disrespectful",
+            "glib"
+        ],
+        "root_or_helper": "Helper: 'Flipping' off serious subjects",
+        "sample_sentence": "Her highly flippant, sarcastic response to the incredibly serious legal allegations made the presiding judge heavily question her respect for the authority of the court."
+    },
+    {
+        "word": "florid",
+        "definition": "excessively intricate, red faced",
+        "synonyms": [
+            "ruddy",
+            "ornate",
+            "flamboyant"
+        ],
+        "root_or_helper": "From Latin 'flos' (flower)",
+        "sample_sentence": "The massive Victorian mansion was widely known for its exceptionally florid architecture, featuring wildly elaborate wood carvings and highly ornate iron balconies."
+    },
+    {
+        "word": "flummox",
+        "definition": "perplexed",
+        "synonyms": [
+            "baffle",
+            "confuse",
+            "bewilder"
+        ],
+        "root_or_helper": "Helper: Sounds like a magical spell for confusion",
+        "sample_sentence": "The unexpected, highly advanced calculus problem placed on the final exam was complex enough to completely flummox even the most intelligent and prepared students in the entire class."
+    },
+    {
+        "word": "furor",
+        "definition": "uproar of excitement or anger",
+        "synonyms": [
+            "commotion",
+            "outcry",
+            "tumult"
+        ],
+        "root_or_helper": "From Latin 'furere' (be mad/rage)",
+        "sample_sentence": "The sudden, entirely unexplained cancellation of the incredibly popular television show predictably caused a massive, organized furor among its highly dedicated online fanbase."
+    },
+    {
+        "word": "galvanize",
+        "definition": "electrify",
+        "synonyms": [
+            "stimulate",
+            "rouse",
+            "spur"
+        ],
+        "root_or_helper": "Named after Luigi Galvani (electricity pioneer)",
+        "sample_sentence": "The tragically avoidable highway accident served to completely galvanize the local community into actively demanding much stricter traffic safety laws."
+    },
+    {
+        "word": "garrulous",
+        "definition": "talkative",
+        "synonyms": [
+            "loquacious",
+            "voluble",
+            "chatty"
+        ],
+        "root_or_helper": "From Latin 'garrire' (to chatter)",
+        "sample_sentence": "The extremely garrulous passenger placed in the seat right next to me enthusiastically talked incessantly for the entirety of the long six-hour flight."
+    },
+    {
+        "word": "genial",
+        "definition": "friendly",
+        "synonyms": [
+            "amiable",
+            "cordial",
+            "warm"
+        ],
+        "root_or_helper": "From Latin 'genialis' (festive/joyous)",
+        "sample_sentence": "The consistently genial party host warmly greeted every single new arrival at the door with a bright smile and a very firm handshake."
+    },
+    {
+        "word": "geriatric",
+        "definition": "relating to old age",
+        "synonyms": [
+            "elderly",
+            "aging",
+            "senescent"
+        ],
+        "root_or_helper": "From Greek 'gēras' (old age)",
+        "sample_sentence": "The growing city hospital wisely decided to rapidly open a massive new geriatric ward to specifically and effectively address the complex health needs of the rapidly aging population."
+    },
+    {
+        "word": "gerrymander",
+        "definition": "to give bias to",
+        "synonyms": [
+            "manipulate",
+            "tamper",
+            "falsify"
+        ],
+        "root_or_helper": "Governor Gerry + Salamander (shape of the district)",
+        "sample_sentence": "The dominant political party blatantly attempted to gerrymander the voting districts into bizarre shapes to absolutely guarantee their own candidates would win the upcoming election."
+    },
+    {
+        "word": "gestate",
+        "definition": "to carry a fetus, to develop",
+        "synonyms": [
+            "conceive",
+            "incubate",
+            "formulate"
+        ],
+        "root_or_helper": "From Latin 'gestare' (to carry/bear)",
+        "sample_sentence": "It surprisingly took several quiet months for the author's initial, rough idea to slowly gestate into a fully fleshed-out, compelling fantasy novel."
+    },
+    {
+        "word": "glib",
+        "definition": "fluent but insincere and shallow",
+        "synonyms": [
+            "slick",
+            "pat",
+            "smooth-talking"
+        ],
+        "root_or_helper": "Helper: Speaking smoothly but without substance",
+        "sample_sentence": "The young politician's incredibly glib answers during the televised debate strongly suggested he hadn't deeply considered the truly complex policy issues at hand."
+    },
+    {
+        "word": "glut",
+        "definition": "surplus, to supply or fill",
+        "synonyms": [
+            "surfeit",
+            "excess",
+            "overabundance"
+        ],
+        "root_or_helper": "From Latin 'gluttire' (to swallow)",
+        "sample_sentence": "The sudden, unexpected glut of cheap foreign imports on the market rapidly drove down the overall prices of domestically manufactured electronic goods."
+    },
+    {
+        "word": "gregarious",
+        "definition": "friendly",
+        "synonyms": [
+            "sociable",
+            "companionable",
+            "outgoing"
+        ],
+        "root_or_helper": "From Latin 'grex' (flock)",
+        "sample_sentence": "Unlike his painfully introverted older brother, Mark was highly gregarious by nature and genuinely loved attending extremely large social gatherings."
+    },
+    {
+        "word": "guile",
+        "definition": "cunning intelligence",
+        "synonyms": [
+            "craftiness",
+            "slyness",
+            "deceit"
+        ],
+        "root_or_helper": "Helper: Think 'beguile' (to charm or trick)",
+        "sample_sentence": "The experienced spy expertly used his immense guile and practiced charm to subtly extract classified information from the completely unsuspecting foreign diplomat."
+    },
+    {
+        "word": "gully",
+        "definition": "water-worn ravine",
+        "synonyms": [
+            "channel",
+            "ditch",
+            "trench"
+        ],
+        "root_or_helper": "From French 'goulet' (neck of a bottle)",
+        "sample_sentence": "The sudden, incredibly heavy rainstorm quickly transformed the previously dry dirt hiking path into a rapidly rushing gully of deep, muddy water."
+    },
+    {
+        "word": "halcyon",
+        "definition": "peaceful, happy",
+        "synonyms": [
+            "serene",
+            "tranquil",
+            "untroubled"
+        ],
+        "root_or_helper": "From Greek 'alkuōn' (kingfisher, believed to calm seas)",
+        "sample_sentence": "In her quiet twilight years, she often fondly reminisced about the beautiful, halcyon days of her youth spent relaxing by the sea."
+    },
+    {
+        "word": "harbinger",
+        "definition": "herald, sign, omen",
+        "synonyms": [
+            "indicator",
+            "precursor",
+            "forewarning"
+        ],
+        "root_or_helper": "Old French 'herbergier' (provider of shelter)",
+        "sample_sentence": "To an experienced sailor, the sudden, sharp drop in barometric pressure is often a highly reliable harbinger of a rapidly approaching storm."
+    },
+    {
+        "word": "haughty",
+        "definition": "arrogant, conceited",
+        "synonyms": [
+            "proud",
+            "vain",
+            "snobbish"
+        ],
+        "root_or_helper": "From French 'haut' (high)",
+        "sample_sentence": "The incredibly haughty aristocrat flatly refused to dine at the same table with anyone she considered to be below her elite social class."
+    },
+    {
+        "word": "hedonist",
+        "definition": "pleasure seeker",
+        "synonyms": [
+            "sybarite",
+            "sensualist",
+            "voluptuary"
+        ],
+        "root_or_helper": "From Greek 'hēdonē' (pleasure)",
+        "sample_sentence": "As a highly dedicated, unapologetic hedonist, he eagerly spent his entire inherited fortune on luxurious tropical vacations, fine dining, and incredibly extravagant parties."
+    },
+    {
+        "word": "iconoclast",
+        "definition": "critic, sceptic, questioner",
+        "synonyms": [
+            "rebel",
+            "nonconformist",
+            "dissident"
+        ],
+        "root_or_helper": "From Greek 'eikōn' (image) + 'klan' (to break)",
+        "sample_sentence": "The avant-garde artist was widely considered a daring iconoclast for loudly challenging all the traditional, established rules of classical portrait painting."
+    },
+    {
+        "word": "idiosyncrasy",
+        "definition": "a peculiar trait",
+        "synonyms": [
+            "quirk",
+            "eccentricity",
+            "mannerism"
+        ],
+        "root_or_helper": "From Greek 'idios' (own) + 'synkrasis' (mixture)",
+        "sample_sentence": "One of his relatively harmless, slightly amusing idiosyncrasies was his absolute, stubborn refusal to ever eat any food that was colored green."
+    },
+    {
+        "word": "idyllic",
+        "definition": "peaceful, happy",
+        "synonyms": [
+            "perfect",
+            "idealized",
+            "picturesque"
+        ],
+        "root_or_helper": "From Greek 'eidyllion' (little picture)",
+        "sample_sentence": "They happily spent an absolutely idyllic summer vacation relaxing completely off the grid in a small, secluded cabin by a crystal-clear mountain lake."
+    },
+    {
+        "word": "ignominious",
+        "definition": "shameful",
+        "synonyms": [
+            "humiliating",
+            "undignified",
+            "disgraceful"
+        ],
+        "root_or_helper": "From Latin 'ig-' (not) + 'nomen' (name/repute)",
+        "sample_sentence": "The thoroughly defeated, exhausted army made a highly ignominious retreat after being forced into surrendering all their remaining weapons to the enemy."
+    },
+    {
+        "word": "impecunious",
+        "definition": "poor, penniless",
+        "synonyms": [
+            "destitute",
+            "impoverished",
+            "indigent"
+        ],
+        "root_or_helper": "From Latin 'im-' (not) + 'pecunia' (money)",
+        "sample_sentence": "After tragically losing his prominent job and all his life savings in the unexpected stock market crash, he was left entirely impecunious."
+    },
+    {
+        "word": "impetus",
+        "definition": "motivation",
+        "synonyms": [
+            "momentum",
+            "drive",
+            "stimulus"
+        ],
+        "root_or_helper": "From Latin 'impetere' (to attack)",
+        "sample_sentence": "The highly lucrative discovery of a massive, safe new trade route provided the necessary impetus for the port city's incredibly rapid economic expansion."
+    },
+    {
+        "word": "indigent",
+        "definition": "poor",
+        "synonyms": [
+            "destitute",
+            "penniless",
+            "impoverished"
+        ],
+        "root_or_helper": "From Latin 'indigere' (to lack/need)",
+        "sample_sentence": "The local neighborhood charity graciously opened a large soup kitchen to efficiently provide hot, nutritious meals for the growing indigent population of the city."
+    },
+    {
+        "word": "indomitable",
+        "definition": "invincible, unbeatable",
+        "synonyms": [
+            "unconquerable",
+            "invulnerable",
+            "resolute"
+        ],
+        "root_or_helper": "From Latin 'in-' (not) + 'domitare' (to tame)",
+        "sample_sentence": "Despite facing seemingly overwhelming odds, the underdog sports team fought with an indomitable spirit and miraculously won the entire championship."
+    },
+    {
+        "word": "inexorable",
+        "definition": "relentless",
+        "synonyms": [
+            "unstoppable",
+            "inescapable",
+            "unyielding"
+        ],
+        "root_or_helper": "From Latin 'in-' (not) + 'exorabilis' (able to be entreated)",
+        "sample_sentence": "The seemingly inexorable forward march of highly advanced technological progress has unfortunately rendered many traditional, manual jobs entirely obsolete."
+    },
+    {
+        "word": "infernal",
+        "definition": "hellish",
+        "synonyms": [
+            "underworld",
+            "demonic",
+            "fiendish"
+        ],
+        "root_or_helper": "From Latin 'infernus' (lower/underground)",
+        "sample_sentence": "The absolutely infernal, sweltering heat of the mid-summer desert afternoon made it physically impossible to venture outside without quickly suffering from severe heatstroke."
+    },
+    {
+        "word": "innocuous",
+        "definition": "harmless",
+        "synonyms": [
+            "safe",
+            "nondangerous",
+            "innocent"
+        ],
+        "root_or_helper": "From Latin 'in-' (not) + 'nocuus' (harmful)",
+        "sample_sentence": "Although the small snake's incredibly bright, warning colors made it look incredibly dangerous, its weak bite was actually completely innocuous."
+    },
+    {
+        "word": "inscrutable",
+        "definition": "hard to understand",
+        "synonyms": [
+            "enigmatic",
+            "unreadable",
+            "mysterious"
+        ],
+        "root_or_helper": "From Latin 'in-' (not) + 'scrutari' (to search)",
+        "sample_sentence": "The highly experienced professional poker player perfectly maintained an incredibly inscrutable expression, making it genuinely impossible to guess the strength of his hand."
+    },
+    {
+        "word": "insular",
+        "definition": "narrow-minded; isolated",
+        "synonyms": [
+            "provincial",
+            "parochial",
+            "inward-looking"
+        ],
+        "root_or_helper": "From Latin 'insula' (island)",
+        "sample_sentence": "Growing up entirely in a very small, highly insular farming community, he was completely unprepared for the overwhelming cultural diversity of the big city."
+    },
+    {
+        "word": "interloper",
+        "definition": "intruder",
+        "synonyms": [
+            "trespasser",
+            "invader",
+            "outsider"
+        ],
+        "root_or_helper": "Helper: Someone who 'lopes' (runs) 'inter' (between) boundaries",
+        "sample_sentence": "When the lost wild dog unfortunately wandered too deeply into the wolf pack's marked territory, the alphas immediately attacked the unwanted interloper."
+    },
+    {
+        "word": "intrepid",
+        "definition": "fearless",
+        "synonyms": [
+            "unafraid",
+            "undaunted",
+            "courageous"
+        ],
+        "root_or_helper": "From Latin 'in-' (not) + 'trepidus' (alarmed)",
+        "sample_sentence": "The famously intrepid explorer boldly ventured incredibly deep into the dangerous, uncharted jungle, completely unfazed by the countless potential dangers."
+    },
+    {
+        "word": "invective",
+        "definition": "insulting, abusive language",
+        "synonyms": [
+            "vituperation",
+            "abuse",
+            "expletives"
+        ],
+        "root_or_helper": "From Latin 'invehi' (to attack with words)",
+        "sample_sentence": "The heated political debate quickly devolved into a chaotic shouting match, with both frustrated candidates loudly hurling bitter invective at one another."
+    },
+    {
+        "word": "irreverent",
+        "definition": "disrespectful",
+        "synonyms": [
+            "disdainful",
+            "scornful",
+            "impudent"
+        ],
+        "root_or_helper": "Prefix 'ir-' (not) + 'reverent' (showing deep respect)",
+        "sample_sentence": "The controversial comedian's highly irreverent jokes directly mocked the royal family in a brazen way that genuinely shocked traditional, older audiences."
+    },
+    {
+        "word": "itinerant",
+        "definition": "traveling, not sedentary",
+        "synonyms": [
+            "wandering",
+            "roaming",
+            "nomadic"
+        ],
+        "root_or_helper": "From Latin 'iter' (journey)",
+        "sample_sentence": "The hard-working itinerant farm workers traveled constantly from state to state, carefully following the changing harvest seasons across the entire country."
+    },
+    {
+        "word": "jibe",
+        "definition": "taunt, mock",
+        "synonyms": [
+            "jeer",
+            "sneer",
+            "deride"
+        ],
+        "root_or_helper": "Helper: To make a sharp, mocking remark",
+        "sample_sentence": "He unfortunately couldn't resist making a surprisingly cruel jibe about his main business rival's highly publicized recent failure in the stock market."
+    },
+    {
+        "word": "jocular",
+        "definition": "joking, humorous",
+        "synonyms": [
+            "funny",
+            "comic",
+            "amusing"
+        ],
+        "root_or_helper": "From Latin 'jocus' (joke)",
+        "sample_sentence": "His naturally jocular personality made him a favorite among his stressed colleagues, as he could always easily diffuse a highly tense meeting with a well-timed joke."
+    },
+    {
+        "word": "juggernaut",
+        "definition": "overwhelming force",
+        "synonyms": [
+            "behemoth",
+            "steamroller",
+            "colossus"
+        ],
+        "root_or_helper": "From Hindi 'Jagannāth' (Lord of the Universe, associated with a massive chariot)",
+        "sample_sentence": "The innovative new tech company quickly became an entirely unstoppable juggernaut, completely and ruthlessly dominating the global smartphone market within just a few years."
+    },
+    {
+        "word": "laconic",
+        "definition": "concise",
+        "synonyms": [
+            "brief",
+            "terse",
+            "succinct"
+        ],
+        "root_or_helper": "From Laconia (Sparta), whose people spoke sparingly",
+        "sample_sentence": "When the reporter excitedly asked how the incredibly difficult rescue mission went, the weary, exhausted soldier merely gave a highly laconic reply: 'It's done.'"
+    },
+    {
+        "word": "lambaste",
+        "definition": "to criticize harshly",
+        "synonyms": [
+            "castigate",
+            "chastise",
+            "berate"
+        ],
+        "root_or_helper": "Helper: 'Lam' (beat) + 'baste' (beat)",
+        "sample_sentence": "The notoriously angry theater director proceeded to loudly lambaste the nervous actors for completely forgetting their most important lines during the final dress rehearsal."
+    },
+    {
+        "word": "lampoon",
+        "definition": "publicly criticize or mock",
+        "synonyms": [
+            "satirize",
+            "parody",
+            "ridicule"
+        ],
+        "root_or_helper": "From French 'lampon' (drinking song)",
+        "sample_sentence": "The popular satirical magazine regularly published highly detailed, humorous cartoons that would mercilessly lampoon the glaring absurdities of the wealthy political elite."
+    },
+    {
+        "word": "laud",
+        "definition": "praise",
+        "synonyms": [
+            "extol",
+            "hail",
+            "applaud"
+        ],
+        "root_or_helper": "From Latin 'laudere' (to praise)",
+        "sample_sentence": "The grateful local newspaper published a glowing, front-page editorial to publicly laud the incredibly heroic firefighters who successfully saved the children from the burning building."
+    },
+    {
+        "word": "licentious",
+        "definition": "unprincipled, promiscuous",
+        "synonyms": [
+            "dissolute",
+            "immoral",
+            "depraved"
+        ],
+        "root_or_helper": "From Latin 'licentia' (freedom/license)",
+        "sample_sentence": "The highly strict, deeply religious puritan community permanently banished the man for his incredibly licentious behavior and complete disregard for traditional moral laws."
+    },
+    {
+        "word": "loquacious",
+        "definition": "talkative",
+        "synonyms": [
+            "garrulous",
+            "voluble",
+            "chatty"
+        ],
+        "root_or_helper": "From Latin 'loqui' (to speak)",
+        "sample_sentence": "My highly loquacious older neighbor can effortlessly spend hours talking excitedly about the incredibly minor details of her mundane daily routine."
+    },
+    {
+        "word": "lugubrious",
+        "definition": "looking or sounding sad",
+        "synonyms": [
+            "mournful",
+            "gloomy",
+            "melancholy"
+        ],
+        "root_or_helper": "From Latin 'lugere' (to mourn)",
+        "sample_sentence": "The distant, continuous howling of the lost stray dog added a deeply, undeniably lugubrious tone to the exceptionally cold, rainy night."
+    },
+    {
+        "word": "lurid",
+        "definition": "shocking",
+        "synonyms": [
+            "sensational",
+            "gruesome",
+            "macabre"
+        ],
+        "root_or_helper": "From Latin 'luridus' (pale/yellow/ghastly)",
+        "sample_sentence": "The cheap tabloid newspaper successfully specialized in frequently publishing incredibly lurid, highly exaggerated details of minor celebrity scandals just to attract more readers."
+    },
+    {
+        "word": "magnanimous",
+        "definition": "generous",
+        "synonyms": [
+            "charitable",
+            "benevolent",
+            "noble"
+        ],
+        "root_or_helper": "From Latin 'magnus' (great) + 'animus' (soul/mind)",
+        "sample_sentence": "In a surprisingly and highly magnanimous gesture, the clear victor graciously offered a powerful, high-ranking position to his recently defeated political rival."
+    },
+    {
+        "word": "malfeasance",
+        "definition": "wrongdoing",
+        "synonyms": [
+            "misconduct",
+            "impropriety",
+            "misbehavior"
+        ],
+        "root_or_helper": "From French 'mal' (bad) + 'faisance' (doing)",
+        "sample_sentence": "The wealthy corporate executive was officially indicted for major financial malfeasance after investigators thoroughly discovered he had been secretly embezzling millions in company funds."
+    },
+    {
+        "word": "manifesto",
+        "definition": "policy statement",
+        "synonyms": [
+            "declaration",
+            "proclamation",
+            "platform"
+        ],
+        "root_or_helper": "From Latin 'manifestus' (obvious)",
+        "sample_sentence": "The bold revolutionary group anonymously published a highly radical manifesto formally outlining their detailed plans to completely dismantle the deeply corrupt current government."
+    },
+    {
+        "word": "martinet",
+        "definition": "strict disciplinarian",
+        "synonyms": [
+            "authoritarian",
+            "tyrant",
+            "dictator"
+        ],
+        "root_or_helper": "Named after Jean Martinet, a strict 17th-century French drillmaster",
+        "sample_sentence": "The terrifying boarding school headmaster was a rigid martinet who severely punished students for having slightly untucked shirts or mildly scuffed shoes."
+    },
+    {
+        "word": "maudlin",
+        "definition": "sentimental, emotional",
+        "synonyms": [
+            "weepy",
+            "tearful",
+            "mawkish"
+        ],
+        "root_or_helper": "From Mary Magdalene, often depicted weeping",
+        "sample_sentence": "After finishing his third strong drink, he unfortunately became incredibly maudlin, loudly and tearfully apologizing to absolutely everyone for minor mistakes he made decades ago."
+    },
+    {
+        "word": "maverick",
+        "definition": "independent, unorthodox",
+        "synonyms": [
+            "individualist",
+            "nonconformist",
+            "free spirit"
+        ],
+        "root_or_helper": "Named after Samuel Maverick, who didn't brand his cattle",
+        "sample_sentence": "The ambitious young senator was widely known as a true maverick for frequently and loudly voting against his own political party's most important legislation."
+    },
+    {
+        "word": "mellifluous",
+        "definition": "pleasing sound",
+        "synonyms": [
+            "sweet-sounding",
+            "dulcet",
+            "musical"
+        ],
+        "root_or_helper": "From Latin 'mel' (honey) + 'fluere' (to flow)",
+        "sample_sentence": "The highly trained opera singer's incredibly mellifluous voice instantly captivated the entire, massive audience from the very first flawless note."
+    },
+    {
+        "word": "mettle",
+        "definition": "spirit, outrage",
+        "synonyms": [
+            "courage",
+            "fortitude",
+            "resolve"
+        ],
+        "root_or_helper": "Variant of 'metal' (the stuff one is made of)",
+        "sample_sentence": "The incredibly grueling, highly intense military training was specifically designed to severely test the recruits' true mettle and completely weed out those who lacked mental resilience."
+    },
+    {
+        "word": "misanthrope",
+        "definition": "hater of humankind",
+        "synonyms": [
+            "cynic",
+            "churl",
+            "grouch"
+        ],
+        "root_or_helper": "From Greek 'misos' (hatred) + 'anthrōpos' (man)",
+        "sample_sentence": "The bitter old misanthrope lived entirely alone deep in the woods, intentionally isolating himself completely to avoid absolutely any interaction with human beings."
+    },
+    {
+        "word": "moribund",
+        "definition": "at the point of death",
+        "synonyms": [
+            "dying",
+            "expiring",
+            "declining"
+        ],
+        "root_or_helper": "From Latin 'mori' (to die)",
+        "sample_sentence": "The highly successful new CEO was desperately hired to effectively save the moribund tech company, which had been steadily losing massive amounts of money for five consecutive years."
+    },
+    {
+        "word": "nadir",
+        "definition": "lowest point",
+        "synonyms": [
+            "rock-bottom",
+            "depths",
+            "zero"
+        ],
+        "root_or_helper": "From Arabic 'nazīr' (opposite to zenith)",
+        "sample_sentence": "The Great Depression undoubtedly represented the absolute nadir of the nation's entire economic history during the early 20th century."
+    },
+    {
+        "word": "neophyte",
+        "definition": "novice, beginner",
+        "synonyms": [
+            "learner",
+            "trainee",
+            "fledgling"
+        ],
+        "root_or_helper": "From Greek 'neos' (new) + 'phyton' (plant)",
+        "sample_sentence": "As a complete, absolute neophyte to the highly complex game of chess, she didn't even know how the knight was legally supposed to move across the board."
+    },
+    {
+        "word": "nonplussed",
+        "definition": "confused",
+        "synonyms": [
+            "baffled",
+            "bewildered",
+            "flummoxed"
+        ],
+        "root_or_helper": "From Latin 'non plus' (no more/at a loss)",
+        "sample_sentence": "The incredibly sudden, entirely bizarre, and highly publicized resignation of the entire corporate board of directors left the majority shareholders entirely nonplussed."
+    },
+    {
+        "word": "noxious",
+        "definition": "harmful, poisonous",
+        "synonyms": [
+            "toxic",
+            "deadly",
+            "corrupting"
+        ],
+        "root_or_helper": "From Latin 'noxa' (harm)",
+        "sample_sentence": "The large chemical factory was heavily fined for accidentally releasing a massive cloud of incredibly noxious, foul-smelling gas directly into the nearby residential neighborhood."
+    },
+    {
+        "word": "obdurate",
+        "definition": "stubborn",
+        "synonyms": [
+            "obstinate",
+            "intransigent",
+            "inflexible"
+        ],
+        "root_or_helper": "From Latin 'obdurare' (harden against)",
+        "sample_sentence": "Despite incredibly passionate, highly emotional pleas from his supportive family, he remained entirely obdurate in his terrible decision to abruptly drop out of college."
+    },
+    {
+        "word": "obfuscate",
+        "definition": "to confuse on purpose",
+        "synonyms": [
+            "obscure",
+            "blur",
+            "muddle"
+        ],
+        "root_or_helper": "From Latin 'obfuscare' (to darken)",
+        "sample_sentence": "The highly defensive politician deliberately used incredibly complex, highly bureaucratic jargon to completely obfuscate the true, massive cost of his newly proposed healthcare bill."
+    },
+    {
+        "word": "obsolescence",
+        "definition": "out of date",
+        "synonyms": [
+            "outdatedness",
+            "antiquity",
+            "disuse"
+        ],
+        "root_or_helper": "From Latin 'obsolescere' (to wear out/fall into disuse)",
+        "sample_sentence": "The incredibly rapid, seemingly endless advancement of basic smartphone technology unfortunately leads directly to the planned obsolescence of older models within just a few short years."
+    },
+    {
+        "word": "obstreperous",
+        "definition": "noisy, unruly",
+        "synonyms": [
+            "disorderly",
+            "boisterous",
+            "rowdy"
+        ],
+        "root_or_helper": "From Latin 'obstrepere' (to make a noise against)",
+        "sample_sentence": "The completely obstreperous, incredibly loud toddlers ran completely wild through the nice restaurant, entirely ignoring their highly exhausted parents' desperate commands."
+    },
+    {
+        "word": "occult",
+        "definition": "mysterious",
+        "synonyms": [
+            "supernatural",
+            "magic",
+            "mystic"
+        ],
+        "root_or_helper": "From Latin 'occultare' (to secrete/hide)",
+        "sample_sentence": "The highly eccentric, deeply isolated author spent his entire adult life secretly researching the occult, heavily collecting incredibly rare, ancient books on dark witchcraft and early alchemy."
+    },
+    {
+        "word": "oligarchy",
+        "definition": "governed by a few",
+        "synonyms": [
+            "junta",
+            "establishment"
+        ],
+        "root_or_helper": "From Greek 'oligos' (few) + 'arkhē' (rule)",
+        "sample_sentence": "Rather than existing as a true, functional democracy, the struggling nation was effectively an oligarchy entirely ruled by a very small group of incredibly wealthy industrialists."
+    },
+    {
+        "word": "ostracize",
+        "definition": "to banish",
+        "synonyms": [
+            "exclude",
+            "shun",
+            "reject"
+        ],
+        "root_or_helper": "From Greek 'ostrakon' (potsherd used for voting on banishment)",
+        "sample_sentence": "In middle school, a highly exclusive, very tight-knit clique of popular girls would completely and ruthlessly ostracize absolutely anyone who didn't explicitly wear the right brand of clothing."
+    },
+    {
+        "word": "panacea",
+        "definition": "cure for all diseases",
+        "synonyms": [
+            "universal cure",
+            "elixir",
+            "nostrum"
+        ],
+        "root_or_helper": "From Greek 'pan' (all) + 'akos' (cure)",
+        "sample_sentence": "The realistic government strongly warned struggling citizens that the new, highly debated economic policy was certainly not a magical panacea that would instantly cure the deep recession."
+    },
+    {
+        "word": "parsimony",
+        "definition": "unwillingness to spend",
+        "synonyms": [
+            "cheapness",
+            "frugality",
+            "miserliness"
+        ],
+        "root_or_helper": "From Latin 'parcere' (be sparing)",
+        "sample_sentence": "Her highly extreme, almost unbelievable parsimony meant she stubbornly refused to ever turn on the expensive heat, even when the winter temperatures rapidly dropped below freezing."
+    },
+    {
+        "word": "partisan",
+        "definition": "biased",
+        "synonyms": [
+            "prejudiced",
+            "one-sided",
+            "sectarian"
+        ],
+        "root_or_helper": "Helper: Taking the 'part' of a specific group",
+        "sample_sentence": "The intensely, almost toxically partisan atmosphere currently heavily dominating Congress made it nearly impossible to successfully pass any truly bipartisan, helpful legislation."
+    },
+    {
+        "word": "paucity",
+        "definition": "shortage",
+        "synonyms": [
+            "scarcity",
+            "dearth",
+            "deficiency"
+        ],
+        "root_or_helper": "From Latin 'paucus' (few/little)",
+        "sample_sentence": "The incredibly dedicated historian significantly struggled to accurately write the detailed biography due to a severe paucity of verifiable primary source documents from the subject's early life."
+    },
+    {
+        "word": "peccadillo",
+        "definition": "small or unimportant sin",
+        "synonyms": [
+            "misdemeanor",
+            "indiscretion",
+            "lapse"
+        ],
+        "root_or_helper": "From Spanish 'pecado' (sin) + diminutive '-illo'",
+        "sample_sentence": "He casually considered his highly frequent habit of secretly taking minor office supplies home to simply be a minor peccadillo, completely ignoring the fact it was actually a serious theft."
+    },
+    {
+        "word": "perfidious",
+        "definition": "deceitful, untrustworthy",
+        "synonyms": [
+            "treacherous",
+            "disloyal",
+            "traitorous"
+        ],
+        "root_or_helper": "From Latin 'per-' (through/detrimental to) + 'fides' (faith)",
+        "sample_sentence": "The incredibly perfidious top general ultimately betrayed his trusting king and secretly handed the critical city's defense plans directly over to the heavily armed invading army."
+    },
+    {
+        "word": "perfunctory",
+        "definition": "done without effort",
+        "synonyms": [
+            "cursory",
+            "desultory",
+            "superficial"
+        ],
+        "root_or_helper": "From Latin 'perfunctus' (done with/discharged)",
+        "sample_sentence": "The heavily exhausted grocery cashier merely gave a highly perfunctory nod to the waiting customer, quickly scanning the numerous items without ever making direct eye contact."
+    },
+    {
+        "word": "pernicious",
+        "definition": "harmful",
+        "synonyms": [
+            "damaging",
+            "destructive",
+            "malignant"
+        ],
+        "root_or_helper": "From Latin 'nex' (death)",
+        "sample_sentence": "The deeply pernicious, highly subtle effects of the relentless state propaganda gradually but entirely brainwashed the innocent citizens into blind, unquestioning loyalty to the dictator."
+    },
+    {
+        "word": "petulant",
+        "definition": "bad tempered",
+        "synonyms": [
+            "peevish",
+            "sulky",
+            "fretful"
+        ],
+        "root_or_helper": "From Latin 'petere' (to aim at/attack)",
+        "sample_sentence": "When she was firmly told she unfortunately couldn't have dessert yet, the highly petulant child stubbornly crossed her arms and angrily refused to eat her healthy vegetables."
+    },
+    {
+        "word": "picayune",
+        "definition": "of small value",
+        "synonyms": [
+            "petty",
+            "worthless",
+            "trivial"
+        ],
+        "root_or_helper": "From French coin 'picaillon'",
+        "sample_sentence": "The highly ineffective manager foolishly spent hours loudly lecturing his exhausted staff on picayune, completely trivial details, while entirely ignoring the actually major, highly critical sales issues."
+    },
+    {
+        "word": "pragmatic",
+        "definition": "practical",
+        "synonyms": [
+            "sensible",
+            "matter-of-fact",
+            "realistic"
+        ],
+        "root_or_helper": "From Greek 'pragma' (deed/act)",
+        "sample_sentence": "Given the highly restricted, incredibly tight company budget, the realistic team unfortunately had to take a highly pragmatic approach and sadly cancel the extremely extravagant product launch party."
+    },
+    {
+        "word": "precipitate",
+        "definition": "result of an action",
+        "synonyms": [
+            "cause",
+            "trigger",
+            "spark"
+        ],
+        "root_or_helper": "From Latin 'praeceps' (headlong)",
+        "sample_sentence": "The highly shocking, deeply unexpected assassination of the prominent Archduke ultimately helped precipitate the rapid, incredibly violent outbreak of the First World War."
+    },
+    {
+        "word": "preclude",
+        "definition": "make impossible",
+        "synonyms": [
+            "prevent",
+            "prohibit",
+            "hinder"
+        ],
+        "root_or_helper": "From Latin 'prae' (before) + 'claudere' (to shut)",
+        "sample_sentence": "His severe prior criminal conviction for major fraud will unfortunately completely preclude him from legally obtaining a valid license to ever practice corporate law."
+    },
+    {
+        "word": "prodigious",
+        "definition": "enormous, impressively great",
+        "synonyms": [
+            "colossal",
+            "immense",
+            "monumental"
+        ],
+        "root_or_helper": "From Latin 'prodigium' (omen/monster)",
+        "sample_sentence": "The highly talented classical composer had a truly prodigious, almost unbelievable output, completely writing over fifty massive symphonies and dozens of complex operas in his incredibly short lifetime."
+    },
+    {
+        "word": "profligate",
+        "definition": "wasteful in resources",
+        "synonyms": [
+            "spendthrift",
+            "extravagant",
+            "reckless"
+        ],
+        "root_or_helper": "From Latin 'profligare' (to overthrow/ruin)",
+        "sample_sentence": "The incredibly profligate, deeply irresponsible spending of the extremely lavish royal court eventually completely bankrupted the struggling nation's entire treasury."
+    },
+    {
+        "word": "prognosticator",
+        "definition": "foretell, prophesy",
+        "synonyms": [
+            "prophet",
+            "soothsayer",
+            "diviner"
+        ],
+        "root_or_helper": "From Greek 'pro' (before) + 'gnōsis' (knowledge)",
+        "sample_sentence": "The highly respected financial prognosticator confidently and incredibly accurately predicted a massive, devastating stock market crash just months before it tragically actually happened."
+    },
+    {
+        "word": "prolific",
+        "definition": "plentiful",
+        "synonyms": [
+            "abundant",
+            "productive",
+            "copious"
+        ],
+        "root_or_helper": "From Latin 'proles' (offspring)",
+        "sample_sentence": "Stephen King is an incredibly prolific, highly successful author, having officially published dozens of massive novels and hundreds of highly popular short stories over his long career."
+    },
+    {
+        "word": "propitiate",
+        "definition": "to appease",
+        "synonyms": [
+            "placate",
+            "mollify",
+            "pacify"
+        ],
+        "root_or_helper": "From Latin 'propitius' (favorable/gracious)",
+        "sample_sentence": "In ancient, highly superstitious times, fearful villagers would regularly offer valuable sacrifices to the angry gods in a desperate attempt to propitiate them and strongly ensure a very good harvest."
+    },
+    {
+        "word": "protean",
+        "definition": "can change frequently",
+        "synonyms": [
+            "versatile",
+            "adaptable",
+            "mutable"
+        ],
+        "root_or_helper": "Named after Proteus, a Greek sea god who could change shapes",
+        "sample_sentence": "The highly protean, incredibly versatile lead actor easily and flawlessly transitioned from powerfully playing a highly ruthless villain in a dark thriller to a deeply charming romantic lead in a light comedy."
+    },
+    {
+        "word": "pugnacious",
+        "definition": "aggressive",
+        "synonyms": [
+            "combative",
+            "belligerent",
+            "quarrelsome"
+        ],
+        "root_or_helper": "From Latin 'pugnus' (fist)",
+        "sample_sentence": "The highly pugnacious, heavily tattooed boxer was widely known for frequently starting aggressive brawls at the press conferences before the highly anticipated actual matches even began."
+    },
+    {
+        "word": "pulchritude",
+        "definition": "beauty",
+        "synonyms": [
+            "loveliness",
+            "attractiveness",
+            "elegance"
+        ],
+        "root_or_helper": "From Latin 'pulcher' (beautiful)",
+        "sample_sentence": "The highly famous, incredibly detailed Renaissance painting was universally celebrated for perfectly capturing the highly divine pulchritude of the legendary goddess Venus."
+    },
+    {
+        "word": "pundit",
+        "definition": "professional commentator",
+        "synonyms": [
+            "expert",
+            "authority",
+            "specialist"
+        ],
+        "root_or_helper": "From Sanskrit 'paṇḍita' (learned/scholar)",
+        "sample_sentence": "Every single major television news network specifically hired a highly opinionated political pundit to boldly offer their expert analysis during the highly debated presidential election."
+    },
+    {
+        "word": "quiescent",
+        "definition": "quiet",
+        "synonyms": [
+            "inactive",
+            "dormant",
+            "idle"
+        ],
+        "root_or_helper": "From Latin 'quiescere' (to rest)",
+        "sample_sentence": "The massive, heavily monitored volcano had fortunately remained entirely quiescent for well over two centuries before incredibly suddenly erupting without any warning."
+    },
+    {
+        "word": "quixotic",
+        "definition": "foolishly impractical",
+        "synonyms": [
+            "idealistic",
+            "romantic",
+            "visionary"
+        ],
+        "root_or_helper": "Named after Don Quixote, the idealistic literary character",
+        "sample_sentence": "His deeply quixotic, highly idealistic quest to completely eliminate all global poverty single-handedly was undeniably noble, but highly practically impossible."
+    },
+    {
+        "word": "raconteur",
+        "definition": "skilled storyteller",
+        "synonyms": [
+            "narrator",
+            "anecdotist",
+            "spinner of yarns"
+        ],
+        "root_or_helper": "From French 'raconter' (to relate/tell)",
+        "sample_sentence": "A highly brilliant, deeply engaging raconteur, my grandfather could effortlessly entertain the entire large family for several hours with completely hilarious, highly exaggerated stories from his youth."
+    },
+    {
+        "word": "rancorous",
+        "definition": "unpleasant, hateful",
+        "synonyms": [
+            "bitter",
+            "spiteful",
+            "malicious"
+        ],
+        "root_or_helper": "From Latin 'rancere' (to stink/be rank)",
+        "sample_sentence": "The incredibly bitter, highly public divorce proceedings unfortunately led directly to an incredibly rancorous custody battle that deeply traumatized the completely innocent children."
+    },
+    {
+        "word": "recalcitrant",
+        "definition": "stubborn",
+        "synonyms": [
+            "uncooperative",
+            "intractable",
+            "obstreperous"
+        ],
+        "root_or_helper": "From Latin 're-' (back) + 'calcitrare' (to kick)",
+        "sample_sentence": "The highly recalcitrant, incredibly stubborn pack mule stubbornly planted its heavy feet firmly in the dusty dirt and completely refused to move another single inch."
+    },
+    {
+        "word": "redolent",
+        "definition": "suggestive, evocative",
+        "synonyms": [
+            "reminiscent",
+            "fragrant",
+            "aromatic"
+        ],
+        "root_or_helper": "From Latin 're-' (back/again) + 'olere' (to smell)",
+        "sample_sentence": "The cozy, warmly lit kitchen was incredibly redolent with the highly rich, deeply inviting aromas of freshly roasted garlic and slowly simmering tomato sauce."
+    },
+    {
+        "word": "renegade",
+        "definition": "disloyal person",
+        "synonyms": [
+            "traitor",
+            "defector",
+            "deserter"
+        ],
+        "root_or_helper": "From Spanish 'renegado' (one who renounces their religion)",
+        "sample_sentence": "The heavily armed renegade government agent suddenly went entirely rogue, secretly stealing highly classified documents and rapidly fleeing across the guarded border."
+    },
+    {
+        "word": "remunerate",
+        "definition": "to compensate",
+        "synonyms": [
+            "pay",
+            "reward",
+            "reimburse"
+        ],
+        "root_or_helper": "From Latin 'munus' (gift)",
+        "sample_sentence": "The large corporation officially promised to fairly and quickly remunerate all dedicated employees who voluntarily worked significant overtime during the extremely busy holiday season."
+    },
+    {
+        "word": "reprieve",
+        "definition": "cancel, postpone",
+        "synonyms": [
+            "pardon",
+            "stay of execution",
+            "respite"
+        ],
+        "root_or_helper": "From French 'reprendre' (take back)",
+        "sample_sentence": "The merciful state governor personally granted a highly surprising last-minute reprieve to the desperate prisoner on death row, heavily delaying the execution pending further legal review."
+    },
+    {
+        "word": "reproach",
+        "definition": "to criticize",
+        "synonyms": [
+            "rebuke",
+            "reprove",
+            "scold"
+        ],
+        "root_or_helper": "From Old French 'reprochier' (bring back to mind/blame)",
+        "sample_sentence": "The deeply disappointed, highly exhausted mother slowly looked at her loudly misbehaving child with a heavy gaze full of completely stern reproach."
+    },
+    {
+        "word": "reprobate",
+        "definition": "unprincipled",
+        "synonyms": [
+            "rogue",
+            "scoundrel",
+            "miscreant"
+        ],
+        "root_or_helper": "From Latin 'reprobare' (disapprove)",
+        "sample_sentence": "The highly charming but entirely untrustworthy reprobate casually borrowed massive amounts of money from all his trusting friends with absolutely no true intention of ever paying them back."
+    },
+    {
+        "word": "reticent",
+        "definition": "reserved, introverted",
+        "synonyms": [
+            "withdrawn",
+            "shy",
+            "uncommunicative"
+        ],
+        "root_or_helper": "From Latin 're-' + 'tacere' (be silent)",
+        "sample_sentence": "Being naturally reticent, he rarely spoke during corporate meetings unless explicitly asked for his professional opinion."
+    },
+    {
+        "word": "retrenchment",
+        "definition": "reduction of costs",
+        "synonyms": [
+            "cutback",
+            "economy",
+            "downsizing"
+        ],
+        "root_or_helper": "From French 'retrancher' (cut off)",
+        "sample_sentence": "Facing severe and unexpected financial losses, the corporation announced a massive retrenchment that would close three manufacturing factories."
+    },
+    {
+        "word": "sagacity",
+        "definition": "wisdom",
+        "synonyms": [
+            "intelligence",
+            "understanding",
+            "acumen"
+        ],
+        "root_or_helper": "From Latin 'sagax' (wise/perceptive)",
+        "sample_sentence": "The village elders were respected for their profound sagacity and their ability to fairly resolve complex community disputes."
+    },
+    {
+        "word": "sanguine",
+        "definition": "optimistic",
+        "synonyms": [
+            "hopeful",
+            "buoyant",
+            "positive"
+        ],
+        "root_or_helper": "From Latin 'sanguis' (blood); historically meant a ruddy, cheerful complexion",
+        "sample_sentence": "Despite the publicized setbacks in the global economy, the experienced investor remained sanguine about the long-term prospects of the stock market."
+    },
+    {
+        "word": "sardonic",
+        "definition": "mocking, sarcastic",
+        "synonyms": [
+            "satirical",
+            "cynical",
+            "ironic"
+        ],
+        "root_or_helper": "From Greek 'sardonios' (a bitter plant from Sardinia that caused facial contortions resembling laughter)",
+        "sample_sentence": "The comedian's sardonic wit appealed to those who appreciated dark, cynical humor about modern society."
+    },
+    {
+        "word": "scintillating",
+        "definition": "shining",
+        "synonyms": [
+            "sparkling",
+            "dazzling",
+            "brilliant"
+        ],
+        "root_or_helper": "From Latin 'scintilla' (spark)",
+        "sample_sentence": "The professor's scintillating and engaging lecture on astrophysics kept the packed audience mesmerized from beginning to end."
+    },
+    {
+        "word": "scrupulous",
+        "definition": "great attention to detail",
+        "synonyms": [
+            "careful",
+            "meticulous",
+            "painstaking"
+        ],
+        "root_or_helper": "From Latin 'scrupulus' (a small sharp stone/uneasiness of mind)",
+        "sample_sentence": "The experienced accountant was scrupulous, double-checking every receipt to ensure the company's tax returns were legally accurate."
+    },
+    {
+        "word": "sinecure",
+        "definition": "easy job",
+        "synonyms": [
+            "cushy job",
+            "soft option"
+        ],
+        "root_or_helper": "From Latin 'sine' (without) + 'cura' (care)",
+        "sample_sentence": "Since his wealthy uncle owned the company, he was given a well-paying sinecure that required almost no actual work."
+    },
+    {
+        "word": "solicitous",
+        "definition": "showing concern",
+        "synonyms": [
+            "caring",
+            "attentive",
+            "mindful"
+        ],
+        "root_or_helper": "From Latin 'solicitus' (anxious/restless)",
+        "sample_sentence": "The solicitous nurse checked on the recovering patient every hour, gently fluffing his pillows and bringing him fresh water."
+    },
+    {
+        "word": "sophistry",
+        "definition": "use of fallacious argument",
+        "synonyms": [
+            "specious reasoning",
+            "fallacy",
+            "equivocation"
+        ],
+        "root_or_helper": "From Greek 'sophistēs' (wise man/expert, later associated with clever but false arguments)",
+        "sample_sentence": "The defense lawyer's argument sounded convincing, but the judge recognized it as mere sophistry designed to mislead the jury."
+    },
+    {
+        "word": "spate",
+        "definition": "series, succession, run, cluster",
+        "synonyms": [
+            "rash",
+            "outbreak",
+            "wave"
+        ],
+        "root_or_helper": "Helper: Like a 'spate' (flood) of water rushing out",
+        "sample_sentence": "The peaceful city unfortunately experienced a sudden spate of burglaries over the course of the holiday weekend."
+    },
+    {
+        "word": "squalid",
+        "definition": "run-down",
+        "synonyms": [
+            "dirty",
+            "filthy",
+            "seedy"
+        ],
+        "root_or_helper": "From Latin 'squalere' (be rough/dirty)",
+        "sample_sentence": "The impoverished family was forced to live in a squalid, unheated apartment with a leaky roof and peeling paint."
+    },
+    {
+        "word": "stalwart",
+        "definition": "loyal, reliable",
+        "synonyms": [
+            "staunch",
+            "steadfast",
+            "resolute"
+        ],
+        "root_or_helper": "Old English 'stǣl' (place) + 'weorth' (worth/good)",
+        "sample_sentence": "He was a stalwart supporter of the local charity, donating a portion of his salary every month for over twenty years."
+    },
+    {
+        "word": "succinct",
+        "definition": "concise",
+        "synonyms": [
+            "brief",
+            "compact",
+            "condensed"
+        ],
+        "root_or_helper": "From Latin 'succingere' (tuck up clothes for action/make tight)",
+        "sample_sentence": "Because the meeting was running late, the manager asked for a succinct summary of the report rather than the full presentation."
+    },
+    {
+        "word": "supercilious",
+        "definition": "arrogant, haughty",
+        "synonyms": [
+            "conceited",
+            "snobbish",
+            "patronizing"
+        ],
+        "root_or_helper": "From Latin 'supercilium' (eyebrow); implying raising an eyebrow in disdain",
+        "sample_sentence": "The supercilious fashion critic sneered at the amateur designer's debut collection, dismissing it as uninspired."
+    },
+    {
+        "word": "supposition",
+        "definition": "uncertain belief",
+        "synonyms": [
+            "guess",
+            "surmise",
+            "hypothesis"
+        ],
+        "root_or_helper": "From Latin 'supponere' (place under/substitute)",
+        "sample_sentence": "The detective's case rested on the fragile supposition that the main suspect had no verifiable alibi for the night of the murder."
+    },
+    {
+        "word": "surfeit",
+        "definition": "surplus",
+        "synonyms": [
+            "excess",
+            "abundance",
+            "glut"
+        ],
+        "root_or_helper": "From French 'surfaire' (overdo)",
+        "sample_sentence": "After the lavish Thanksgiving feast, there was such a surfeit of leftovers that they ate turkey for an entire week."
+    },
+    {
+        "word": "surly",
+        "definition": "unfriendly",
+        "synonyms": [
+            "gruff",
+            "grumpy",
+            "crotchety"
+        ],
+        "root_or_helper": "Derived from 'sir-ly' (arrogant like a lord)",
+        "sample_sentence": "The surly teenager merely grunted in response to his mother's questions and slammed his bedroom door."
+    },
+    {
+        "word": "surreptitious",
+        "definition": "secret",
+        "synonyms": [
+            "stealthy",
+            "clandestine",
+            "furtive"
+        ],
+        "root_or_helper": "From Latin 'surripere' (snatch secretly)",
+        "sample_sentence": "The nervous student cast a surreptitious glance at his classmate's paper the second the teacher turned her back."
+    },
+    {
+        "word": "sycophant",
+        "definition": "one who flatters lavishly",
+        "synonyms": [
+            "yes-man",
+            "bootlicker",
+            "toady"
+        ],
+        "root_or_helper": "From Greek 'sykophantēs' (informer/flatterer)",
+        "sample_sentence": "The CEO was surrounded by sycophants who praised his every decision and never dared to offer constructive criticism."
+    },
+    {
+        "word": "temerity",
+        "definition": "confidence, boldness",
+        "synonyms": [
+            "audacity",
+            "nerve",
+            "effrontery"
+        ],
+        "root_or_helper": "From Latin 'temere' (blindly/rashly)",
+        "sample_sentence": "I couldn't believe he had the temerity to ask for a raise on the same day he arrived two hours late to work."
+    },
+    {
+        "word": "tepid",
+        "definition": "lukewarm",
+        "synonyms": [
+            "unenthusiastic",
+            "apathetic",
+            "halfhearted"
+        ],
+        "root_or_helper": "From Latin 'tepere' (be warm)",
+        "sample_sentence": "The anticipated blockbuster movie received tepid reviews from critics, who found the plot predictable."
+    },
+    {
+        "word": "terse",
+        "definition": "concise",
+        "synonyms": [
+            "curt",
+            "brusque",
+            "abrupt"
+        ],
+        "root_or_helper": "From Latin 'tersus' (wiped clean/polished)",
+        "sample_sentence": "Frustrated by the constant interruptions, the busy manager gave a terse 'No' and walked away."
+    },
+    {
+        "word": "travail",
+        "definition": "painful, laborious effort",
+        "synonyms": [
+            "ordeal",
+            "hardship",
+            "tribulation"
+        ],
+        "root_or_helper": "From Late Latin 'trepalium' (an instrument of torture)",
+        "sample_sentence": "After days of difficult travail crossing the treacherous mountain pass, the exhausted pioneers finally reached the fertile valley."
+    },
+    {
+        "word": "trite",
+        "definition": "common, overused",
+        "synonyms": [
+            "cliché",
+            "hackneyed",
+            "banal"
+        ],
+        "root_or_helper": "From Latin 'terere' (rub/wear away)",
+        "sample_sentence": "The graduation speaker offered nothing but trite platitudes about 'following your dreams' and 'reaching for the stars.'"
+    },
+    {
+        "word": "triumvirate",
+        "definition": "three leaders",
+        "synonyms": [
+            "triad",
+            "trinity",
+            "threesome"
+        ],
+        "root_or_helper": "From Latin 'tres' (three) + 'viri' (men)",
+        "sample_sentence": "Following the sudden death of the king, the nation was ruled by a powerful triumvirate consisting of the top military generals."
+    },
+    {
+        "word": "truculent",
+        "definition": "defiant, aggressive",
+        "synonyms": [
+            "antagonistic",
+            "combative",
+            "belligerent"
+        ],
+        "root_or_helper": "From Latin 'trux' (fierce)",
+        "sample_sentence": "The truculent teenager was always ready for a fight, challenging authority figures and intimidating his peers."
+    },
+    {
+        "word": "turgid",
+        "definition": "swollen",
+        "synonyms": [
+            "bloated",
+            "distended",
+            "bombastic (of language)"
+        ],
+        "root_or_helper": "From Latin 'turgere' (to swell)",
+        "sample_sentence": "The academic essay was nearly unreadable due to its turgid prose and excessive use of convoluted jargon."
+    },
+    {
+        "word": "ubiquitous",
+        "definition": "found everywhere",
+        "synonyms": [
+            "omnipresent",
+            "pervasive",
+            "universal"
+        ],
+        "root_or_helper": "From Latin 'ubique' (everywhere)",
+        "sample_sentence": "In modern society, smartphones have become ubiquitous, appearing in the hands of nearly every person on the street."
+    },
+    {
+        "word": "uncouth",
+        "definition": "lacking manners",
+        "synonyms": [
+            "coarse",
+            "boorish",
+            "uncivilized"
+        ],
+        "root_or_helper": "Old English 'uncūth' (unknown/unfamiliar)",
+        "sample_sentence": "His uncouth habit of talking with his mouth full of food offended the other guests at the formal dinner party."
+    },
+    {
+        "word": "underwrite",
+        "definition": "to accept a liability",
+        "synonyms": [
+            "sponsor",
+            "support",
+            "guarantee"
+        ],
+        "root_or_helper": "Helper: Signing (writing) 'under' a document to guarantee it",
+        "sample_sentence": "The generous local philanthropist agreed to underwrite the cost of building the new children's hospital."
+    },
+    {
+        "word": "ungainly",
+        "definition": "clumsy, awkward",
+        "synonyms": [
+            "lumbering",
+            "inelegant",
+            "graceless"
+        ],
+        "root_or_helper": "Helper: Someone who lacks 'gain' (Old Norse for straight/direct)",
+        "sample_sentence": "The newborn foal took its first ungainly steps, its long legs wobbling awkwardly beneath its fragile weight."
+    },
+    {
+        "word": "vacuous",
+        "definition": "empty",
+        "synonyms": [
+            "blank",
+            "vacant",
+            "inane"
+        ],
+        "root_or_helper": "From Latin 'vacuus' (empty)",
+        "sample_sentence": "The celebrity's vacuous interview revealed that she had no real understanding of the charitable cause she was promoting."
+    },
+    {
+        "word": "vapid",
+        "definition": "not challenging",
+        "synonyms": [
+            "insipid",
+            "uninspired",
+            "colorless"
+        ],
+        "root_or_helper": "From Latin 'vapidus' (flat/tasteless)",
+        "sample_sentence": "We left the party early, bored by the vapid conversations about designer clothes and celebrity gossip."
+    },
+    {
+        "word": "venal",
+        "definition": "being motivated by bribery",
+        "synonyms": [
+            "corrupt",
+            "bribable",
+            "mercenary"
+        ],
+        "root_or_helper": "From Latin 'venum' (thing for sale)",
+        "sample_sentence": "The venal local judge was known to accept illegal bribes in exchange for handing down lighter criminal sentences."
+    },
+    {
+        "word": "venerable",
+        "definition": "respectable due to age",
+        "synonyms": [
+            "revered",
+            "esteemed",
+            "honored"
+        ],
+        "root_or_helper": "From Latin 'venerari' (to worship/revere)",
+        "sample_sentence": "The venerable Supreme Court justice was highly respected by lawyers on both sides of the political aisle."
+    },
+    {
+        "word": "vertiginous",
+        "definition": "dizziness",
+        "synonyms": [
+            "dizzying",
+            "giddy",
+            "unstable"
+        ],
+        "root_or_helper": "From Latin 'vertigo' (whirling)",
+        "sample_sentence": "The hikers carefully navigated the vertiginous mountain trail, trying not to look down at the dizzying drop-off."
+    },
+    {
+        "word": "visceral",
+        "definition": "emotional",
+        "synonyms": [
+            "instinctive",
+            "gut-wrenching",
+            "deep-seated"
+        ],
+        "root_or_helper": "From Latin 'viscera' (internal organs/guts)",
+        "sample_sentence": "The horror movie relied on realistic gore to elicit a visceral reaction of pure disgust from the audience."
+    },
+    {
+        "word": "vituperative",
+        "definition": "bitter, abusive",
+        "synonyms": [
+            "scathing",
+            "derogatory",
+            "defamatory"
+        ],
+        "root_or_helper": "From Latin 'vitium' (fault) + 'parare' (to prepare/find)",
+        "sample_sentence": "The disgraced former politician faced a relentless barrage of vituperative attacks from his former allies in the press."
+    },
+    {
+        "word": "voluble",
+        "definition": "fluent",
+        "synonyms": [
+            "talkative",
+            "loquacious",
+            "articulate"
+        ],
+        "root_or_helper": "From Latin 'volvere' (to roll); words rolling off the tongue",
+        "sample_sentence": "The voluble car salesman managed to talk the hesitant customer into purchasing the most expensive model on the lot."
+    },
+    {
+        "word": "wrest",
+        "definition": "to pull from grasp",
+        "synonyms": [
+            "wrench",
+            "snatch",
+            "seize"
+        ],
+        "root_or_helper": "Old English 'wrǣstan' (to twist/tighten)",
+        "sample_sentence": "The armed rebel forces fought fiercely to wrest political control of the capital city away from the entrenched dictator."
+    },
+    {
+        "word": "zealot",
+        "definition": "radical, enthusiast",
+        "synonyms": [
+            "fanatic",
+            "extremist",
+            "militant"
+        ],
+        "root_or_helper": "From Greek 'zēlos' (zeal/jealousy)",
+        "sample_sentence": "The religious zealot stood on the busy street corner for hours, aggressively preaching his radical beliefs to anyone who walked by."
+    }
+]

@@ -1,0 +1,614 @@
+{
+    "upcat_coverage": [
+        {
+            "id": 1,
+            "subject": "Language Proficiency",
+            "category": "English",
+            "topics": [
+                {
+                    "id": 101,
+                    "name": "Parts of Speech",
+                    "subtopics": [
+                        "Nouns",
+                        "Pronouns",
+                        "Verbs",
+                        "Adjectives",
+                        "Adverbs",
+                        "Prepositions",
+                        "Conjunctions",
+                        "Interjections",
+                        "Determiners"
+                    ]
+                },
+                {
+                    "id": 102,
+                    "name": "Agreement",
+                    "subtopics": [
+                        "Subject-Verb",
+                        "Pronoun-Antecedent"
+                    ]
+                },
+                {
+                    "id": 103,
+                    "name": "Phrases and Clauses"
+                },
+                {
+                    "id": 104,
+                    "name": "Sentences",
+                    "subtopics": [
+                        "Main Parts of the Sentence",
+                        "Complements",
+                        "Basic Sentence Patterns",
+                        "Basic Sentence Structures"
+                    ]
+                },
+                {
+                    "id": 105,
+                    "name": "Error Identification",
+                    "subtopics": [
+                        "Parallelism",
+                        "Redundancy",
+                        "Double Negatives",
+                        "Misplaced Modifiers",
+                        "Special Agreements"
+                    ]
+                },
+                {
+                    "id": 106,
+                    "name": "Spelling"
+                },
+                {
+                    "id": 107,
+                    "name": "Vocabulary",
+                    "subtopics": [
+                        "Use of Context Clues",
+                        "Etymology"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "subject": "Language Proficiency",
+            "category": "Filipino",
+            "topics": [
+                {
+                    "id": 201,
+                    "name": "Bahagi ng Pananalita",
+                    "subtopics": [
+                        "Pangngalan",
+                        "Panghalip",
+                        "Pandiwa",
+                        "Pang-uri",
+                        "Pang-abay",
+                        "Pang-ukol",
+                        "Pangatnig",
+                        "Pandamdam",
+                        "Pantukoy"
+                    ]
+                },
+                {
+                    "id": 202,
+                    "name": "Kasunduan"
+                },
+                {
+                    "id": 203,
+                    "name": "Parirala at Sugnay"
+                },
+                {
+                    "id": 204,
+                    "name": "Pangungusap"
+                },
+                {
+                    "id": 205,
+                    "name": "Pagkilala ng Mali"
+                },
+                {
+                    "id": 206,
+                    "name": "Pagbabaybay"
+                },
+                {
+                    "id": 207,
+                    "name": "Talasalitaan"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "subject": "Science",
+            "category": "General Science",
+            "topics": [
+                {
+                    "id": 301,
+                    "name": "Scientific Process and Method"
+                },
+                {
+                    "id": 302,
+                    "name": "Accuracy and Precision"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "subject": "Science",
+            "category": "Earth Science and Astronomy",
+            "topics": [
+                {
+                    "id": 401,
+                    "name": "Earth Science",
+                    "subtopics": [
+                        "Earth's Surface",
+                        "Rocks and Minerals",
+                        "Fossils",
+                        "Plate Tectonics",
+                        "Air, Weather, and Climate",
+                        "Water on Earth",
+                        "Energy Resources"
+                    ]
+                },
+                {
+                    "id": 402,
+                    "name": "Astronomy",
+                    "subtopics": [
+                        "Origins of the Universe",
+                        "Stars, Blackholes, Galaxy",
+                        "The Solar System",
+                        "Rotation and Revolution",
+                        "Comets and Asteroids",
+                        "Phases of the Moon",
+                        "Solar and Lunar Eclipses"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "subject": "Science",
+            "category": "Biology",
+            "topics": [
+                {
+                    "id": 501,
+                    "name": "Cell Biology",
+                    "subtopics": [
+                        "Structure of a Cell",
+                        "Cellular Respiration",
+                        "Photosynthesis",
+                        "Cell Division"
+                    ]
+                },
+                {
+                    "id": 502,
+                    "name": "Genetics",
+                    "subtopics": [
+                        "Mendelian Heredity",
+                        "DNA",
+                        "Central Dogma",
+                        "Mutation"
+                    ]
+                },
+                {
+                    "id": 503,
+                    "name": "Viruses and Bacteria"
+                },
+                {
+                    "id": 504,
+                    "name": "Ecology",
+                    "subtopics": [
+                        "Population Growth",
+                        "Ecosystems",
+                        "Biogeochemical Cycles",
+                        "Biodiversity"
+                    ]
+                },
+                {
+                    "id": 505,
+                    "name": "Taxonomy"
+                },
+                {
+                    "id": 506,
+                    "name": "Human Biology",
+                    "subtopics": [
+                        "Organ Systems",
+                        "Muscles"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "subject": "Science",
+            "category": "Chemistry",
+            "topics": [
+                {
+                    "id": 601,
+                    "name": "Units and Measurement"
+                },
+                {
+                    "id": 602,
+                    "name": "Matter",
+                    "subtopics": [
+                        "States of Matter",
+                        "Mixtures and Solutions",
+                        "Properties",
+                        "Gas Laws"
+                    ]
+                },
+                {
+                    "id": 603,
+                    "name": "Atoms, Compounds, Ions",
+                    "subtopics": [
+                        "Elements and Atoms",
+                        "Atomic Structure",
+                        "Atomic Mass",
+                        "Mole, Avogadro's Number",
+                        "Ions and Ionic Compounds",
+                        "Shells, Subshells, Orbitals",
+                        "Electronic Configurations"
+                    ]
+                },
+                {
+                    "id": 604,
+                    "name": "Periodic Table",
+                    "subtopics": [
+                        "Metals and Nonmetals",
+                        "Families",
+                        "Electronegativity",
+                        "Bonding"
+                    ]
+                },
+                {
+                    "id": 605,
+                    "name": "Stoichiometry",
+                    "subtopics": [
+                        "Balancing Equations",
+                        "Molecular Composition",
+                        "Chemical Reactions"
+                    ]
+                },
+                {
+                    "id": 606,
+                    "name": "Organic Chemistry",
+                    "subtopics": [
+                        "Carbon and Hydrocarbon",
+                        "Naming"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "subject": "Science",
+            "category": "Physics",
+            "topics": [
+                {
+                    "id": 701,
+                    "name": "One-Dimensional Motion",
+                    "subtopics": [
+                        "Displacement, Velocity, Time",
+                        "Acceleration",
+                        "Kinematic Formulas",
+                        "Projectile Motion"
+                    ]
+                },
+                {
+                    "id": 702,
+                    "name": "Two-Dimensional Motion"
+                },
+                {
+                    "id": 703,
+                    "name": "Force and Motion",
+                    "subtopics": [
+                        "Newton's Laws of Motion",
+                        "Normal Force, Contact Force",
+                        "Friction",
+                        "Tension"
+                    ]
+                },
+                {
+                    "id": 704,
+                    "name": "Circular Motion",
+                    "subtopics": [
+                        "Uniform Circular Motion",
+                        "Centripetal Force"
+                    ]
+                },
+                {
+                    "id": 705,
+                    "name": "Energy and Momentum",
+                    "subtopics": [
+                        "Potential and Kinetic Energy",
+                        "Work and Power",
+                        "Impulse",
+                        "Conservation Laws"
+                    ]
+                },
+                {
+                    "id": 706,
+                    "name": "Gravity",
+                    "subtopics": [
+                        "Newton's Laws of Gravitation",
+                        "Orbits",
+                        "Kepler's Law"
+                    ]
+                },
+                {
+                    "id": 707,
+                    "name": "Thermodynamics",
+                    "subtopics": [
+                        "Temperature",
+                        "Kinetic Theory",
+                        "Ideal Gas Law",
+                        "Heat Transfer",
+                        "Laws of Thermodynamics"
+                    ]
+                },
+                {
+                    "id": 708,
+                    "name": "Geometric Optics",
+                    "subtopics": [
+                        "Reflection and Refraction",
+                        "Mirrors",
+                        "Lenses"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "subject": "Mathematics",
+            "category": "Arithmetic",
+            "topics": [
+                {
+                    "id": 801,
+                    "name": "Order of Operations (PEMDAS)"
+                },
+                {
+                    "id": 802,
+                    "name": "Operations on Integers"
+                },
+                {
+                    "id": 803,
+                    "name": "Prime Factorization"
+                },
+                {
+                    "id": 804,
+                    "name": "GCF and LCM"
+                },
+                {
+                    "id": 805,
+                    "name": "Real and Imaginary Numbers"
+                },
+                {
+                    "id": 806,
+                    "name": "Number Properties"
+                },
+                {
+                    "id": 807,
+                    "name": "Fractions and Decimals"
+                },
+                {
+                    "id": 808,
+                    "name": "Ratio and Proportion"
+                },
+                {
+                    "id": 809,
+                    "name": "Percentage"
+                },
+                {
+                    "id": 810,
+                    "name": "Discounts, Markups, Interests"
+                },
+                {
+                    "id": 811,
+                    "name": "Conversion"
+                },
+                {
+                    "id": 812,
+                    "name": "Divisibility Rules"
+                },
+                {
+                    "id": 813,
+                    "name": "Consecutive Integers"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "subject": "Mathematics",
+            "category": "Algebra",
+            "topics": [
+                {
+                    "id": 901,
+                    "name": "Set and Set Notation"
+                },
+                {
+                    "id": 902,
+                    "name": "Algebraic Expressions",
+                    "subtopics": [
+                        "Translation, Simplification",
+                        "Operations on Expressions"
+                    ]
+                },
+                {
+                    "id": 903,
+                    "name": "Polynomials",
+                    "subtopics": [
+                        "Special Products",
+                        "Long Division",
+                        "Synthetic Division"
+                    ]
+                },
+                {
+                    "id": 904,
+                    "name": "Linear Equations"
+                },
+                {
+                    "id": 905,
+                    "name": "Quadratic Equations",
+                    "subtopics": [
+                        "Quadratic Standard Form",
+                        "Factoring",
+                        "Completing the Square",
+                        "Quadratic Formula"
+                    ]
+                },
+                {
+                    "id": 906,
+                    "name": "Functions and Graphs",
+                    "subtopics": [
+                        "Evaluation",
+                        "Domain and Range",
+                        "Quadratic Function",
+                        "Rational Functions",
+                        "Absolute Value Functions",
+                        "Exponential Functions",
+                        "Logarithmic Functions",
+                        "Radical Functions",
+                        "Piecewise Functions",
+                        "Shifting and Stretching"
+                    ]
+                },
+                {
+                    "id": 907,
+                    "name": "Systems of Equations",
+                    "subtopics": [
+                        "Substitution",
+                        "Elimination"
+                    ]
+                },
+                {
+                    "id": 908,
+                    "name": "Sequences",
+                    "subtopics": [
+                        "Arithmetic Sequence",
+                        "Geometric Sequence"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "subject": "Mathematics",
+            "category": "Geometry",
+            "topics": [
+                {
+                    "id": 1001,
+                    "name": "Postulates and Theorems"
+                },
+                {
+                    "id": 1002,
+                    "name": "Pythagorean Theorem"
+                },
+                {
+                    "id": 1003,
+                    "name": "Euclidean Geometry"
+                },
+                {
+                    "id": 1004,
+                    "name": "Non-Euclidean Geometry"
+                },
+                {
+                    "id": 1005,
+                    "name": "Lines and Angles"
+                },
+                {
+                    "id": 1006,
+                    "name": "Polygons"
+                },
+                {
+                    "id": 1007,
+                    "name": "Circles"
+                },
+                {
+                    "id": 1008,
+                    "name": "Areas and Volumes"
+                },
+                {
+                    "id": 1009,
+                    "name": "Circumference"
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "subject": "Mathematics",
+            "category": "Trigonometry",
+            "topics": [
+                {
+                    "id": 1101,
+                    "name": "Unit Circle"
+                },
+                {
+                    "id": 1102,
+                    "name": "Trigonometric Ratios"
+                },
+                {
+                    "id": 1103,
+                    "name": "Basic Trigonometric Functions"
+                },
+                {
+                    "id": 1104,
+                    "name": "Trigonometric Identities"
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "subject": "Mathematics",
+            "category": "Statistics",
+            "topics": [
+                {
+                    "id": 1201,
+                    "name": "Graphs"
+                },
+                {
+                    "id": 1202,
+                    "name": "Measures of Central Tendency"
+                },
+                {
+                    "id": 1203,
+                    "name": "Combination and Permutation"
+                },
+                {
+                    "id": 1204,
+                    "name": "Probability"
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "subject": "Reading Comprehension",
+            "category": "N/A",
+            "topics": [
+                {
+                    "id": 1301,
+                    "name": "Poetry"
+                },
+                {
+                    "id": 1302,
+                    "name": "Essays, Articles, Speeches"
+                },
+                {
+                    "id": 1303,
+                    "name": "Short Stories"
+                },
+                {
+                    "id": 1304,
+                    "name": "Mythology and Fables"
+                },
+                {
+                    "id": 1305,
+                    "name": "Facts and Opinion"
+                },
+                {
+                    "id": 1306,
+                    "name": "Procedures"
+                },
+                {
+                    "id": 1307,
+                    "name": "Comic Strips, Editorial Cartoon, Graphs"
+                }
+            ]
+        }
+    ]
+}

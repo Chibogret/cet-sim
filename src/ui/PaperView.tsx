@@ -32,7 +32,6 @@ const renderTextWithFormatting = (text: string) => {
 interface PaperViewProps {
   groups: QuestionGroup[];
   fatigueLevel: number;
-  eliminatedOptions: Record<string, string[]>;
 }
 
 const MediaRenderer: React.FC<{ media: MediaContent; figureNumber?: number }> = ({ media, figureNumber }) => {
@@ -62,7 +61,7 @@ const MediaRenderer: React.FC<{ media: MediaContent; figureNumber?: number }> = 
   return null;
 };
 
-export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, eliminatedOptions }) => {
+export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) => {
   // Cognitive Load: increase density
   const letterSpacing = fatigueLevel > 1 ? '-0.02em' : 'normal';
   const lineHeight = fatigueLevel > 2 ? '1.1' : '1.3';
@@ -96,7 +95,6 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, elim
             {/* Render Questions */}
             {group.questions.map((q) => {
               const currentNumber = globalQuestionNumber++;
-              const eliminated = eliminatedOptions[q.id] || [];
               return (
                 <div key={q.id} id={`q-${q.id}`} className="mb-8 break-inside-avoid">
                   {/* Render Question-Specific Media */}
@@ -112,10 +110,8 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, elim
                   </div>
                   <div className="pl-6 space-y-2 md:space-y-1">
                     {q.options.map(opt => {
-                      const letter = opt.charAt(0);
-                      const isEliminated = eliminated.includes(letter);
                       return (
-                        <div key={opt} className={`flex gap-2 ${isEliminated ? 'line-through opacity-50' : ''}`}>
+                        <div key={opt} className="flex gap-2">
                           <span>{renderTextWithFormatting(opt)}</span>
                         </div>
                       );

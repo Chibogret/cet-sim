@@ -7,7 +7,6 @@ Renders the actual test questions and associated media.
 - Receives `QuestionGroup` data to render shared passages/figures followed by their respective questions.
 - Applies visual effects based on `fatigueLevel` (blur, contrast, letter spacing, line height).
 - Uses a sophisticated SVG filter for a realistic, subtle paper texture background.
-- Handles the display of eliminated options (from the 'Process of Elimination' tactic).
 
 ## AnswerSheet.tsx
 Renders the interactive answer sheet for shading choices.

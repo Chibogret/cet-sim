@@ -94,8 +94,6 @@ export function useExamEngine() {
     localStorage.removeItem('curve_answers');
     localStorage.removeItem('curve_crossouts');
     localStorage.removeItem('curve_changes');
-    localStorage.removeItem('curve_tactics');
-    localStorage.removeItem('curve_eliminated');
     setExamState('running');
     setCurrentSectionIndex(0);
     setTimeLeft(sections[0].timeLimitSeconds);

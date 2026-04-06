@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { useExamEngine } from './engine/examEngine';
 import { useSheetEngine } from './engine/sheetEngine';
-import { useDeckEngine } from './engine/deckEngine';
 import { useTelemetry } from './hooks/useTelemetry';
 import { PaperView } from './ui/PaperView';
 import { AnswerSheet } from './ui/AnswerSheet';
 import { TimerBar } from './ui/TimerBar';
 import { flattenQuestions } from './data/questions';
+import { VocabStudy } from './ui/VocabStudy';
 
 export default function App() {
   const {
@@ -21,7 +21,6 @@ export default function App() {
     startExam,
     nextSection,
     setTimeLeft,
-    setTimerActive,
     setExamState,
     currentSectionIndex
   } = useExamEngine();
@@ -37,20 +36,12 @@ export default function App() {
     clearAllAnswers,
     getScore
   } = useSheetEngine();
-  const { tactics, useTactic, drawTactic, eliminatedOptions, resetDeck } = useDeckEngine();
 
   const [proctorPenalty, setProctorPenalty] = useState(false);
-  const [secondGuessActive, setSecondGuessActive] = useState(false);
+  const [appMode, setAppMode] = useState<'exam' | 'study'>('exam');
 
   // Whiter, more textured paper SVG filter
   const paperTexture = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`;
-
-  React.useEffect(() => {
-    setSecondGuessActive(false);
-    if (currentSectionIndex > 0 && examState === 'running') {
-      drawTactic();
-    }
-  }, [currentSectionIndex, examState, drawTactic]);
 
   React.useEffect(() => {
     const handleVisibilityChange = () => {
@@ -76,7 +67,6 @@ export default function App() {
     clearTelemetry();
     logEvent('EXAM_START');
     clearAllAnswers();
-    resetDeck();
     startExam();
   };
 
@@ -140,13 +130,19 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
     return { promptText, correct, incorrect, unanswered, allQuestions, score };
   };
 
+  if (appMode === 'study') {
+    return (
+      <VocabStudy onExit={() => setAppMode('exam')} />
+    );
+  }
+
   if (examState === 'start') {
     return (
       <>
         <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
         >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm relative">
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white relative">
             <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">CET Simulator</h1>
           <p className="text-sm mb-6 text-justify">
             INSTRUCTIONS: This examination consists of multiple sections. You will be timed per section.
@@ -156,12 +152,20 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
           <div className="mb-8 p-3 border border-dotted border-black text-[10px] uppercase tracking-tighter opacity-70">
             Daily Exam Mode: Active. No customization permitted. Standard Rules Apply.
           </div>
-          <button
-            onClick={handleStartExam}
-            className="border border-black px-8 py-2 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
-          >
-            Begin Examination
-          </button>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={handleStartExam}
+              className="border border-black px-8 py-3 font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
+            >
+              Begin Full Simulation
+            </button>
+            <button
+              onClick={() => setAppMode('study')}
+              className="border border-black px-8 py-3 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
+            >
+              Enter Study Mode
+            </button>
+          </div>
         </div>
       </div>
       <Analytics />
@@ -175,7 +179,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
         <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
         >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm">
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white">
           <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Time is Up / Section Ended</h2>
           <p className="text-sm mb-6">
             Pencils down. The time for {currentSection?.name} has concluded.
@@ -205,7 +209,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
         <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
         >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white shadow-sm">
+          <div className="max-w-md border-2 border-black p-8 text-center bg-white">
           <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Examination Concluded</h2>
           <p className="text-sm mb-6">
             Please submit your test booklets and answer sheets.
@@ -284,15 +288,9 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
         return; // Unable to change
       }
 
-      if (secondGuessActive) {
-        setSecondGuessActive(false);
-        logEvent('USE_TACTIC', { tactic: 'Second Guess', effect: 'penalty_prevented' });
-        // No time penalty applied
-      } else {
-        // Doubt mechanic: Changing an answer penalizes time
-        setTimeLeft(prev => Math.max(0, prev - 5));
-        logEvent('ANSWER_CHANGED_PENALTY', { questionId, oldAnswer: currentAnswer, newAnswer: answer });
-      }
+      // Doubt mechanic: Changing an answer penalizes time
+      setTimeLeft(prev => Math.max(0, prev - 5));
+      logEvent('ANSWER_CHANGED_PENALTY', { questionId, oldAnswer: currentAnswer, newAnswer: answer });
     }
     logEvent('SELECT_OPTION', { questionId, answer });
     setAnswer(questionId, answer);
@@ -303,7 +301,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
       <div className="h-screen flex flex-col bg-white font-serif text-black overflow-hidden relative">
         {/* Proctor Penalty Overlay */}
         {proctorPenalty && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
           <div className="bg-white border-4 border-red-700 p-8 max-w-sm text-center font-serif shadow-2xl">
             <h2 className="text-2xl font-bold uppercase tracking-widest text-red-700 mb-4">Proctor Warning</h2>
             <p className="text-sm mb-6">
@@ -319,78 +317,32 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
         </div>
       )}
 
-      <div className="p-4 bg-white border-b border-black shadow-sm z-10"
+      <div className="p-4 bg-white border-b border-black z-10"
         style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
       >
-        <TimerBar
-          timeLeft={timeLeft}
-          totalTime={currentSection.timeLimitSeconds}
-          sectionName={currentSection.name}
-        />
-
-        {/* Tactics Bar */}
-        <div className="flex gap-2 mt-2 overflow-x-auto no-scrollbar pb-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest mr-2 self-center shrink-0">Cognitive Tactics:</span>
-          {tactics.map((tactic, i) => (
-            <button
-              key={`${tactic}-${i}`}
-              onClick={() => {
-                if (tactic === 'Time Borrow') {
-                  setTimeLeft(prev => prev + 15);
-                  useTactic(tactic);
-                  logEvent('USE_TACTIC', { tactic, effect: '+15s' });
-                } else if (tactic === 'Process of Elimination') {
-                  // Find first unanswered question in current section that doesn't already have options eliminated
-                  const unanswered = sectionQuestions.find(q => !answers[q.id] && (!eliminatedOptions[q.id] || eliminatedOptions[q.id].length === 0));
-                  if (unanswered) {
-                    const incorrect = unanswered.options
-                      .filter(o => !o.startsWith(unanswered.answer))
-                      .map(o => o.charAt(0));
-                    // Pick 2 random incorrect
-                    const toEliminate = incorrect.sort(() => 0.5 - Math.random()).slice(0, 2);
-                    useTactic(tactic, { questionId: unanswered.id, incorrectOptions: toEliminate });
-                    logEvent('USE_TACTIC', { tactic, questionId: unanswered.id, eliminated: toEliminate });
-                  } else {
-                    alert("No unanswered questions in this section for Process of Elimination.");
-                  }
-                } else if (tactic === 'Pattern Insight') {
-                  // Highlight a likely answer (just visual, we can implement later or just consume it)
-                  useTactic(tactic);
-                  alert("Pattern Insight: The most common answer historically is 'C'.");
-                  logEvent('USE_TACTIC', { tactic, effect: 'highlight_c' });
-                } else if (tactic === 'Second Guess') {
-                  setSecondGuessActive(true);
-                  useTactic(tactic);
-                  alert("Second Guess active: Your next answer change will not incur a time penalty.");
-                  logEvent('USE_TACTIC', { tactic, effect: 'activated' });
-                } else if (tactic === 'Skip Bank') {
-                  const unanswered = sectionQuestions.find(q => !answers[q.id]);
-                  if (unanswered) {
-                    useTactic(tactic);
-                    const el = document.getElementById(`q-${unanswered.id}`);
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    logEvent('USE_TACTIC', { tactic, scrolledTo: unanswered.id });
-                  } else {
-                    alert("No unanswered questions to locate.");
-                  }
-                } else {
-                  useTactic(tactic);
-                  logEvent('USE_TACTIC', { tactic });
-                }
-              }}
-              className="text-[10px] border border-black px-2 py-1 hover:bg-black hover:text-white transition-colors shrink-0"
-            >
-              {tactic}
-            </button>
-          ))}
-          {tactics.length === 0 && (
-            <span className="text-[10px] italic opacity-50 self-center shrink-0">No tactics remaining.</span>
-          )}
+        <div className="flex justify-between items-center gap-4">
+          <div className="flex-1">
+            <TimerBar
+              timeLeft={timeLeft}
+              totalTime={currentSection.timeLimitSeconds}
+              sectionName={currentSection.name}
+            />
+          </div>
+          <button 
+            onClick={() => {
+              if (window.confirm("Abort current examination? This will lose all progress.")) {
+                setExamState('start');
+              }
+            }}
+            className="text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
+          >
+            Abort Exam
+          </button>
         </div>
       </div>
 
       <div className="flex-1 flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory no-scrollbar relative">
-        <div className="absolute bottom-4 right-4 md:hidden text-[10px] font-bold uppercase tracking-widest bg-white border border-black px-3 py-2 pointer-events-none z-20 opacity-90 shadow-sm flex items-center gap-2">
+        <div className="absolute bottom-4 right-4 md:hidden text-[10px] font-bold uppercase tracking-widest bg-white border border-black px-3 py-2 pointer-events-none z-20 opacity-90 flex items-center gap-2">
           <span>Swipe</span>
           <span className="text-lg leading-none">↔</span>
         </div>
@@ -398,7 +350,6 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
           <PaperView
             groups={currentSectionGroups}
             fatigueLevel={fatigueLevel}
-            eliminatedOptions={eliminatedOptions}
           />
         </div>
         <div className="w-full shrink-0 snap-center md:w-64 h-full">
