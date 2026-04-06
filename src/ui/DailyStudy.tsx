@@ -9,10 +9,13 @@ import { VocabFlashcard, VocabDetail } from './VocabCard';
 import { LessonView } from './LessonView';
 import { getDailySeed, selectDailyTopics, selectDailyVocab } from '../lib/dailyUtils';
 import { lessonRegistry } from '../data/lessonRegistry';
+import { questionsBank } from '../data/questions_bank';
+import { Question } from '../types/question';
+import { TestKnowledge } from './TestKnowledge';
 
 const words = vocabData as VocabWord[];
 
-type ViewMode = 'daily' | 'list' | 'flashcards';
+type ViewMode = 'daily' | 'list' | 'flashcards' | 'test';
 
 const fadeTransition = {
     initial: { opacity: 0 },
@@ -80,6 +83,11 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                 <path d="M4 6h16M4 12h16M4 18h7" />
             </svg>
         );
+        if (mode === 'test') return (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        );
         return (
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -91,6 +99,7 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
         daily: 'Daily',
         list: 'Glossary',
         flashcards: 'Flashcards',
+        test: 'Test',
     };
 
     return (
@@ -105,7 +114,7 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
 
                 {/* Desktop tabs */}
                 <div className="hidden md:flex items-center gap-1 bg-slate-100 rounded-lg p-1">
-                    {(['daily', 'list', 'flashcards'] as ViewMode[]).map((mode) => (
+                    {(['daily', 'list', 'flashcards', 'test'] as ViewMode[]).map((mode) => (
                         <button
                             key={mode}
                             onClick={() => {
@@ -400,18 +409,32 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
                             </div>
                         </motion.div>
                     )}
+
+                    {/* TEST YOUR KNOWLEDGE VIEW */}
+                    {viewMode === 'test' && (
+                        <motion.div
+                            key="test-view"
+                            initial={fadeTransition.initial}
+                            animate={fadeTransition.animate}
+                            exit={fadeTransition.exit}
+                            className="absolute inset-0 flex flex-col items-center overflow-y-auto no-scrollbar py-6 px-6"
+                            style={{ background: '#F7F8FA' }}
+                        >
+                            <TestKnowledge />
+                        </motion.div>
+                    )}
                 </AnimatePresence>
             </main>
 
             {/* Mobile Bottom Navigation */}
             <nav className="md:hidden shrink-0 z-40" style={{ background: '#FFFFFF', borderTop: '1px solid #E5E7EB' }}>
                 <div className="flex justify-around items-center h-16 pb-safe">
-                    {(['daily', 'list', 'flashcards'] as ViewMode[]).map((mode) => (
+                    {(['daily', 'list', 'flashcards', 'test'] as ViewMode[]).map((mode) => (
                         <button
                             key={mode}
                             onClick={() => {
                                 setViewMode(mode);
-                                if (mode === 'flashcards') setFlashcardIndex(0);
+                                if (mode === 'flashcards' || mode === 'test') setFlashcardIndex(0);
                             }}
                             className="flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors"
                             style={{ color: viewMode === mode ? '#F57799' : '#94A3B8' }}
