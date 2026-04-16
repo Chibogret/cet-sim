@@ -15,23 +15,23 @@ export const TimerBar: React.FC<TimerBarProps> = ({ timeLeft, totalTime, section
   };
 
   return (
-    <div className="border-b border-black pb-2 mb-4 font-serif">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-2">
+    <div className="font-serif">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">
+          <div className="hidden sm:block text-[10px] font-bold uppercase tracking-widest opacity-50 mb-0.5">
             {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           </div>
-          <div className="flex items-baseline gap-3">
-            <h2 className="text-lg font-bold uppercase tracking-widest">{sectionName}</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-sm sm:text-lg font-bold uppercase tracking-widest truncate max-w-[120px] sm:max-w-none">{sectionName}</h2>
             {!timerActive && (
-              <span className="text-[10px] bg-black text-white px-2 py-0.5 font-bold animate-pulse">PAUSED</span>
+              <span className="text-[8px] sm:text-[10px] bg-black text-white px-1.5 py-0.5 font-bold animate-pulse shrink-0">PAUSED</span>
             )}
           </div>
-          <p className="text-xs italic">Do not turn the page until instructed to do so.</p>
+          <p className="hidden md:block text-[10px] italic opacity-60">Do not turn the page until instructed.</p>
         </div>
-        <div className="text-left md:text-right mt-2 md:mt-0">
-          <span className="text-sm uppercase tracking-widest mr-2">Time Remaining:</span>
-          <span className={`text-xl font-bold ${!timerActive ? 'opacity-30' : ''}`}>{formatTime(timeLeft)}</span>
+        <div className="flex items-center sm:block">
+          <span className="hidden xs:inline text-[10px] sm:text-xs uppercase tracking-widest mr-2 opacity-70">Remaining:</span>
+          <span className={`text-base sm:text-xl font-mono font-bold ${!timerActive ? 'opacity-30' : ''}`}>{formatTime(timeLeft)}</span>
         </div>
       </div>
     </div>

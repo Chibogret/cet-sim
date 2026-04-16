@@ -314,11 +314,11 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
           </div>
         )}
 
-        <div className="p-4 bg-white border-b border-black z-10"
+        <div className="bg-white border-b border-black z-10 sticky top-0"
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
         >
-          <div className="flex justify-between items-center gap-4">
-            <div className="flex-1">
+          <div className="px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-6">
+            <div className="w-full sm:flex-1">
               <TimerBar
                 timeLeft={timeLeft}
                 totalTime={currentSection.timeLimitSeconds}
@@ -326,10 +326,10 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
                 timerActive={timerActive}
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
               <button
                 onClick={toggleTimer}
-                className={`text-[10px] border border-black px-3 py-1.5 font-bold uppercase tracking-widest transition-all shrink-0 ${!timerActive ? 'bg-black text-white' : 'hover:bg-gray-100'}`}
+                className={`text-[9px] sm:text-[10px] border border-black px-2 sm:px-3 py-1.5 font-bold uppercase tracking-widest transition-all shrink-0 ${!timerActive ? 'bg-black text-white' : 'hover:bg-gray-100'}`}
               >
                 {timerActive ? 'Pause' : 'Resume'}
               </button>
@@ -340,7 +340,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
                     nextSection();
                   }
                 }}
-                className="text-[10px] border border-black px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all shrink-0"
+                className="text-[9px] sm:text-[10px] border border-black px-2 sm:px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all shrink-0"
               >
                 Next Section
               </button>
@@ -350,7 +350,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
                     setExamState('start');
                   }
                 }}
-                className="text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
+                className="text-[9px] sm:text-[10px] border border-red-700 text-red-700 px-2 sm:px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
               >
                 Abort
               </button>

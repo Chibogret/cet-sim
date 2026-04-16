@@ -100,7 +100,8 @@ export function useExamEngine() {
       }
 
       // Priority 4: Default subtopic grouping
-      const key = q.groupId || `sub-${q.subject}-${q.subtopic}`;
+      // If no groupId but has shared-style context (figure/passage), it must be an independent group
+      const key = q.groupId || ((q.figure || q.passage) ? q.id : `sub-${q.subject}-${q.subtopic}`);
       if (!groups[key]) groups[key] = [];
       groups[key].push(q);
     });
@@ -122,7 +123,9 @@ export function useExamEngine() {
       let gId = q.groupId;
       
       if (!gId) {
-        if (q.variant === 'error-identification') {
+        if (q.figure || q.passage) {
+          gId = q.id; // Treat as unique context
+        } else if (q.variant === 'error-identification') {
           gId = `err-${q.subject}`;
         } else {
           const completionSubtopics = [

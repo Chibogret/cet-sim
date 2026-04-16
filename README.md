@@ -1,27 +1,91 @@
-# CET Simulator (Beta)
+# CET Simulator (Beta v1.0.0)
 
-Welcome to the Beta Release of the Deterministic University Admission Test Simulator, designed specifically for UPCAT, ACET, DCAT, and USTET readiness. This application focuses on delivering a deterministic, proctored, high-fidelity daily simulation of high-stakes exams.
+A high-fidelity, deterministic exam simulation platform designed for **UPCAT**, **ACET**, **DCAT**, and **USTET** readiness. This application delivers a rigorous, proctored testing environment coupled with a sophisticated modular study system.
 
-## Features
+## 🌟 Core Features
 
-- **Daily Rotation:** The question set shuffles deterministically based on the current date, providing a true "Daily Challenge" experience identical across all users on any given day.
-- **Strict Proctor Mechanics:** The exam rigorously checks for taboo behaviors such as opening other tabs. Any "visibility loss" incurs a time penalty.
-- **AI-Ready Analytics:** End-of-exam features compile an exportable `.txt` payload or directly open an AI interaction pre-loaded with a rigid prompt directing a custom "veteran professor" AI to visually dissect and correct knowledge gaps.
-- **Study Mode:** A dedicated vocabulary wordbank with over 2000 high-frequency exam terms, featuring both a searchable list view and a randomized flashcard system for active recall.
+- **Deterministic Daily Rotation:** Question sets shuffle using a date-seeded algorithm, ensuring a synchronized "Daily Challenge" experience for all users.
+- **Strict Proctor Mechanics:** Rigorous environment monitoring. Any "visibility loss" (e.g., switching tabs) incurs automated time penalties to simulate real-world testing stakes.
+- **Biometric Fatigue Simulation:** The UI dynamically adjusts (blur, letter pacing, line height) based on a deterministic "fatigue" curve to simulate the mental strain of long-duration testing.
+- **Spaced Repetition (SR):** A built-in vocabulary mastery system that tracks performance on high-frequency exam terms, optimizing recall for maximum efficiency.
+- **Binder-Paper Design System:** A custom, premium UI aesthetic featuring fractal noise textures, "binder" ruled layouts, and meticulously curated typography for a professional, focused experience.
+- **AI-Powered Review:** At the conclusion of each exam, a rich `.txt` payload is generated, designed for ingestion by a custom "veteran professor" AI to dissect knowledge gaps.
+- **Interactive Lesson Modules:** Comprehensive, academically rigorous teaching modules (e.g., Cell Biology, Poetry Analysis) using the same high-fidelity design language.
 
-## Beta Version Fixes && Adjustments (v0.9.0)
+## 🛠️ Architecture & Tech Stack
 
-For the beta release, several logic checks and styling updates have been finalized based on internal alpha testing:
+- **Framework:** [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with custom design tokens.
+- **Typography:** Inter, Lora, and custom serif fonts for that "academic paper" feel.
+- **Math & Science:** [KaTeX](https://katex.org/) for high-quality mathematical typesetting.
+- **Animations:** [Motion](https://motion.dev/) for fluid transitions and Apple-style slide-up study overlays.
+- **Icons:** [Lucide React](https://lucide.dev/) for consistent, minimalist iconography.
 
-1. **Aesthetics & Readability Polish:** We replaced the heavy gray styling with a proper stark white (`#ffffff`) background, modifying the underlying SVG fractal noise filter to increase the alpha property (from 0.08 to 0.15). The end result is a highly readable UI that retains a subtle, distinct "exam paper" texture.
-2. **Fixed Auto-Progress Bypass Bug:** Exam Engine now properly respects real-world pacing. Previously, continuous timers would skip the "Section Ended" screen and immediately rush into the next test area. The engine now pauses correctly, requiring the user to explicitly "Proceed" after time is called.
-3. **Fixed Elimination State Bleed:** Elimination states are now properly cleared at the start of every new daily attempt.
-4. **Resolved Visibility Leak:** Cleaned up a dangling `document.addEventListener('visibilitychange')` listener inside the persistent Sheet Engine hook.
+---
 
-## Setup Instructions
+## 📂 Data & Content Management
 
-1. Install dependencies: `npm install`
-2. Run development server: `npm run dev`
-3. Enter testing suite via typical `localhost:5173` routes.
+The application utilizes a **Group-Aware Flattened Schema**, allowing for complex context-based questions (like reading passages or multi-question figures) while maintaining a clean developer experience.
 
-Please track any remaining bugs via the issue tracker. Good luck, examinees.
+### Question Banks (`src/data/`)
+- `language_bank.ts`: Grammar, syntax, and vocabulary (English & Filipino).
+- `science_bank.ts`: Biology, Chemistry, Physics, and Earth Science.
+- `math_bank.ts`: Algebra, Geometry, and Advanced Math.
+- `reading_bank.ts`: Managed via a shared passage/question hydration system.
+- `topics.json`: The master curriculum map for all categorization and analytics.
+
+### Group-Aware Rendering
+The rendering engine (`PaperView.tsx`) automatically detects `groupId` tags. It intelligently:
+1. Injects subject-specific instructions (e.g., "Identify the error" or "Choose the antonym") only once per group.
+2. Renders shared context (passages, figures) at the head of the group.
+3. Removes redundant stylistic containers to maintain a clean "exam sheet" look.
+
+---
+
+## 🎨 Interactive Syntax & Extensions
+
+We support several custom extensions to standard Markdown/HTML for exam-specific needs:
+
+- **Mathematical Expressions:** Use `$ ... $` for inline and `$$ ... $$` for block-level equations.
+- **Error Identification:** Use `{word}[label]` syntax (e.g., `{they}[A] {is}[B] ...`) which the engine automatically renders with underlined text and centered labels.
+- **Underline Rendering:** Native `<u>` support that integrates cleanly with our serif typography without adding weight artifacts.
+
+## ➕ Adding More Questions
+
+To expand the simulator's question bank, follow the specialized guide in [src/data/README.md](file:///c:/Users/deiny/OneDrive/Documents/cet-test/src/data/README.md).
+
+### Quick Workflow:
+1.  **Choose Subject**: Open `language_bank.ts`, `science_bank.ts`, `math_bank.ts`, or `reading_bank.ts`.
+2.  **Match Topic**: Ensure the `subtopic` field matches a term in `topics.json`.
+3.  **Use ID**: Use the format `[CODE]-[TOPIC_ID]-[INDEX]` (e.g., `SC-501-12`).
+4.  **Format**: Use `$ ... $` for math and `{text}[label]` for error identification.
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone & Install:**
+   ```bash
+   git clone <repository-url>
+   npm install
+   ```
+
+2. **Run Development Server:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Production Build:**
+   ```bash
+   npm run build
+   ```
+
+## 📝 Contribution Guidelines
+
+- **IDs:** Follow the convention `[SUBJECT]-[SUBTOPIC_CODE]-[INDEX]` (e.g., `SC-703-1`).
+- **Data Integrity:** Always cross-reference `topics.json` when adding new questions to ensure correct categorization.
+- **Asset Placement:** Store figures in `/public/assets/figures/` and reference them via absolute paths.
+
+---
+
+*Good luck, examinees. Aim for the top.*

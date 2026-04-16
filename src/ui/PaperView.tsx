@@ -123,9 +123,9 @@ const renderTextWithFormatting = (text: string): any => {
               const match = part.match(/^\{(.*?)\}\[(.*?)\]$/);
               if (match) {
                 return (
-                  <span key={`err-${i}-${j}-${k}-${uIdx}-${subUIdx}-${l}`} className="relative inline mx-1 underline underline-offset-[3px] decoration-black">
+                  <span key={`err-${i}-${j}-${k}-${uIdx}-${subUIdx}-${l}`} className="relative inline-block mx-1 underline underline-offset-[3px] decoration-black">
                     {match[1]}
-                    <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] no-underline uppercase tracking-tighter">
+                    <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[10px] no-underline uppercase tracking-tighter">
                       {match[2]}
                     </span>
                   </span>
@@ -141,12 +141,17 @@ const renderTextWithFormatting = (text: string): any => {
   });
 };
 
+const deservesFigureBelow = (q: Question) => {
+  const text = q.question.toLowerCase();
+  return (q.subject === 'Science' || q.subject === 'Mathematics') && (text.includes('below') || text.includes('figure'));
+};
+
 interface PaperViewProps {
   groups: Question[][];
   fatigueLevel: number;
 }
 
-const MediaRenderer: React.FC<{ type: 'text' | 'image'; content: string; caption?: string; figureNumber?: number; passageType?: 'prose' | 'poetry' }> = ({ type, content, caption, figureNumber, passageType }) => {
+const MediaRenderer: React.FC<{ type: 'text' | 'image'; content: string; caption?: string; figureNumber?: number; passageType?: 'prose' | 'poetry'; isScience?: boolean }> = ({ type, content, caption, figureNumber, passageType, isScience }) => {
   if (type === 'text') {
     if (passageType === 'poetry') {
       // More robust stanza splitting (double newlines or more)
@@ -184,8 +189,12 @@ const MediaRenderer: React.FC<{ type: 'text' | 'image'; content: string; caption
     }
 
     return (
-      <div className="mb-8 flex flex-col items-center">
-        <img src={content} alt={displayCaption || 'Figure'} className="max-w-full h-auto border border-black/10 grayscale mix-blend-multiply" />
+      <div className={`${isScience ? 'mb-4' : 'mb-8'} flex flex-col items-center`}>
+        <img
+          src={content}
+          alt={displayCaption || 'Figure'}
+          className="max-w-[250px] max-h-[250px] h-auto w-auto object-contain mix-blend-multiply"
+        />
         {displayCaption && <p className="text-xs italic mt-2 text-center opacity-70">{renderTextWithFormatting(displayCaption)}</p>}
       </div>
     );
@@ -203,6 +212,7 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
 
   let globalQuestionNumber = 1;
   let globalFigureNumber = 1;
+  let lastHeader = '';
 
   return (
     <div
@@ -217,24 +227,51 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
       <div className="max-w-2xl mx-auto pb-12">
         {groups.map((group, groupIdx) => {
           const firstQ = group[0];
+          const startNum = globalQuestionNumber;
+          const endNum = globalQuestionNumber + group.length - 1;
+          const isScienceOrMath = firstQ.subject === 'Science' || firstQ.subject === 'Mathematics';
+          const isGroupFigureRef = isScienceOrMath && !!firstQ.figure && group.length > 1;
+
           return (
-            <div key={groupIdx} className="mb-12">
+            <div key={groupIdx} className={firstQ.subject === 'Science' ? 'mb-8' : 'mb-12'}>
               {/* Reference indicator if grouped */}
-              {firstQ.groupId && (
+              {firstQ.groupId && firstQ.subject !== 'Science' && (
                 <div className="mb-4 text-[10px] font-bold uppercase tracking-widest border-b border-black/20 pb-1">
                   Reference: {firstQ.contextTitle || 'Context'}
                 </div>
               )}
 
-              {/* Render Shared Media if present in the first question of the group */}
-              {firstQ.passage && (
-                <MediaRenderer
-                  type="text"
-                  content={firstQ.passage}
-                  passageType={firstQ.passageType || (firstQ.subtopic === 'Poetry' ? 'poetry' : 'prose')}
-                />
+              {/* Render Shared Media */}
+              {isGroupFigureRef ? (
+                <>
+                  {firstQ.passage && (
+                    <MediaRenderer
+                      type="text"
+                      content={firstQ.passage}
+                      passageType={firstQ.passageType || (firstQ.subtopic === 'Poetry' ? 'poetry' : 'prose')}
+                      isScience={firstQ.subject === 'Science'}
+                    />
+                  )}
+                  <div className="mb-4 text-xs md:text-sm font-bold italic">
+                    For questions {startNum} to {endNum}, refer to the figure below.
+                  </div>
+                  <MediaRenderer type="image" content={firstQ.figure!} figureNumber={globalFigureNumber++} isScience={true} />
+                </>
+              ) : (
+                <>
+                  {firstQ.passage && (
+                    <MediaRenderer
+                      type="text"
+                      content={firstQ.passage}
+                      passageType={firstQ.passageType || (firstQ.subtopic === 'Poetry' ? 'poetry' : 'prose')}
+                      isScience={firstQ.subject === 'Science'}
+                    />
+                  )}
+                  {firstQ.figure && !deservesFigureBelow(firstQ) && (
+                    <MediaRenderer type="image" content={firstQ.figure} figureNumber={globalFigureNumber++} isScience={firstQ.subject === 'Science'} />
+                  )}
+                </>
               )}
-              {firstQ.figure && <MediaRenderer type="image" content={firstQ.figure} figureNumber={globalFigureNumber++} />}
 
 
               {/* Render Questions */}
@@ -242,11 +279,8 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
                 const currentNumber = globalQuestionNumber++;
                 const isErrorId = q.variant === 'error-identification';
 
-                // Show instructions if it's the first in a group of error-id questions
-                const showInstructions = isErrorId && qIdx === 0;
-
                 return (
-                  <div key={q.id} id={`q-${q.id}`} className="mb-8 break-inside-avoid">
+                  <div key={q.id} id={`q-${q.id}`} className={`${q.subject === 'Science' ? 'mb-6' : 'mb-8'} break-inside-avoid`}>
                     {(() => {
                       const isErrorId = q.variant === 'error-identification';
                       const isTagalogErr = q.subtopic === 'Pagkilala ng Mali';
@@ -256,13 +290,15 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
                       const showLanguageHeader = isErrorId && (qIdx === 0 || isTagalogErr !== prevIsTagalogErr);
 
                       if (showLanguageHeader) {
+                        const errHeader = isTagalogErr ? 'Pagkilala ng Mali' : 'Error Identification';
+                        if (errHeader === lastHeader) return null;
+                        lastHeader = errHeader;
+
                         return (
-                          <div className="mb-8 font-sans text-sm leading-relaxed">
-                            <div className="font-bold text-base mb-1">
-                              {isTagalogErr ? 'Pagkilala ng Mali' : 'Error Identification'}
-                            </div>
-                            <div className="italic">
-                              <span className="font-bold not-italic font-serif">{isTagalogErr ? 'Panuto: ' : 'Instructions: '}</span>
+                          <div className="mb-8 text-sm leading-relaxed">
+                            <div className="mb-1">{errHeader}</div>
+                            <div className="">
+                              <span className="font-bold">{isTagalogErr ? 'Panuto: ' : 'Instructions: '}</span>
                               {isTagalogErr
                                 ? 'Piliin ang salita o parirala na nagpapamali sa pangungusap. Kung ang pangungusap ay walang mali, piliin ang WALANG MALI.'
                                 : 'Choose the word or phrase that makes the sentence grammatically incorrect. If the sentence is correct, choose NO ERROR.'}
@@ -271,37 +307,68 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
                         );
                       }
 
-                      // Additional instructions for standard subtopics when a group starts
-                      if (!isErrorId && qIdx === 0 && !q.passage) {
-                        const subtopicInstructions: Record<string, string> = {
-                          'Use of Context Clues': 'Choose the word or phrase that is closest in meaning to the italicized/underlined word or phrase in each sentence.',
-                          'Spelling': 'Identify the word that is spelled incorrectly.',
-                          'Talasalitaan': 'Piliin ang pinakaangkop na kahulugan ng salitang may salungguhit o nakatukoy sa bawat pangungusap.',
-                          'Bahagi ng Pananalita': 'Piliin ang pinakamahusay na salita o parirala upang kumpletuhin ang bawat pangungusap.',
-                          'Verbs': 'Choose the correct form of the verb to complete the sentence.',
-                          'Prepositions': 'Choose the appropriate preposition to complete the sentence.',
-                          'Subject-Verb': 'Choose the best word or phrase to complete each sentence while ensuring subject-verb agreement.'
-                        };
+                      // Support for "Question Type" based instructions
+                      if (!isErrorId && qIdx === 0) {
+                        const isFilipino = q.groupId?.includes('fil') ||
+                          ['Talasalitaan', 'Pagbabaybay', 'Pagkilala ng Mali', 'Pangungusap', 'Bahagi ng Pananalita',
+                            'Pangngalan', 'Panghalip', 'Pandiwa', 'Pang-uri', 'Pang-abay', 'Pang-ukol', 'Pangatnig',
+                            'Pandamdam', 'Pantukoy'].includes(q.subtopic);
 
-                        let instruction = subtopicInstructions[q.subtopic] || 'Choose the best word or phrase to complete each sentence.';
+                        const vocabularySubtopics = ['Use of Context Clues', 'Talasalitaan'];
+                        const spellingSubtopics = ['Spelling', 'Pagbabaybay'];
+                        const sentenceCompletionSubtopics = [
+                          'Nouns', 'Pronouns', 'Verbs', 'Adjectives', 'Adverbs', 'Prepositions', 'Conjunctions', 'Interjections', 'Determiners',
+                          'Subject-Verb', 'Pronoun-Antecedent', 'Bahagi ng Pananalita', 'Pangngalan', 'Panghalip', 'Pandiwa', 'Pang-uri',
+                          'Pang-abay', 'Pang-ukol', 'Pangatnig', 'Pandamdam', 'Pantukoy'
+                        ];
 
-                        // Override instructions for specific vocabulary groups (Kasalungat/Antonyms)
-                        let header = q.subtopic;
-                        if (q.groupId === 'lp-antonym-eng') {
-                          instruction = 'Choose the word or phrase that is opposite in meaning to the italicized/underlined word or phrase in each sentence.';
-                          header = 'Vocabulary';
-                        } else if (q.groupId === 'lp-antonym-fil') {
-                          instruction = 'Piliin ang kasalungat na kahulugan ng salitang may salungguhit o nakatukoy sa bawat pangungusap.';
-                          header = 'Talasalitaan';
-                        } else if (q.subtopic === 'Use of Context Clues') {
-                          header = 'Vocabulary';
+                        let instruction = '';
+                        let typeHeader = q.subtopic;
+
+                        if (q.groupId?.startsWith('PARA-')) {
+                          typeHeader = isFilipino ? 'Pag-aayos ng Talata' : 'Paragraph Arrangement';
+                          instruction = isFilipino
+                            ? 'Ayusin ang mga sumusunod na pangungusap upang makabuo ng isang lohikal na talata.'
+                            : 'Arrange the following sentences to form a coherent paragraph.';
+                        } else if (vocabularySubtopics.includes(q.subtopic) || q.groupId?.includes('antonym')) {
+                          typeHeader = isFilipino ? 'Talasalitaan' : 'Vocabulary';
+                          if (q.groupId?.includes('antonym')) {
+                            instruction = isFilipino
+                              ? 'Piliin ang kasalungat na kahulugan ng salitang may salungguhit o nakatukoy sa bawat pangungusap.'
+                              : 'Choose the word or phrase that is opposite in meaning to the italicized/underlined word or phrase in each sentence.';
+                          } else {
+                            instruction = isFilipino
+                              ? 'Piliin ang pinakaangkop na kahulugan ng salitang may salungguhit o nakatukoy sa bawat pangungusap.'
+                              : 'Choose the word or phrase that is closest in meaning to the italicized/underlined word or phrase in each sentence.';
+                          }
+                        } else if (spellingSubtopics.includes(q.subtopic)) {
+                          typeHeader = isFilipino ? 'Pagbabaybay' : 'Spelling';
+                          instruction = isFilipino
+                            ? 'Piliin ang salitang may maling baybay.'
+                            : 'Identify the word that is spelled incorrectly.';
+                        } else if (sentenceCompletionSubtopics.includes(q.subtopic)) {
+                          typeHeader = isFilipino ? 'Wastong Gamit' : 'Sentence Completion';
+                          instruction = isFilipino
+                            ? 'Piliin ang pinakamahusay na salita o parirala upang kumpletuhin ang bawat pangungusap.'
+                            : 'Choose the best word or phrase to complete each sentence.';
+                        } else if (q.subject === 'Science' || q.subject === 'Mathematics') {
+                          typeHeader = q.subject;
+                          instruction = 'Choose the best answer for each question.';
+                        } else if (q.subject === 'Reading Comprehension') {
+                          typeHeader = isFilipino ? 'Pag-unawa sa Binasa' : 'Reading Comprehension';
+                          instruction = isFilipino
+                            ? 'Basahin ang sumusunod na teksto at sagutin ang mga tanong.'
+                            : 'Read the following passage and answer the questions that follow.';
                         }
+
+                        if (!instruction || typeHeader === lastHeader) return null;
+                        lastHeader = typeHeader;
 
                         return (
                           <div className="mb-8 text-sm leading-relaxed">
-                            <div className="font-bold text-base mb-1">{header}</div>
+                            <div className="mb-1">{typeHeader}</div>
                             <div className="">
-                              <span className="font-bold not-italic">{q.groupId?.includes('fil') || q.subtopic === 'Talasalitaan' ? 'Panuto: ' : 'Instructions: '}</span>
+                              <span className="font-bold">{isFilipino ? 'Panuto: ' : 'Instructions: '}</span>
                               {instruction}
                             </div>
                           </div>
@@ -313,24 +380,41 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
 
                     <div className="flex gap-2 mb-2 items-start">
                       <span className={`font-bold ${isErrorId ? 'leading-[2.5] pt-2' : ''}`}>{currentNumber}.</span>
-                      <div className={isErrorId ? 'leading-[2.5] pt-2 mb-4' : ''}>
+                      <div className={`whitespace-pre-wrap ${isErrorId ? 'leading-[2.5] pt-2 mb-4' : ''}`}>
                         {renderTextWithFormatting(q.question)}
                       </div>
                     </div>
 
-                    {!isErrorId && (
-                      <div className="pl-6 space-y-2 md:space-y-1">
-                        {q.options.map((opt, optIdx) => {
-                          const letter = String.fromCharCode(65 + optIdx);
-                          return (
-                            <div key={optIdx} className="flex gap-2">
-                              <span className="font-bold">{letter}.</span>
-                              <span>{renderTextWithFormatting(opt)}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
+                    {deservesFigureBelow(q) && (q.figure || firstQ.figure) && !isGroupFigureRef && (
+                      <MediaRenderer
+                        type="image"
+                        content={q.figure || firstQ.figure}
+                        figureNumber={globalFigureNumber++}
+                        isScience={true}
+                      />
                     )}
+
+                    {!isErrorId && (() => {
+                      const isCompact = q.options.every(opt => {
+                        const displayOpt = opt.replace(/^(\(?[A-E]\)[\.\s-]*|[A-E]\.[\s-]*)/, '').trim() || opt;
+                        return displayOpt.length < 20;
+                      });
+
+                      return (
+                        <div className={`pl-6 ${isCompact ? 'flex flex-wrap gap-x-8 gap-y-2' : 'space-y-2 md:space-y-1'}`}>
+                          {q.options.map((opt, optIdx) => {
+                            const letter = String.fromCharCode(65 + optIdx);
+                            const displayOpt = opt.replace(/^(\(?[A-E]\)[\.\s-]*|[A-E]\.[\s-]*)/, '').trim() || opt;
+                            return (
+                              <div key={optIdx} className="flex gap-2 whitespace-pre-wrap">
+                                <span className="font-bold">{letter}.</span>
+                                <span>{renderTextWithFormatting(displayOpt)}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })()}
                   </div>
                 );
               })}

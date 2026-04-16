@@ -49,9 +49,9 @@ const FormattedText: React.FC<{ text: string }> = ({ text }) => {
                             const match = part.match(/^\{(.*?)\}\[(.*?)\]$/);
                             if (match) {
                                 return (
-                                    <span key={`err-${i}-${uIdx}-${subUIdx}-${j}`} className="relative inline mx-1 underline underline-offset-[3px] decoration-slate-900">
+                                    <span key={`err-${i}-${uIdx}-${subUIdx}-${j}`} className="relative inline-block mx-1 underline underline-offset-[3px] decoration-slate-900">
                                         {match[1]}
-                                        <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] no-underline text-slate-400">
+                                        <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 text-[10px] no-underline text-slate-400">
                                             {match[2]}
                                         </span>
                                     </span>
@@ -65,6 +65,11 @@ const FormattedText: React.FC<{ text: string }> = ({ text }) => {
             })}
         </>
     );
+};
+
+const deservesFigureBelow = (q: Question) => {
+    const text = q.question.toLowerCase();
+    return (q.subject === 'Science' || q.subject === 'Mathematics') && (text.includes('below') || text.includes('figure'));
 };
 
 export const TestKnowledge: React.FC = () => {
@@ -238,7 +243,7 @@ export const TestKnowledge: React.FC = () => {
                         </div>
                     )}
 
-                    {currentQuestion.contextTitle && (
+                    {currentQuestion.contextTitle && currentQuestion.subject !== 'Science' && (
                         <div className="flex items-center gap-2 mb-4">
                             <div className="h-px bg-slate-100 flex-1" />
                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] px-3">
@@ -249,12 +254,12 @@ export const TestKnowledge: React.FC = () => {
                     )}
 
                     {currentQuestion.passage && (
-                        <div className={`bg-slate-50 border border-slate-100 p-6 mb-6 rounded-xl relative overflow-hidden shadow-inner ${currentQuestion.passageType === 'poetry' ? 'flex flex-col items-center' : ''}`}>
+                        <div className={`bg-slate-50 border border-slate-100 p-6 mb-4 rounded-xl relative overflow-hidden shadow-inner ${currentQuestion.passageType === 'poetry' ? 'flex flex-col items-center' : ''}`}>
                             <div className="absolute top-0 right-0 w-24 h-24 bg-white/50 -rotate-45 translate-x-12 -translate-y-12" />
-                            <p className={`text-slate-700 leading-relaxed text-sm md:text-base relative z-10 ${currentQuestion.passageType === 'poetry' ? 'whitespace-pre-line italic font-serif text-center' : ''}`}>
+                            <p className={`text-slate-700 leading-relaxed text-sm md:text-base relative z-10 ${currentQuestion.passageType === 'poetry' ? 'whitespace-pre-wrap italic font-serif text-center' : 'whitespace-pre-wrap'}`}>
                                 <FormattedText text={currentQuestion.passage} />
                             </p>
-                            {groupInfo && (
+                            {groupInfo && currentQuestion.subject !== 'Science' && (
                                 <div className="mt-4 pt-4 border-t border-slate-200/50 flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest w-full">
                                     <span>Reading Passage</span>
                                     <span>Part {groupInfo.index} of {groupInfo.total}</span>
@@ -264,82 +269,102 @@ export const TestKnowledge: React.FC = () => {
                     )}
 
 
-                    {currentQuestion.figure && (
-                        <div className="w-full rounded-xl overflow-hidden border border-slate-100 bg-white mb-6 p-3 shadow-sm">
+                    {currentQuestion.figure && !deservesFigureBelow(currentQuestion) && (
+                        <div className="w-full rounded-xl overflow-hidden border border-slate-100 bg-white mb-4 p-3 shadow-sm">
                             <img src={currentQuestion.figure} alt="Question figure" className="w-full h-auto object-contain max-h-80 rounded-lg" />
-                            <div className="mt-3 flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                                <span>Reference Figure</span>
-                                {groupInfo && <span>Question {groupInfo.index} of {groupInfo.total}</span>}
-                            </div>
+                            {currentQuestion.subject !== 'Science' && (
+                                <div className="mt-3 flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                    <span>Reference Figure</span>
+                                    {groupInfo && <span>Question {groupInfo.index} of {groupInfo.total}</span>}
+                                </div>
+                            )}
                         </div>
                     )}
 
-                    <h2 className={`text-xl md:text-2xl font-bold text-slate-900 leading-tight ${currentQuestion.variant === 'error-identification' ? 'leading-[3] pt-4' : ''}`}>
+                    <h2 className={`text-xl md:text-2xl font-bold text-slate-900 leading-tight whitespace-pre-wrap ${currentQuestion.variant === 'error-identification' ? 'leading-[3] pt-4' : ''}`}>
                         <FormattedText text={currentQuestion.question} />
                     </h2>
+
+                    {currentQuestion.figure && deservesFigureBelow(currentQuestion) && (
+                        <div className="w-full rounded-xl overflow-hidden border border-slate-100 bg-white mt-4 mb-2 p-3 shadow-sm">
+                            <img src={currentQuestion.figure} alt="Question figure" className="w-full h-auto object-contain max-h-80 rounded-lg" />
+                        </div>
+                    )}
                 </div>
 
 
 
-                <div className="grid grid-cols-1 gap-3">
-                    {currentQuestion.options.map((option, idx) => {
-                        const isSelected = selectedOption === option;
-                        const isCorrect = isAnswered && option === currentQuestion.correctAnswer;
-                        const isWrong = isAnswered && isSelected && option !== currentQuestion.correctAnswer;
+                {(() => {
+                    const isCompact = currentQuestion.options.every(opt => {
+                        const displayOpt = opt.replace(/^(\(?[A-E]\)[\.\s-]*|[A-E]\.[\s-]*)/, '').trim() || opt;
+                        return displayOpt.length < 15;
+                    });
 
-                        let borderColor = '#E2E8F0';
-                        let bgColor = '#FFFFFF';
-                        let textColor = '#475569';
+                    return (
+                        <div className={`grid ${isCompact ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-1'} gap-3`}>
+                            {currentQuestion.options.map((option, idx) => {
+                                const isSelected = selectedOption === option;
+                                const isCorrect = isAnswered && option === currentQuestion.correctAnswer;
+                                const isWrong = isAnswered && isSelected && option !== currentQuestion.correctAnswer;
 
-                        if (isSelected && !isAnswered) {
-                            borderColor = '#000000';
-                            bgColor = '#F8FAFC';
-                            textColor = '#000000';
-                        } else if (isCorrect) {
-                            borderColor = '#22C55E';
-                            bgColor = '#F0FDF4';
-                            textColor = '#166534';
-                        } else if (isWrong) {
-                            borderColor = '#EF4444';
-                            bgColor = '#FEF2F2';
-                            textColor = '#991B1B';
-                        }
+                                let borderColor = '#E2E8F0';
+                                let bgColor = '#FFFFFF';
+                                let textColor = '#475569';
 
-                        return (
-                            <button
-                                key={idx}
-                                onClick={() => handleOptionSelect(option)}
-                                disabled={isAnswered}
-                                className="w-full text-left p-4 rounded-xl border-2 transition-all flex items-center gap-4 group"
-                                style={{
-                                    borderColor,
-                                    backgroundColor: bgColor,
-                                    color: textColor
-                                }}
-                            >
-                                <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shrink-0 border-2 transition-colors ${isSelected && !isAnswered ? 'bg-slate-900 text-white border-slate-900' : 'bg-slate-50 text-slate-400 border-slate-100'
-                                    }`}>
-                                    {String.fromCharCode(65 + idx)}
-                                </span>
-                                {currentQuestion.variant !== 'error-identification' && (
-                                    <span className="text-base font-medium flex-1">
-                                        <FormattedText text={option} />
-                                    </span>
-                                )}
-                                {isCorrect && (
-                                    <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                    </svg>
-                                )}
-                                {isWrong && (
-                                    <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                                    </svg>
-                                )}
-                            </button>
-                        );
-                    })}
-                </div>
+                                if (isSelected && !isAnswered) {
+                                    borderColor = '#000000';
+                                    bgColor = '#F8FAFC';
+                                    textColor = '#000000';
+                                } else if (isCorrect) {
+                                    borderColor = '#22C55E';
+                                    bgColor = '#F0FDF4';
+                                    textColor = '#166534';
+                                } else if (isWrong) {
+                                    borderColor = '#EF4444';
+                                    bgColor = '#FEF2F2';
+                                    textColor = '#991B1B';
+                                }
+
+                                return (
+                                    <button
+                                        key={idx}
+                                        onClick={() => handleOptionSelect(option)}
+                                        disabled={isAnswered}
+                                        className={`w-full text-left rounded-xl border-2 transition-all flex items-center gap-3 group ${isCompact ? 'p-3 flex-col text-center' : 'p-4'}`}
+                                        style={{
+                                            borderColor,
+                                            backgroundColor: bgColor,
+                                            color: textColor
+                                        }}
+                                    >
+                                        <span className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shrink-0 border-2 transition-colors ${isSelected && !isAnswered ? 'bg-slate-900 text-white border-slate-900' : 'bg-slate-50 text-slate-400 border-slate-100'
+                                            }`}>
+                                            {String.fromCharCode(65 + idx)}
+                                        </span>
+                                        {currentQuestion.variant !== 'error-identification' && (
+                                            <span className={`text-base font-medium flex-1 whitespace-pre-wrap ${isCompact ? 'text-xs' : ''}`}>
+                                                <FormattedText text={option.replace(/^(\(?[A-E]\)[\.\s-]*|[A-E]\.[\s-]*)/, '').trim() || option} />
+                                            </span>
+                                        )}
+                                        {isAnswered && (isCorrect || isWrong) && (
+                                            <div className={isCompact ? 'mt-1' : ''}>
+                                              {isCorrect ? (
+                                                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                  </svg>
+                                              ) : (
+                                                  <svg className="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                                  </svg>
+                                              )}
+                                            </div>
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    );
+                })()}
 
                 <AnimatePresence>
                     {isAnswered && (
