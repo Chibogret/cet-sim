@@ -162,10 +162,7 @@ const Lesson1301: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
                         {page === 1 ? (
                             <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3 }}
+
                             >
                                 <div className="bg-rose-50 border-2 border-pen-red p-4 mb-8 rounded shadow-sm">
                                     <h3 className="font-hand text-xl sm:text-2xl text-pen-red font-bold underline decoration-2">THE ENTRANCE EXAM REALITY:</h3>

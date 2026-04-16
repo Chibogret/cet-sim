@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { sections } from '../data/sections';
-import { questionGroups as originalQuestionGroups, flattenQuestions } from '../data/questions';
+import { questionsBank } from '../data/questions_bank';
+import { Question } from '../types/question';
 
 export type ExamState = 'start' | 'running' | 'section_end' | 'finished';
 
@@ -63,13 +64,90 @@ export function useExamEngine() {
     return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
   }, []);
 
-  const dailyQuestionGroups = useMemo(() => {
-    return shuffleWithSeed(originalQuestionGroups, dailySeed);
+  const dailyQuestions = useMemo(() => {
+    const groups: Record<string, Question[]> = {};
+    questionsBank.forEach(q => {
+      const unifiedSubtopics = [
+        'Verbs', 'Prepositions', 'Adverbs', 'Nouns', 'Pronoun-Antecedent', 
+        'Determiners', 'Subject-Verb', 'Redundancy', 'Bahagi ng Pananalita',
+        'Use of Context Clues', 'Talasalitaan', 'Spelling'
+      ];
+
+      // Priority 1: Explicitly defined groupId for SHARED CONTEXT (passage/figure)
+      // These should be shuffled as independent units.
+      if (q.groupId && (q.passage || q.figure || q.contextTitle?.includes('Passage'))) {
+        const key = q.groupId;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(q);
+        return;
+      }
+
+      // Priority 2: Error Identification (Unified per subject)
+      if (q.variant === 'error-identification') {
+        const key = `err-${q.subject}`;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(q);
+        return;
+      }
+
+      // Priority 3: Unified Grammar and Vocabulary block
+      // This keeps all completion and vocab together (including antonym blocks)
+      if (unifiedSubtopics.includes(q.subtopic)) {
+        const key = `unified-${q.subject}`;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(q);
+        return;
+      }
+
+      // Priority 4: Default subtopic grouping
+      const key = q.groupId || `sub-${q.subject}-${q.subtopic}`;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(q);
+    });
+    const shuffledGroups = shuffleWithSeed(Object.values(groups), dailySeed);
+    return shuffledGroups.flat();
   }, [dailySeed]);
 
   const currentSection = sections[currentSectionIndex];
-  const currentSectionGroups = dailyQuestionGroups.filter(g => g.section === currentSection?.name);
-  const sectionQuestions = flattenQuestions(currentSectionGroups);
+  const sectionQuestions = useMemo(() => {
+    return dailyQuestions.filter(q => q.subject === currentSection?.name);
+  }, [dailyQuestions, currentSection]);
+
+  const currentSectionGroups = useMemo(() => {
+    const groups: Question[][] = [];
+    let currentGroup: Question[] = [];
+    let currentGroupId: string | undefined = undefined;
+
+    sectionQuestions.forEach(q => {
+      let gId = q.groupId;
+      
+      if (!gId) {
+        if (q.variant === 'error-identification') {
+          gId = `err-${q.subject}`;
+        } else {
+          const completionSubtopics = [
+            'Verbs', 'Prepositions', 'Adverbs', 'Nouns', 'Pronoun-Antecedent', 
+            'Determiners', 'Subject-Verb', 'Redundancy', 'Bahagi ng Pananalita'
+          ];
+          if (completionSubtopics.includes(q.subtopic)) {
+            gId = `comp-${q.subject}`;
+          } else {
+            gId = `sub-${q.subject}-${q.subtopic}`;
+          }
+        }
+      }
+      
+      if (gId === currentGroupId) {
+        currentGroup.push(q);
+      } else {
+        if (currentGroup.length > 0) groups.push(currentGroup);
+        currentGroup = [q];
+        currentGroupId = gId;
+      }
+    });
+    if (currentGroup.length > 0) groups.push(currentGroup);
+    return groups;
+  }, [sectionQuestions]);
 
   useEffect(() => {
     localStorage.setItem('curve_examState', examState);
@@ -85,10 +163,26 @@ export function useExamEngine() {
   const setTimeLeft = useCallback((value: number | ((prev: number) => number)) => {
     setTimeLeftState(prev => {
       const newVal = typeof value === 'function' ? value(prev) : value;
-      setEndTime(Date.now() + newVal * 1000);
+      if (timerActive) {
+        setEndTime(Date.now() + newVal * 1000);
+      }
       return newVal;
     });
-  }, []);
+  }, [timerActive]);
+
+  const toggleTimer = useCallback(() => {
+    setTimerActive(prev => {
+      const nextActive = !prev;
+      if (nextActive) {
+        // Resuming: set new end time based on current timeLeft state
+        setEndTime(Date.now() + timeLeft * 1000);
+      } else {
+        // Pausing: end time is no longer relevant
+        setEndTime(null);
+      }
+      return nextActive;
+    });
+  }, [timeLeft]);
 
   const startExam = () => {
     localStorage.removeItem('curve_answers');
@@ -96,7 +190,9 @@ export function useExamEngine() {
     localStorage.removeItem('curve_changes');
     setExamState('running');
     setCurrentSectionIndex(0);
-    setTimeLeft(sections[0].timeLimitSeconds);
+    const initialTime = sections[0].timeLimitSeconds;
+    setTimeLeftState(initialTime);
+    setEndTime(Date.now() + initialTime * 1000);
     setTimerActive(true);
     setFatigueLevel(0);
   };
@@ -105,7 +201,9 @@ export function useExamEngine() {
     setCurrentSectionIndex(prev => {
       if (prev < sections.length - 1) {
         const nextIdx = prev + 1;
-        setTimeLeft(sections[nextIdx].timeLimitSeconds);
+        const nextTime = sections[nextIdx].timeLimitSeconds;
+        setTimeLeftState(nextTime);
+        setEndTime(Date.now() + nextTime * 1000);
         setTimerActive(true);
         setExamState('running');
         setFatigueLevel(f => f + 1);
@@ -117,7 +215,7 @@ export function useExamEngine() {
         return prev;
       }
     });
-  }, [setTimeLeft]);
+  }, []);
 
   useEffect(() => {
     if (!timerActive || !endTime) {
@@ -150,15 +248,18 @@ export function useExamEngine() {
     currentSection,
     currentSectionIndex,
     currentSectionGroups,
-    dailyQuestionGroups, // Export all for telemetry
+    dailyQuestions, // Export all for telemetry
     sectionQuestions,
     timeLeft,
+    timerActive,
     fatigueLevel,
     startExam,
     nextSection,
+    toggleTimer,
     setTimerActive,
     setTimeLeft,
     setExamState,
     autoProgress
   };
 }
+

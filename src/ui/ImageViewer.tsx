@@ -4,10 +4,11 @@ import { motion, AnimatePresence } from 'motion/react';
 interface ImageViewerProps {
   src: string;
   alt: string;
+  reference?: string;
   onClose: () => void;
 }
 
-export const ImageViewer: React.FC<ImageViewerProps> = ({ src, alt, onClose }) => {
+export const ImageViewer: React.FC<ImageViewerProps> = ({ src, alt, reference, onClose }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -51,8 +52,22 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ src, alt, onClose }) =
             className="w-auto h-auto max-w-full max-h-[80vh] object-contain select-none rounded-lg block mx-auto shadow-inner"
           />
 
-          <div className="py-2.5 px-4 text-center bg-white w-full border-t border-slate-50">
-            <h3 className="text-slate-900 font-bold text-base md:text-lg inline-block mr-2 uppercase tracking-wide">{alt}</h3>
+          <div className="py-2.5 px-4 flex flex-col sm:flex-row items-center justify-between bg-white w-full border-t border-slate-50 gap-2">
+            <h3 className="text-slate-900 font-bold text-sm md:text-base uppercase tracking-wide">{alt}</h3>
+            {reference && (
+              <a 
+                href={reference} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[10px] md:text-xs text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1 bg-blue-50 px-2 py-1 rounded-full transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                View Source
+              </a>
+            )}
           </div>
         </div>
       </motion.div>

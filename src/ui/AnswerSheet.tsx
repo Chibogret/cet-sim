@@ -1,5 +1,5 @@
 import React from 'react';
-import { Question } from '../data/questions';
+import { Question } from '../types/question';
 
 interface AnswerSheetProps {
   questions: Question[];

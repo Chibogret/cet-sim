@@ -7,7 +7,7 @@ import { useTelemetry } from './hooks/useTelemetry';
 import { PaperView } from './ui/PaperView';
 import { AnswerSheet } from './ui/AnswerSheet';
 import { TimerBar } from './ui/TimerBar';
-import { flattenQuestions } from './data/questions';
+
 import { DailyStudy } from './ui/DailyStudy';
 
 export default function App() {
@@ -15,16 +15,20 @@ export default function App() {
     examState,
     currentSection,
     currentSectionGroups,
-    dailyQuestionGroups,
+    dailyQuestions,
     sectionQuestions,
     timeLeft,
+    timerActive,
     fatigueLevel,
     startExam,
     nextSection,
+    toggleTimer,
     setTimeLeft,
     setExamState,
     currentSectionIndex
   } = useExamEngine();
+
+
 
   const { logEvent, clearTelemetry } = useTelemetry();
 
@@ -72,16 +76,16 @@ export default function App() {
   };
 
   const getAIPromptData = () => {
-    const allQuestions = flattenQuestions(dailyQuestionGroups);
+    const allQuestions = dailyQuestions;
 
     const correct = allQuestions.filter(q => {
       const userAns = answers[q.id];
-      return userAns?.trim().toLowerCase() === q.answer.trim().toLowerCase();
+      return userAns?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase();
     });
 
     const incorrect = allQuestions.filter(q => {
       const userAns = answers[q.id];
-      return userAns && userAns.trim().toLowerCase() !== q.answer.trim().toLowerCase();
+      return userAns && userAns.trim().toLowerCase() !== q.correctAnswer.trim().toLowerCase();
     });
 
     const unanswered = allQuestions.filter(q => !answers[q.id]);
@@ -89,6 +93,7 @@ export default function App() {
     const score = allQuestions.length > 0
       ? ((correct.length / allQuestions.length) * 100).toFixed(1)
       : "0.0";
+
 
     const promptText = `
 You are a veteran review professor specializing in Philippine college entrance examinations (UPCAT, ACET, DCAT, USTET).
@@ -115,16 +120,18 @@ ERRORS (with student answers):
 ${JSON.stringify(
       incorrect.map(q => ({
         id: q.id,
-        prompt: q.prompt,
+        prompt: q.question,
         studentAnswer: answers[q.id],
-        correctAnswer: q.answer,
+        correctAnswer: q.correctAnswer,
       })),
+
       null, 2
     )}
 
 ${unanswered.length > 0
         ? `UNANSWERED ITEMS:
-${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)}`
+${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 2)}`
+
         : ""}
 `.trim();
 
@@ -210,8 +217,9 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
     }
 
     if (examState === 'finished') {
-      const allQuestions = flattenQuestions(dailyQuestionGroups);
-      const totalScore = getScore(allQuestions);
+      const allQuestions = dailyQuestions;
+      const totalScore = allQuestions.filter(q => answers[q.id]?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()).length;
+
       return (
         <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
@@ -230,8 +238,9 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
                   const { correct, incorrect, unanswered, allQuestions } = getAIPromptData();
 
                   const questionsWithAnswers = allQuestions.map((q, i) =>
-                    `${i + 1}. ${q.prompt}\nStudent Answer: ${answers[q.id] || '(Unanswered)'}\nCorrect Answer: ${q.answer}\n`
+                    `${i + 1}. ${q.question}\nStudent Answer: ${answers[q.id] || '(Unanswered)'}\nCorrect Answer: ${q.correctAnswer}\n`
                   ).join('\n---\n');
+
 
                   const summary = {
                     total: allQuestions.length,
@@ -259,7 +268,8 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
               <button
                 onClick={() => {
                   const { promptText, correct, incorrect } = getAIPromptData();
-                  const compactData = `Correct:${correct.length},Incorrect:${incorrect.length},Mistakes:${JSON.stringify(incorrect.map(q => ({ id: q.id, u: answers[q.id], c: q.answer })))}`;
+                  const compactData = `Correct:${correct.length},Incorrect:${incorrect.length},Mistakes:${JSON.stringify(incorrect.map(q => ({ id: q.id, u: answers[q.id], c: q.correctAnswer })))}`;
+
                   const fullContent = `${promptText}\n\n[DATA: ${compactData}]`;
                   const aiLink = `https://claude.ai/new?q=${encodeURIComponent(fullContent).replace(/%20/g, '+')}`;
                   window.open(aiLink, "_blank");
@@ -313,18 +323,38 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.prompt })), null, 2)
                 timeLeft={timeLeft}
                 totalTime={currentSection.timeLimitSeconds}
                 sectionName={currentSection.name}
+                timerActive={timerActive}
               />
             </div>
-            <button
-              onClick={() => {
-                if (window.confirm("Abort current examination? This will lose all progress.")) {
-                  setExamState('start');
-                }
-              }}
-              className="text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
-            >
-              Abort Exam
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={toggleTimer}
+                className={`text-[10px] border border-black px-3 py-1.5 font-bold uppercase tracking-widest transition-all shrink-0 ${!timerActive ? 'bg-black text-white' : 'hover:bg-gray-100'}`}
+              >
+                {timerActive ? 'Pause' : 'Resume'}
+              </button>
+              <button
+                onClick={() => {
+                  if (window.confirm("Advance to next section? You cannot return to this section.")) {
+                    logEvent('MANUAL_SECTION_ADVANCE');
+                    nextSection();
+                  }
+                }}
+                className="text-[10px] border border-black px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all shrink-0"
+              >
+                Next Section
+              </button>
+              <button
+                onClick={() => {
+                  if (window.confirm("Abort current examination? This will lose all progress.")) {
+                    setExamState('start');
+                  }
+                }}
+                className="text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
+              >
+                Abort
+              </button>
+            </div>
           </div>
         </div>
 
