@@ -24,7 +24,35 @@ function shuffleWithSeed<T>(array: T[], seed: number): T[] {
   return shuffled;
 }
 
+export interface ExamConfig {
+  customTimeLimit: number | null; // in seconds
+  subjectLimits: Record<string, number | null>;
+}
+
 export function useExamEngine() {
+  const [config, setConfig] = useState<ExamConfig>(() => {
+    const saved = localStorage.getItem('curve_examConfig');
+    const defaultConfig: ExamConfig = { 
+      customTimeLimit: null, 
+      subjectLimits: {
+        'Language Proficiency': null,
+        'Science': null,
+        'Mathematics': null,
+        'Reading Comprehension': null
+      } 
+    };
+
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return { ...defaultConfig, ...parsed, subjectLimits: { ...defaultConfig.subjectLimits, ...(parsed.subjectLimits || {}) } };
+      } catch (e) {
+        console.error("Failed to parse config", e);
+      }
+    }
+    return defaultConfig;
+  });
+
   const [examState, setExamState] = useState<ExamState>(() => {
     const saved = localStorage.getItem('curve_examState');
     return (saved as ExamState) || 'start';
@@ -48,6 +76,8 @@ export function useExamEngine() {
     }
     const savedIndex = localStorage.getItem('curve_sectionIndex');
     const idx = savedIndex ? parseInt(savedIndex, 10) : 0;
+    
+    // We'll trust the saved end time if it exists, otherwise we'll initialize on start
     return sections[idx]?.timeLimitSeconds || 0;
   });
   const [timerActive, setTimerActive] = useState(() => examState === 'running');
@@ -74,7 +104,6 @@ export function useExamEngine() {
       ];
 
       // Priority 1: Explicitly defined groupId for SHARED CONTEXT (passage/figure)
-      // These should be shuffled as independent units.
       if (q.groupId && (q.passage || q.figure || q.contextTitle?.includes('Passage'))) {
         const key = q.groupId;
         if (!groups[key]) groups[key] = [];
@@ -91,7 +120,6 @@ export function useExamEngine() {
       }
 
       // Priority 3: Unified Grammar and Vocabulary block
-      // This keeps all completion and vocab together (including antonym blocks)
       if (unifiedSubtopics.includes(q.subtopic)) {
         const key = `unified-${q.subject}`;
         if (!groups[key]) groups[key] = [];
@@ -100,14 +128,40 @@ export function useExamEngine() {
       }
 
       // Priority 4: Default subtopic grouping
-      // If no groupId but has shared-style context (figure/passage), it must be an independent group
       const key = q.groupId || ((q.figure || q.passage) ? q.id : `sub-${q.subject}-${q.subtopic}`);
       if (!groups[key]) groups[key] = [];
       groups[key].push(q);
     });
+
     const shuffledGroups = shuffleWithSeed(Object.values(groups), dailySeed);
-    return shuffledGroups.flat();
-  }, [dailySeed]);
+    
+    // Apply per-subject limits
+    const subjectBuckets: Record<string, Question[]> = {};
+    shuffledGroups.forEach(group => {
+      const subj = group[0].subject;
+      if (!subjectBuckets[subj]) subjectBuckets[subj] = [];
+      
+      const limits = config.subjectLimits || {};
+      const limit = limits[subj];
+      if (limit === null || subjectBuckets[subj].length < limit) {
+        // If adding this group exceeds the limit, we might want to slice it, 
+        // but usually groups (like passages) should stay together.
+        // For now, let's just add the whole group if the limit isn't reached yet.
+        subjectBuckets[subj].push(...group);
+      }
+    });
+
+    // Final slice to be exact if needed
+    Object.keys(subjectBuckets).forEach(subj => {
+      const limits = config.subjectLimits || {};
+      const limit = limits[subj];
+      if (limit !== null && limit !== undefined && subjectBuckets[subj].length > limit) {
+        subjectBuckets[subj] = subjectBuckets[subj].slice(0, limit);
+      }
+    });
+
+    return Object.values(subjectBuckets).flat();
+  }, [dailySeed, config.subjectLimits]);
 
   const currentSection = sections[currentSectionIndex];
   const sectionQuestions = useMemo(() => {
@@ -156,12 +210,13 @@ export function useExamEngine() {
     localStorage.setItem('curve_examState', examState);
     localStorage.setItem('curve_sectionIndex', currentSectionIndex.toString());
     localStorage.setItem('curve_fatigueLevel', fatigueLevel.toString());
+    localStorage.setItem('curve_examConfig', JSON.stringify(config));
     if (endTime !== null) {
       localStorage.setItem('curve_endTime', endTime.toString());
     } else {
       localStorage.removeItem('curve_endTime');
     }
-  }, [examState, currentSectionIndex, fatigueLevel, endTime]);
+  }, [examState, currentSectionIndex, fatigueLevel, endTime, config]);
 
   const setTimeLeft = useCallback((value: number | ((prev: number) => number)) => {
     setTimeLeftState(prev => {
@@ -187,13 +242,17 @@ export function useExamEngine() {
     });
   }, [timeLeft]);
 
-  const startExam = () => {
+  const startExam = (newConfig?: ExamConfig) => {
+    if (newConfig) setConfig(newConfig);
+    const activeConfig = newConfig || config;
+
     localStorage.removeItem('curve_answers');
     localStorage.removeItem('curve_crossouts');
     localStorage.removeItem('curve_changes');
     setExamState('running');
     setCurrentSectionIndex(0);
-    const initialTime = sections[0].timeLimitSeconds;
+    
+    const initialTime = activeConfig.customTimeLimit || sections[0].timeLimitSeconds;
     setTimeLeftState(initialTime);
     setEndTime(Date.now() + initialTime * 1000);
     setTimerActive(true);
@@ -204,7 +263,7 @@ export function useExamEngine() {
     setCurrentSectionIndex(prev => {
       if (prev < sections.length - 1) {
         const nextIdx = prev + 1;
-        const nextTime = sections[nextIdx].timeLimitSeconds;
+        const nextTime = config.customTimeLimit || sections[nextIdx].timeLimitSeconds;
         setTimeLeftState(nextTime);
         setEndTime(Date.now() + nextTime * 1000);
         setTimerActive(true);
@@ -218,7 +277,7 @@ export function useExamEngine() {
         return prev;
       }
     });
-  }, []);
+  }, [config.customTimeLimit]);
 
   useEffect(() => {
     if (!timerActive || !endTime) {
@@ -251,7 +310,7 @@ export function useExamEngine() {
     currentSection,
     currentSectionIndex,
     currentSectionGroups,
-    dailyQuestions, // Export all for telemetry
+    dailyQuestions,
     sectionQuestions,
     timeLeft,
     timerActive,
@@ -262,7 +321,10 @@ export function useExamEngine() {
     setTimerActive,
     setTimeLeft,
     setExamState,
-    autoProgress
+    autoProgress,
+    config,
+    setConfig
   };
 }
+
 

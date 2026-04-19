@@ -6,9 +6,11 @@ import { useSheetEngine } from './engine/sheetEngine';
 import { useTelemetry } from './hooks/useTelemetry';
 import { PaperView } from './ui/PaperView';
 import { AnswerSheet } from './ui/AnswerSheet';
+import { LandingPage } from './ui/LandingPage';
 import { TimerBar } from './ui/TimerBar';
 
 import { DailyStudy } from './ui/DailyStudy';
+import { QuickReview } from './ui/QuickReview';
 
 export default function App() {
   const {
@@ -25,10 +27,12 @@ export default function App() {
     toggleTimer,
     setTimeLeft,
     setExamState,
-    currentSectionIndex
+    currentSectionIndex,
+    config,
+    setConfig
   } = useExamEngine();
 
-
+  const [localConfig, setLocalConfig] = useState(config);
 
   const { logEvent, clearTelemetry } = useTelemetry();
 
@@ -43,7 +47,7 @@ export default function App() {
   } = useSheetEngine();
 
   const [proctorPenalty, setProctorPenalty] = useState(false);
-  const [appMode, setAppMode] = useState<'exam' | 'study'>('exam');
+  const [appMode, setAppMode] = useState<'exam' | 'study' | 'quick-review'>('exam');
 
   // Whiter, more textured paper SVG filter
   const paperTexture = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`;
@@ -70,9 +74,9 @@ export default function App() {
 
   const handleStartExam = () => {
     clearTelemetry();
-    logEvent('EXAM_START');
+    logEvent('EXAM_START', { config: localConfig });
     clearAllAnswers();
-    startExam();
+    startExam(localConfig);
   };
 
   const getAIPromptData = () => {
@@ -159,35 +163,13 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
   const renderExamContent = () => {
     if (examState === 'start') {
       return (
-        <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
-          style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
-        >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white relative">
-            <h1 className="text-3xl font-bold uppercase tracking-widest mb-4">CET Simulator</h1>
-            <p className="text-sm mb-6 text-justify">
-              INSTRUCTIONS: This examination consists of multiple sections. You will be timed per section.
-              Do not turn the page until instructed to do so. Shade your answers completely on the provided answer sheet.
-              Any form of cheating, including leaving the exam tab, will result in immediate disqualification or time penalties.
-            </p>
-            <div className="mb-8 p-3 border border-dotted border-black text-[10px] uppercase tracking-tighter opacity-70">
-              Daily Exam Mode: Active. No customization permitted. Standard Rules Apply.
-            </div>
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={handleStartExam}
-                className="border border-black px-8 py-3 font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
-              >
-                Begin Full Simulation
-              </button>
-              <button
-                onClick={() => setAppMode('study')}
-                className="border border-black px-8 py-3 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
-              >
-                Enter Study Mode
-              </button>
-            </div>
-          </div>
-        </div>
+        <LandingPage
+          localConfig={localConfig}
+          setLocalConfig={setLocalConfig}
+          onStartExam={handleStartExam}
+          onStudyMode={() => setAppMode('study')}
+          onQuickReview={() => setAppMode('quick-review')}
+        />
       );
     }
 
@@ -410,6 +392,23 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
             }}
           >
             <DailyStudy onExit={() => setAppMode('exam')} />
+          </motion.div>
+        )}
+        {appMode === 'quick-review' && (
+          <motion.div
+            key="quick-review-mode"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ 
+              type: "spring", 
+              damping: 30, 
+              stiffness: 300, 
+              mass: 0.8 
+            }}
+            className="fixed inset-0 z-50 overflow-hidden bg-black"
+          >
+            <QuickReview onExit={() => setAppMode('exam')} />
           </motion.div>
         )}
       </AnimatePresence>
