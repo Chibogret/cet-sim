@@ -94,10 +94,8 @@ export default function App() {
 
     const unanswered = allQuestions.filter(q => !answers[q.id]);
 
-    const score = allQuestions.length > 0
-      ? ((correct.length / allQuestions.length) * 100).toFixed(1)
-      : "0.0";
-
+    const deduction = config.rightMinusWrong ? Math.floor(incorrect.length / 4) : 0;
+    const finalScore = correct.length - deduction;
 
     const promptText = `
 You are a veteran review professor specializing in Philippine college entrance examinations (UPCAT, ACET, DCAT, USTET).
@@ -115,7 +113,9 @@ Total Items   : ${allQuestions.length}
 Correct       : ${correct.length}
 Wrong         : ${incorrect.length}
 Unanswered    : ${unanswered.length}
-Raw Score     : ${score}%
+Deduction     : ${deduction} (RMW: ${config.rightMinusWrong ? 'Yes' : 'No'})
+Final Score   : ${finalScore}
+Raw Score     : ${((finalScore / allQuestions.length) * 100).toFixed(1)}%
 
 FULL QUESTION POOL:
 ${JSON.stringify(allQuestions, null, 2)}
@@ -139,7 +139,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
         : ""}
 `.trim();
 
-    return { promptText, correct, incorrect, unanswered, allQuestions, score };
+    return { promptText, correct, incorrect, unanswered, allQuestions, finalScore };
   };
 
   const handleAnswer = (questionId: string, answer: string) => {
@@ -147,7 +147,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
     if (currentAnswer === answer) return;
 
     if (currentAnswer && currentAnswer !== answer) {
-      if (crossouts[questionId] || changesRemaining <= 0) {
+      if (crossouts[questionId] || changesRemaining < 1) {
         return; // Unable to change
       }
 
@@ -200,19 +200,52 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
 
     if (examState === 'finished') {
       const allQuestions = dailyQuestions;
-      const totalScore = allQuestions.filter(q => answers[q.id]?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()).length;
+      const correctCount = allQuestions.filter(q => answers[q.id]?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()).length;
+      const wrongCount = allQuestions.filter(q => answers[q.id] && answers[q.id].trim().toLowerCase() !== q.correctAnswer.trim().toLowerCase()).length;
+      
+      const deduction = config.rightMinusWrong ? Math.floor(wrongCount / 4) : 0;
+      const finalScore = correctCount - deduction;
+
+      const subjectScores = allQuestions.reduce((acc, q) => {
+        if (!acc[q.subject]) acc[q.subject] = { correct: 0, total: 0 };
+        acc[q.subject].total++;
+        if (answers[q.id]?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()) {
+          acc[q.subject].correct++;
+        }
+        return acc;
+      }, {} as Record<string, { correct: number, total: number }>);
 
       return (
         <div className="h-screen bg-white flex items-center justify-center font-serif text-black p-4"
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
         >
-          <div className="max-w-md border-2 border-black p-8 text-center bg-white">
+          <div className="max-w-md w-full border-2 border-black p-8 text-center bg-white">
             <h2 className="text-2xl font-bold uppercase tracking-widest mb-4">Examination Concluded</h2>
-            <p className="text-sm mb-6">
-              Please submit your test booklets and answer sheets.
-            </p>
-            <div className="border-t border-b border-black py-4 mb-6">
-              <p className="text-lg font-bold">Raw Score: {totalScore} / {allQuestions.length}</p>
+            <p className="text-[10px] uppercase tracking-widest opacity-60 mb-8">Performance Summary Sheet</p>
+            
+            <div className="space-y-3 mb-8">
+              {Object.entries(subjectScores).map(([subject, score]) => (
+                <div key={subject} className="flex justify-between items-center border-b border-black/10 pb-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider text-left">{subject}</span>
+                  <span className="text-sm font-black tabular-nums">{score.correct} / {score.total}</span>
+                </div>
+              ))}
+              <div className="pt-3 border-t-2 border-black space-y-1">
+                <div className="flex justify-between items-center">
+                  <span className="text-[10px] font-bold uppercase tracking-wider opacity-60">Raw Correct</span>
+                  <span className="text-sm font-bold tabular-nums">{correctCount} / {allQuestions.length}</span>
+                </div>
+                {config.rightMinusWrong && (
+                  <div className="flex justify-between items-center text-red-700">
+                    <span className="text-[10px] font-bold uppercase tracking-wider">Wrong Deduction (1/4)</span>
+                    <span className="text-sm font-bold tabular-nums">-{deduction}</span>
+                  </div>
+                )}
+                <div className="flex justify-between items-center pt-1 border-t border-black/10">
+                  <span className="text-sm font-black uppercase tracking-[0.2em]">Final Adjusted Score</span>
+                  <span className="text-xl font-black tabular-nums">{finalScore}</span>
+                </div>
+              </div>
             </div>
             <div className="flex justify-center items-center gap-2">
               <button
@@ -228,7 +261,10 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
                     total: allQuestions.length,
                     correct: correct.length,
                     wrong: incorrect.length,
-                    unanswered: unanswered.length
+                    unanswered: unanswered.length,
+                    deduction,
+                    finalScore,
+                    rightMinusWrong: config.rightMinusWrong
                   };
 
                   const content = `EXAM RECAP\n==========\n\n${questionsWithAnswers}\n\nSUMMARY JSON:\n${JSON.stringify(summary, null, 2)}`;

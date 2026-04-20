@@ -23,34 +23,34 @@ export const AnswerSheet: React.FC<AnswerSheetProps> = ({ questions, answers, cr
       <div className="text-center border-b border-black pb-2 mb-4">
         <h3 className="font-bold uppercase tracking-widest text-sm">Answer Sheet</h3>
         <p className="text-[10px] italic">Shade circles completely. Mark with an X to change. Max {changesRemaining} changes remaining.</p>
-        <p className="text-[10px] italic font-bold">Only 1 change allowed per question.</p>
       </div>
-      
+
       <div className="flex-1 space-y-3 md:space-y-2 max-w-xs mx-auto w-full pb-20">
         {questions.map((q, index) => (
           <div key={q.id} className="flex items-center gap-4 md:gap-3 justify-center md:justify-start">
             <span className="w-6 text-right font-bold text-sm md:text-xs">{index + 1}.</span>
             <div className="flex gap-3 md:gap-1">
-              {['A', 'B', 'C', 'D'].map(letter => {
-                const isSelected = answers[q.id] === letter;
-                const isCrossedOut = crossouts[q.id] === letter;
-                const disableBtn = Boolean(answers[q.id] && answers[q.id] !== letter && (crossouts[q.id] || changesRemaining <= 0));
-                
+              {q.options.map((option, optIdx) => {
+                const letter = String.fromCharCode(65 + optIdx);
+                const isSelected = answers[q.id] === option;
+                const isCrossedOut = crossouts[q.id] === option;
+                const disableBtn = Boolean(answers[q.id] && answers[q.id] !== option && (changesRemaining < 1));
+
                 return (
                   <button
                     key={letter}
                     onClick={() => {
-                        if (!disableBtn) onAnswer(q.id, letter);
+                      if (!disableBtn) onAnswer(q.id, option);
                     }}
                     disabled={disableBtn}
                     className={`w-8 h-8 md:w-5 md:h-5 rounded-full border border-black flex items-center justify-center text-xs md:text-[10px] transition-colors relative ${(isSelected || isCrossedOut) ? 'bg-black text-white' : 'bg-transparent text-black'} ${disableBtn ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'}`}
                   >
                     {!(isSelected || isCrossedOut) && letter}
                     {isCrossedOut && (
-                        <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] pointer-events-none" viewBox="0 0 100 100">
-                            <line x1="15" y1="15" x2="85" y2="85" stroke="black" strokeWidth="6" strokeLinecap="round" />
-                            <line x1="85" y1="15" x2="15" y2="85" stroke="black" strokeWidth="6" strokeLinecap="round" />
-                        </svg>
+                      <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] pointer-events-none" viewBox="0 0 100 100">
+                        <line x1="15" y1="15" x2="85" y2="85" stroke="white" strokeWidth="10" strokeLinecap="round" />
+                        <line x1="85" y1="15" x2="15" y2="85" stroke="white" strokeWidth="10" strokeLinecap="round" />
+                      </svg>
                     )}
                   </button>
                 );

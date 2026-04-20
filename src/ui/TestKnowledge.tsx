@@ -108,6 +108,8 @@ export const TestKnowledge: React.FC = () => {
     }, [currentQuestion, questions]);
 
 
+    const [subjectScores, setSubjectScores] = useState<Record<string, { correct: number, total: number }>>({});
+
     const handleOptionSelect = (option: string) => {
         if (isAnswered) return;
         setSelectedOption(option);
@@ -117,9 +119,19 @@ export const TestKnowledge: React.FC = () => {
         if (!selectedOption || isAnswered) return;
 
         setIsAnswered(true);
-        if (selectedOption === currentQuestion.correctAnswer) {
+        const isCorrect = selectedOption === currentQuestion.correctAnswer;
+        
+        if (isCorrect) {
             setScore(prev => prev + 1);
         }
+
+        setSubjectScores(prev => ({
+            ...prev,
+            [currentQuestion.subject]: {
+                correct: (prev[currentQuestion.subject]?.correct || 0) + (isCorrect ? 1 : 0),
+                total: (prev[currentQuestion.subject]?.total || 0) + 1
+            }
+        }));
     };
 
     const handleNext = () => {
@@ -146,6 +158,7 @@ export const TestKnowledge: React.FC = () => {
         setSelectedOption(null);
         setIsAnswered(false);
         setScore(0);
+        setSubjectScores({});
         setIsFinished(false);
     };
 
@@ -159,28 +172,42 @@ export const TestKnowledge: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-lg w-full bg-white rounded-2xl p-8 shadow-xl border border-slate-100 flex flex-col items-center text-center gap-6"
             >
-                <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-500 mb-2">
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-slate-900 mb-2">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
                 <div>
                     <h2 className="text-3xl font-black text-slate-900 tracking-tight">Test Complete!</h2>
-                    <p className="text-slate-500 mt-2">You've answered all available questions.</p>
+                    <p className="text-slate-500 mt-2">Here is your performance breakdown.</p>
                 </div>
 
-                <div className="w-full flex flex-col gap-2 bg-slate-50 rounded-xl p-6 border border-slate-100">
-                    <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Your Score</span>
-                    <div className="flex items-baseline justify-center gap-1">
-                        <span className="text-5xl font-black text-slate-900">{score}</span>
-                        <span className="text-xl text-slate-300">/ {questions.length}</span>
+                <div className="w-full flex flex-col gap-4">
+                    <div className="grid grid-cols-1 gap-2">
+                        {Object.entries(subjectScores).map(([subject, stats]) => (
+                            <div key={subject} className="flex justify-between items-center bg-slate-50 px-4 py-3 rounded-xl border border-slate-100">
+                                <div className="flex flex-col items-start">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">{subject}</span>
+                                    <span className="text-xs font-bold text-slate-700">Section Score</span>
+                                </div>
+                                <span className="text-sm font-black text-slate-900">{stats.correct} / {stats.total}</span>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div className="w-full flex flex-col gap-2 bg-slate-900 rounded-xl p-6 shadow-lg shadow-slate-200">
+                        <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Total Raw Score</span>
+                        <div className="flex items-baseline justify-center gap-1">
+                            <span className="text-5xl font-black text-white">{score}</span>
+                            <span className="text-xl text-slate-500">/ {questions.length}</span>
+                        </div>
                     </div>
                 </div>
 
                 <div className="w-full flex flex-col gap-3">
                     <button
                         onClick={handleReset}
-                        className="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-slate-100 text-slate-900 font-bold rounded-xl hover:bg-slate-200 transition-all flex items-center justify-center gap-2"
                     >
                         Retake Test
                     </button>

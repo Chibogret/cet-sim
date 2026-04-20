@@ -55,17 +55,15 @@ export function useSheetEngine() {
   const getAnswer = (questionId: string) => answersRef.current[questionId];
 
   const setAnswer = (questionId: string, answer: string) => {
-    setAnswers(prev => {
-      const currentAnswer = prev[questionId];
-      if (currentAnswer && currentAnswer !== answer) {
-        setCrossouts(c => ({ ...c, [questionId]: currentAnswer }));
-        setChangesRemaining(cr => cr - 1);
-      }
-      return {
-        ...prev,
-        [questionId]: answer
-      };
-    });
+    const currentAnswer = answers[questionId];
+    if (currentAnswer && currentAnswer !== answer) {
+      setCrossouts(c => ({ ...c, [questionId]: currentAnswer }));
+      setChangesRemaining(cr => Math.max(0, cr - 1));
+    }
+    setAnswers(prev => ({
+      ...prev,
+      [questionId]: answer
+    }));
   };
 
   const clearAllAnswers = () => {

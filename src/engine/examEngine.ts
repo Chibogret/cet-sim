@@ -27,6 +27,7 @@ function shuffleWithSeed<T>(array: T[], seed: number): T[] {
 export interface ExamConfig {
   customTimeLimit: number | null; // in seconds
   subjectLimits: Record<string, number | null>;
+  rightMinusWrong: boolean;
 }
 
 export function useExamEngine() {
@@ -39,7 +40,8 @@ export function useExamEngine() {
         'Science': null,
         'Mathematics': null,
         'Reading Comprehension': null
-      } 
+      },
+      rightMinusWrong: false
     };
 
     if (saved) {

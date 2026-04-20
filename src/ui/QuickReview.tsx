@@ -243,11 +243,22 @@ export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
                 className="text-center"
               >
                 <h2 className="text-3xl font-bold uppercase tracking-widest mb-4">Review Complete</h2>
-                <div className="border-y-2 border-black py-8 mb-8">
-                  <div className="text-6xl font-bold mb-2">
-                    {questions.filter(q => answers[q.id] === q.correctAnswer).length} / {questions.length}
+                <div className="space-y-4 mb-8">
+                  {['Language Proficiency', 'Science', 'Mathematics', 'Reading Comprehension'].map(subject => {
+                    const subjectQs = questions.filter(q => q.subject === subject);
+                    if (subjectQs.length === 0) return null;
+                    const subjectScore = subjectQs.filter(q => answers[q.id] === q.correctAnswer).length;
+                    return (
+                      <div key={subject} className="flex justify-between items-center border-b border-black/10 pb-2">
+                        <span className="text-xs font-bold uppercase tracking-wider">{subject}</span>
+                        <span className="text-sm font-black">{subjectScore} / {subjectQs.length}</span>
+                      </div>
+                    );
+                  })}
+                  <div className="flex justify-between items-center pt-4 border-t-2 border-black">
+                    <span className="text-sm font-black uppercase tracking-[0.2em]">Total Score</span>
+                    <span className="text-xl font-black">{questions.filter(q => answers[q.id] === q.correctAnswer).length} / {questions.length}</span>
                   </div>
-                  <div className="text-xs uppercase tracking-widest opacity-70">Total Score</div>
                 </div>
                 
                 <div className="flex flex-col gap-4 max-w-sm mx-auto">
