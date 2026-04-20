@@ -6,10 +6,12 @@ import { renderTextWithFormatting, deservesFigureBelow, MediaRenderer, getInstru
 interface PaperViewProps {
   groups: Question[][];
   fatigueLevel: number;
+  answers: Record<string, string>;
+  quickFeedback?: boolean;
 }
 
 
-export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) => {
+export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, answers, quickFeedback }) => {
   // Cognitive Load: increase density
   const letterSpacing = fatigueLevel > 1 ? '-0.02em' : 'normal';
   const lineHeight = fatigueLevel > 2 ? '1.1' : '1.3';
@@ -42,11 +44,7 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
           return (
             <div key={groupIdx} className={firstQ.subject === 'Science' ? 'mb-8' : 'mb-12'}>
               {/* Reference indicator if grouped */}
-              {firstQ.groupId && firstQ.subject !== 'Science' && (
-                <div className="mb-4 text-[10px] font-bold uppercase tracking-widest border-b border-black/20 pb-1">
-                  Reference: {firstQ.contextTitle || 'Context'}
-                </div>
-              )}
+
 
               {/* Render Shared Media */}
               {isGroupFigureRef ? (
@@ -85,9 +83,10 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
               {group.map((q, qIdx) => {
                 const currentNumber = globalQuestionNumber++;
                 const isErrorId = q.variant === 'error-identification';
+                const hasAnswered = !!answers[q.id];
 
                 return (
-                  <div key={q.id} id={`q-${q.id}`} className={`${q.subject === 'Science' ? 'mb-6' : 'mb-8'} break-inside-avoid`}>
+                  <div key={q.id} id={`q-${q.id}`} className={`${q.subject === 'Science' ? 'mb-6' : 'mb-8'} break-inside-avoid relative`}>
                     {(() => {
                       const isErrorId = q.variant === 'error-identification';
                       const isTagalogErr = q.subtopic === 'Pagkilala ng Mali';
@@ -129,10 +128,18 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
                           'Pang-abay', 'Pang-ukol', 'Pangatnig', 'Pandamdam', 'Pantukoy'
                         ];
 
-                        let instruction = '';
+                        let instruction = q.instruction || '';
                         let typeHeader = q.subtopic;
 
-                        if (q.groupId?.startsWith('PARA-')) {
+                        if (q.instruction) {
+                          if (q.groupId?.startsWith('PARA-')) {
+                            typeHeader = isFilipino ? 'Pag-aayos ng Talata' : 'Paragraph Arrangement';
+                          } else if (q.groupId?.includes('synonym') || q.subtopic === 'Use of Context Clues' || q.subtopic === 'Talasalitaan') {
+                            typeHeader = isFilipino ? 'Talasalitaan' : 'Vocabulary';
+                          } else if (q.groupId?.includes('antonym')) {
+                            typeHeader = isFilipino ? 'Talasalitaan' : 'Vocabulary';
+                          }
+                        } else if (q.groupId?.startsWith('PARA-')) {
                           typeHeader = isFilipino ? 'Pag-aayos ng Talata' : 'Paragraph Arrangement';
                           instruction = isFilipino
                             ? 'Ayusin ang mga sumusunod na pangungusap upang makabuo ng isang lohikal na talata.'
@@ -222,6 +229,16 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
                         </div>
                       );
                     })()}
+
+                    {/* Quick Feedback Explanation */}
+                    {quickFeedback && hasAnswered && q.explanation && (
+                      <div className="mt-4 ml-6 p-4 border-l-2 border-black bg-black/5 text-xs animate-in fade-in slide-in-from-left-2 duration-300">
+                        <div className="font-bold uppercase tracking-widest text-[9px] mb-1 opacity-60">Explanation</div>
+                        <div className="leading-relaxed">
+                          {renderTextWithFormatting(q.explanation)}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -235,4 +252,5 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel }) =>
     </div>
   );
 };
+
 

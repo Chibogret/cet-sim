@@ -28,6 +28,7 @@ export interface ExamConfig {
   customTimeLimit: number | null; // in seconds
   subjectLimits: Record<string, number | null>;
   rightMinusWrong: boolean;
+  quickFeedback: boolean;
 }
 
 export function useExamEngine() {
@@ -41,7 +42,8 @@ export function useExamEngine() {
         'Mathematics': null,
         'Reading Comprehension': null
       },
-      rightMinusWrong: false
+      rightMinusWrong: false,
+      quickFeedback: false
     };
 
     if (saved) {

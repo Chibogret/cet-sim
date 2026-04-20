@@ -147,19 +147,33 @@ export const scienceQuestions: Question[] = [
         correctAnswer: 'A. $1.20\\times10^{24}$',
         explanation: 'First, calculate the moles of $NH_3$: $34\\text{ g} / 17\\text{ g/mol} = 2\\text{ moles}$. Since there is one nitrogen atom per molecule of $NH_3$, there are 2 moles of nitrogen atoms. Multiply by Avogadro\'s number ($2 \\times 6.022 \\times 10^{23}$) to get $1.20 \\times 10^{24}$ atoms.'
     },
+    // {
+    //     id: 'SC-605-11',
+    //     subject: 'Science',
+    //     subtopic: 'Molecular Composition',
+    //     question: 'Calculate the mole fraction of Carbon in a certain compound if it is composed of 41.92% carbon, 3.58% hydrogen, and 54.50% oxygen by mass. Use $C=12~g/mol$, $H=1~g/mol$, $O=16~g/mol$.',
+    //     options: [
+    //         'A. 3.33',
+    //         'B. 0.033',
+    //         'C. 33.3',
+    //         'D. .033'
+    //     ],
+    //     correctAnswer: 'C. 33.3',
+    //     explanation: 'Assuming a 100g sample, convert masses to moles: $41.92\\text{g C} \\div 12\\text{ g/mol} = 3.49\\text{ mol C}$; $3.58\\text{g H} \\div 1\\text{ g/mol} = 3.58\\text{ mol H}$; $54.50\\text{g O} \\div 16\\text{ g/mol} = 3.41\\text{ mol O}$. The total moles equal $10.48\\text{ mol}$. The mole fraction of Carbon is $3.49 \\div 10.48 = 0.333$. (Note: Option C represents this fraction as a percentage, 33.3%).'
+    // }, Corrected April 21, 2026 (Question had 0.333 as an option and was marked as correct, which is technically not correct since the option was 33.3)
     {
-        id: 'SC-605-11',
-        subject: 'Science',
-        subtopic: 'Molecular Composition',
-        question: 'Calculate the mole fraction of Carbon in a certain compound if it is composed of 41.92% carbon, 3.58% hydrogen, and 54.50% oxygen by mass. Use $C=12~g/mol$, $H=1~g/mol$, $O=16~g/mol$.',
+        id: "SC-605-11",
+        subject: "Science",
+        subtopic: "Molecular Composition",
+        question: "Calculate the mole fraction of Carbon in a certain compound if it is composed of 41.92% carbon, 3.58% hydrogen, and 54.50% oxygen by mass. Use $C=12~g/mol$, $H=1~g/mol$, $O=16~g/mol$.",
         options: [
-            'A. 3.33',
-            'B. 0.033',
-            'C. 33.3',
-            'D. .033'
+            "A. 3.33",
+            "B. 0.033",
+            "C. 33.3",
+            "D. .033"
         ],
-        correctAnswer: 'C. 33.3',
-        explanation: 'Assuming a 100g sample, convert masses to moles: $41.92\\text{g C} \\div 12\\text{ g/mol} = 3.49\\text{ mol C}$; $3.58\\text{g H} \\div 1\\text{ g/mol} = 3.58\\text{ mol H}$; $54.50\\text{g O} \\div 16\\text{ g/mol} = 3.41\\text{ mol O}$. The total moles equal $10.48\\text{ mol}$. The mole fraction of Carbon is $3.49 \\div 10.48 = 0.333$. (Note: Option C represents this fraction as a percentage, 33.3%).'
+        correctAnswer: "0.333",
+        explanation: "Assuming a 100g sample, convert masses to moles: $n_C = 41.92\\text{g} / 12\\text{ g/mol} = 3.493\\text{ mol}$; $n_H = 3.58\\text{g} / 1\\text{ g/mol} = 3.58\\text{ mol}$; $n_O = 54.50\\text{g} / 16\\text{ g/mol} = 3.406\\text{ mol}$. Total moles $n_{total} = 3.493 + 3.58 + 3.406 = 10.479\\text{ mol}$. The mole fraction of Carbon ($x_C$) is $n_C / n_{total} = 3.493 / 10.479 = 0.333$."
     },
     {
         id: 'SC-605-12',

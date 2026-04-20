@@ -43,7 +43,14 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedWord, setSelectedWord] = useState<VocabWord | null>(null);
     const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
-    const [viewMode, setViewMode] = useState<ViewMode>('daily');
+    const [viewMode, setViewMode] = useState<ViewMode>(() => {
+        return (localStorage.getItem('curve_study_viewMode') as ViewMode) || 'daily';
+    });
+
+    useEffect(() => {
+        localStorage.setItem('curve_study_viewMode', viewMode);
+    }, [viewMode]);
+
     const [flashcardIndex, setFlashcardIndex] = useState(0);
     const [heroIndex, setHeroIndex] = useState(0);
 

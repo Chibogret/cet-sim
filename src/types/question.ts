@@ -3,7 +3,8 @@ export type SubjectType = 'Language Proficiency' | 'Science' | 'Mathematics' | '
 export interface ReadingPassage {
     groupId: string;
     contextTitle: string;
-    passage: string;
+    passage?: string;
+    instruction?: string;
 }
 
 export interface Question {
@@ -16,6 +17,7 @@ export interface Question {
     groupId?: string; // To group questions that share the same context
     passageType?: 'prose' | 'poetry'; // Rendering style for the passage
     variant?: 'standard' | 'error-identification'; // To handle specific formatting (e.g., underline identification)
+    instruction?: string;
     question: string;
 
     options: string[];

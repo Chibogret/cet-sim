@@ -147,6 +147,19 @@ export const getInstruction = (q: Question) => {
       'Pangngalan', 'Panghalip', 'Pandiwa', 'Pang-uri', 'Pang-abay', 'Pang-ukol', 'Pangatnig',
       'Pandamdam', 'Pantukoy'].includes(q.subtopic);
 
+  // If explicit instruction exists (hydrated or defined), use it
+  if (q.instruction) {
+    let typeHeader = q.subtopic;
+    if (q.groupId?.startsWith('PARA-')) {
+      typeHeader = isFilipino ? 'Pag-aayos ng Talata' : 'Paragraph Arrangement';
+    } else if (q.groupId?.includes('synonym') || q.subtopic === 'Use of Context Clues' || q.subtopic === 'Talasalitaan') {
+      typeHeader = isFilipino ? 'Talasalitaan' : 'Vocabulary';
+    } else if (q.groupId?.includes('antonym')) {
+      typeHeader = isFilipino ? 'Talasalitaan' : 'Vocabulary';
+    }
+    return { typeHeader, instruction: q.instruction, isFilipino };
+  }
+
   const isErrorId = q.variant === 'error-identification';
   const isTagalogErr = q.subtopic === 'Pagkilala ng Mali';
 

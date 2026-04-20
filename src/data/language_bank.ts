@@ -1,10 +1,34 @@
-import { Question } from '../types/question';
+import { Question, ReadingPassage } from '../types/question';
+
+export const languageGroups: ReadingPassage[] = [
+    {
+        groupId: "lp-synonym-eng",
+        contextTitle: "Synonyms (English)",
+        instruction: "Identify the synonym of the underlined word:"
+    },
+    {
+        groupId: "lp-antonym-eng",
+        contextTitle: "Antonyms (English)",
+        instruction: "Identify the antonym of the underlined word:"
+    },
+    {
+        groupId: "lp-synonym-fil",
+        contextTitle: "Talasalitaan",
+        instruction: "Piliin ang kasingkahulugan ng salitang nakapahilig:"
+    },
+    {
+        groupId: "lp-antonym-fil",
+        contextTitle: "Kasalungat",
+        instruction: "Piliin ang kasalungat ng salitang nakapahilig:"
+    }
+];
 
 export const languageQuestions: Question[] = [
     {
         "id": "LP-107-1",
         "subject": "Language Proficiency",
         "subtopic": "Use of Context Clues",
+        "groupId": "lp-synonym-eng",
         "question": "The party was a success because of the kids' _jauntiness_.",
         "options": ["zestfulness", "cleverness", "obedience", "preciousness"],
         "correctAnswer": "zestfulness",
@@ -14,6 +38,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-107-2",
         "subject": "Language Proficiency",
         "subtopic": "Use of Context Clues",
+        "groupId": "lp-synonym-eng",
         "question": "You have no idea how _exorbitant_ this dress is.",
         "options": ["cheap", "expensive", "nostalgic", "close-fitting"],
         "correctAnswer": "expensive",
@@ -23,6 +48,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-107-3",
         "subject": "Language Proficiency",
         "subtopic": "Use of Context Clues",
+        "groupId": "lp-synonym-eng",
         "question": "We had fun today _tingeing_ our shirts for a class activity.",
         "options": ["dyeing", "customizing", "knitting", "scuffing"],
         "correctAnswer": "dyeing",
@@ -32,6 +58,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-107-4",
         "subject": "Language Proficiency",
         "subtopic": "Use of Context Clues",
+        "groupId": "lp-synonym-eng",
         "question": "How come you got so _grubby_ simply by sitting on the swing?",
         "options": ["unhappy", "grimy", "emotional", "adorable"],
         "correctAnswer": "grimy",
@@ -274,7 +301,7 @@ export const languageQuestions: Question[] = [
         "subject": "Language Proficiency",
         "subtopic": "Use of Context Clues",
         "question": "heart : cardiologist ; throat : ________",
-        "options": ["endocrinologist", "orthopedist", "otolaryngologist", "podiatrists"],
+        "options": ["endocrinologist", "orthopedist", "otolaryngologist", "podiatrist"],
         "correctAnswer": "otolaryngologist",
         "explanation": "A cardiologist is a doctor for the heart; an otolaryngologist is a doctor for the ear, nose, and throat."
     },
@@ -337,9 +364,14 @@ export const languageQuestions: Question[] = [
         "subject": "Language Proficiency",
         "subtopic": "Nouns",
         "question": "Many mental health experts have _given advices on how to cope up with the COVID-19 pandemic._",
-        "options": ["given pieces of advice on how to cope up with the COVID-19 pandemic.", "given pieces of advice on how to cope with the COVID-19 pandemic.", "given advises on how to cope up with the COVID-19 pandemic.", "given advices on how to cope up with the COVID-19 pandemic."],
+        "options": [
+            "given pieces of advice on how to cope up with the COVID-19 pandemic.",
+            "given pieces of advice on how to cope with the COVID-19 pandemic.",
+            "given advises on how to cope up with the COVID-19 pandemic.",
+            "given advice on how to cope up with the COVID-19 pandemic."
+        ],
         "correctAnswer": "given pieces of advice on how to cope with the COVID-19 pandemic.",
-        "explanation": "'Advice' is an uncountable noun and cannot be pluralized as 'advices'. Furthermore, 'cope up with' is a redundancy; the correct idiom is 'cope with'."
+        "explanation": "'Advice' is an uncountable noun and cannot be pluralized as 'advices'. Furthermore, 'cope up with' is a common redundancy error in the Philippines; the correct idiom is 'cope with'."
     },
     {
         "id": "LP-101-35",
@@ -354,6 +386,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-36",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Mahirap pakisamahan ang isang _balik-harap_ na kaibigan.",
         "options": ["pabalik-balik", "makulit", "traydor", "demonyo"],
         "correctAnswer": "traydor",
@@ -363,6 +396,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-37",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Mainam nga bang magkaroon ng isang anak na _hawak sa ilong_?",
         "options": ["sunud-sunuran", "madaling matuto", "mabango", "matangos"],
         "correctAnswer": "sunud-sunuran",
@@ -372,6 +406,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-38",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Sadyang mabilis lumipad ang iba't ibang _alimuom_ sa kalsada.",
         "options": ["langaw", "agiw", "tsismis", "malamig na hangin"],
         "correctAnswer": "tsismis",
@@ -381,6 +416,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-39",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Nararapat lamang na lalo pang suportahan ng gobyerno ang mga kapisanan ng mga _anak-pawis_ na matiyagang nagtatrabaho sa bukid.",
         "options": ["trabahador", "magsasaka", "batang walang pamilya", "batang hindi makapag-aral"],
         "correctAnswer": "magsasaka",
@@ -390,6 +426,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-40",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Hindi makatiis si Corrine sa kanyang kasama sa dormitoryo na tila ba'y _amoy tsiko_ sa tuwing uuwi galing sa inuman ng barkada.",
         "options": ["taong mabaho", "taong matakaw sa tsiko", "taong amoy tsiko", "taong lasing"],
         "correctAnswer": "taong lasing",
@@ -399,6 +436,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-41",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Si Gian ay _naniningalang pugad_ sa bahay nila Venia.",
         "options": ["umaakyat sa likod bahay", "bumibisita", "umaakyat ng ligaw", "nag-aalok ng kasal"],
         "correctAnswer": "umaakyat ng ligaw",
@@ -438,6 +476,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-44",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "_Dayukdok_ na si Jeriko bago pa lang ang oras ng hapunan.",
         "options": ["Busog na busog", "Gutom na gutom", "Uhaw na uhaw", "Ginaw na ginaw"],
         "correctAnswer": "Gutom na gutom",
@@ -447,6 +486,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-45",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Masyadong _mapanudyo_ ang ginagawa ni Paolo kay Jopay upang siya'y maakit sa kanya.",
         "options": ["mahalay", "hindi malalim", "hindi mapanukso", "hindi malagkit"],
         "correctAnswer": "mahalay",
@@ -456,6 +496,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-46",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "Upang maging mabilis ang lahat, tigilan mo ang _pagpapalikaw-likaw_.",
         "options": ["pagsasabi ng tapat", "pagsasabi ng diretsuhan", "paglilihim", "pagpapaligoy-ligoy"],
         "correctAnswer": "pagpapaligoy-ligoy",
@@ -465,8 +506,9 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-47",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-synonym-fil",
         "question": "_Lihis_ sa impormasyong hawak ni Joshua, mali ang kinalabasan ng mga datos.",
-        "options": ["Sang-ayon", "Taliwas", "Salungat", "Umaayon"],
+        "options": ["Sang-ayon", "Taliwas", "Malinaw", "Umaayon"],
         "correctAnswer": "Taliwas",
         "explanation": "'Lihis' means deviated or contrary to. 'Taliwas' is a synonym meaning opposite or contrary."
     },
@@ -474,6 +516,7 @@ export const languageQuestions: Question[] = [
         "id": "LP-207-48",
         "subject": "Language Proficiency",
         "subtopic": "Talasalitaan",
+        "groupId": "lp-antonym-fil",
         "question": "Subukan mo ngang _sipatin_ sa bintana ang mga kaganapan sa labas.",
         "options": ["huwag silipin", "huwag mangialam", "mangialam", "ituro"],
         "correctAnswer": "huwag silipin",
@@ -612,8 +655,8 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-61",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
-        "question": "________ ko na ang mga papeles na kakailanganin bukas sa ating pagpulong.",
+        "subtopic": "Pandiwa",
+        "question": "________ ko na ngayon ang mga papeles na kakailanganin bukas sa ating pagpupulong.",
         "options": ["Inayusan", "Inaayusan", "Inaayos", "Inayos"],
         "correctAnswer": "Inaayos",
         "explanation": "The context implies an ongoing action (preparing the papers for tomorrow), requiring the present progressive aspect 'Inaayos'."
@@ -621,7 +664,7 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-62",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Pandiwa",
         "question": "Ang pagtaas ng bilang ng mga positibo ay tila patuloy na ________.",
         "options": ["tumataas", "nagtataasan", "tataas", "tumaas"],
         "correctAnswer": "tumataas",
@@ -630,17 +673,17 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-63",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Pandiwa",
         "question": "________ niya lamang sa isang aksidente.",
         "options": ["Kagaling-galing", "Kakagaling", "Kagagaling", "Gumagaling"],
-        "correctAnswer": "Kakagaling",
-        "explanation": "'Kakagaling' indicates a recently completed action (just came from), which fits the context of an accident."
+        "correctAnswer": "Kagagaling",
+        "explanation": "Sa pormal na gramatika, ang aspetong katatapos ay nabubuo sa pamamagitan ng pag-uulit ng unang pantig ng salitang-ugat. Ang ugat ay 'galing,' kaya ito ay magiging 'ka-ga-galing'."
     },
     {
         "id": "LP-201-64",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
-        "question": "Ang simbahang nasa harap natin ngayon, ang ________ ng kanilang kasal.",
+        "subtopic": "Pandiwa",
+        "question": "Ang simbahang nasa harap natin ngayon ang ________ ng kanilang kasal.",
         "options": ["dadausan", "dausan", "piinagdadausan", "pinagdausan"],
         "correctAnswer": "pinagdausan",
         "explanation": "The wedding already happened in the past at that location, so the completed aspect 'pinagdausan' is used."
@@ -648,7 +691,7 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-65",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Pandiwa",
         "question": "Bago ang lahat, ________ ito sa akin para sa iyo.",
         "options": ["binilin", "ibiinilin", "ibibilin", "pinagbilan"],
         "correctAnswer": "ibibilin",
@@ -657,7 +700,7 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-66",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Pang-abay",
         "question": "Hindi mo maaaring hayaan lamang iyon nang ________.",
         "options": ["basta-basta", "basta basta", "bastabasta", "babasta basta"],
         "correctAnswer": "basta-basta",
@@ -666,7 +709,7 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-67",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Pangngalan",
         "question": "Ang bawat ________ ni Mabini ay mananatili sa ating mga utak at puso.",
         "options": ["alaala", "ala-ala", "alalahanin", "inaalala"],
         "correctAnswer": "alaala",
@@ -675,7 +718,7 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-68",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Pantukoy",
         "question": "________ Althea at Misty ay mayroong balak na umakyat ng Pasig.",
         "options": ["Si", "Sina", "Sila", "Kila"],
         "correctAnswer": "Sina",
@@ -684,7 +727,7 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-69",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Pandiwa",
         "question": "________ nang tapusin ang pagsasagot ng mga tanong na ito.",
         "options": ["Kata", "Kakata", "Arat", "Taralets"],
         "correctAnswer": "Arat",
@@ -693,7 +736,7 @@ export const languageQuestions: Question[] = [
     {
         "id": "LP-201-70",
         "subject": "Language Proficiency",
-        "subtopic": "Bahagi ng Pananalita",
+        "subtopic": "Panghalip",
         "question": "Bigyan ________ ng tulong ang lahat ng mga kapus-palad.",
         "options": ["niyo", "nyo", "ninyo", "inyo"],
         "correctAnswer": "ninyo",

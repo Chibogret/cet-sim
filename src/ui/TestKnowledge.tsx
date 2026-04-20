@@ -256,17 +256,23 @@ export const TestKnowledge: React.FC = () => {
                 className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 flex flex-col gap-6"
             >
                 <div>
-                    {currentQuestion.variant === 'error-identification' && (
+                    {(currentQuestion.instruction || currentQuestion.variant === 'error-identification') && (
                         <div className="mb-6 p-4 bg-slate-50 rounded-xl border-l-4 border-slate-900 italic font-medium text-xs md:text-sm text-slate-600 leading-relaxed shadow-inner">
                             <span className="font-bold not-italic block mb-1 uppercase tracking-widest text-[10px] text-slate-400">
                                 {currentQuestion.subtopic === 'Pagkilala ng Mali' ? 'Panuto' : 'Instructions'}
                             </span>
-                            {currentQuestion.subtopic === 'Pagkilala ng Mali' 
-                                ? 'Piliin ang salita o parirala na nagpapamali sa pangungusap. Kung ang pangungusap ay tama, piliin ang ' 
-                                : 'Choose the word or phrase that makes the sentence grammatically incorrect. If the sentence is correct, choose '}
-                            <strong className="text-slate-900 font-bold">
-                                {currentQuestion.subtopic === 'Pagkilala ng Mali' ? 'WALANG MALI' : 'NO ERROR'}
-                            </strong>.
+                            {currentQuestion.instruction ? (
+                                <FormattedText text={currentQuestion.instruction} />
+                            ) : (
+                                <>
+                                    {currentQuestion.subtopic === 'Pagkilala ng Mali' 
+                                        ? 'Piliin ang salita o parirala na nagpapamali sa pangungusap. Kung ang pangungusap ay tama, piliin ang ' 
+                                        : 'Choose the word or phrase that makes the sentence grammatically incorrect. If the sentence is correct, choose '}
+                                    <strong className="text-slate-900 font-bold">
+                                        {currentQuestion.subtopic === 'Pagkilala ng Mali' ? 'WALANG MALI' : 'NO ERROR'}
+                                    </strong>.
+                                </>
+                            )}
                         </div>
                     )}
 

@@ -32,7 +32,8 @@ export default function App() {
     setConfig
   } = useExamEngine();
 
-  const [localConfig, setLocalConfig] = useState(config);
+  // Removed localConfig: using engine config directly for persistence
+
 
   const { logEvent, clearTelemetry } = useTelemetry();
 
@@ -47,7 +48,14 @@ export default function App() {
   } = useSheetEngine();
 
   const [proctorPenalty, setProctorPenalty] = useState(false);
-  const [appMode, setAppMode] = useState<'exam' | 'study' | 'quick-review'>('exam');
+  const [appMode, setAppMode] = useState<'exam' | 'study' | 'quick-review'>(() => {
+    return (localStorage.getItem('curve_appMode') as 'exam' | 'study' | 'quick-review') || 'exam';
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem('curve_appMode', appMode);
+  }, [appMode]);
+
 
   // Whiter, more textured paper SVG filter
   const paperTexture = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`;
@@ -74,73 +82,13 @@ export default function App() {
 
   const handleStartExam = () => {
     clearTelemetry();
-    logEvent('EXAM_START', { config: localConfig });
+    logEvent('EXAM_START', { config: config });
     clearAllAnswers();
-    startExam(localConfig);
+    startExam();
   };
 
-  const getAIPromptData = () => {
-    const allQuestions = dailyQuestions;
 
-    const correct = allQuestions.filter(q => {
-      const userAns = answers[q.id];
-      return userAns?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase();
-    });
 
-    const incorrect = allQuestions.filter(q => {
-      const userAns = answers[q.id];
-      return userAns && userAns.trim().toLowerCase() !== q.correctAnswer.trim().toLowerCase();
-    });
-
-    const unanswered = allQuestions.filter(q => !answers[q.id]);
-
-    const deduction = config.rightMinusWrong ? Math.floor(incorrect.length / 4) : 0;
-    const finalScore = correct.length - deduction;
-
-    const promptText = `
-You are a veteran review professor specializing in Philippine college entrance examinations (UPCAT, ACET, DCAT, USTET).
-Your audience consists of mature students preparing for rigorous academic hurdles. 
-You are direct, precise, and academic. You do not use emojis. You do not give empty praise or use corny techniques.
-
-Your primary task is to present this feedback visually. DO NOT output a wall of text.
-
-Generate a visual Performance Dashboard. Include brief explanations of the mistakes made. Add a disclaimer that this is an ai-generated info so triple-check and review well.
-Assume right minus wrong in some exams.
----
-
-EXAM SESSION RESULTS
-Total Items   : ${allQuestions.length}
-Correct       : ${correct.length}
-Wrong         : ${incorrect.length}
-Unanswered    : ${unanswered.length}
-Deduction     : ${deduction} (RMW: ${config.rightMinusWrong ? 'Yes' : 'No'})
-Final Score   : ${finalScore}
-Raw Score     : ${((finalScore / allQuestions.length) * 100).toFixed(1)}%
-
-FULL QUESTION POOL:
-${JSON.stringify(allQuestions, null, 2)}
-
-ERRORS (with student answers):
-${JSON.stringify(
-      incorrect.map(q => ({
-        id: q.id,
-        prompt: q.question,
-        studentAnswer: answers[q.id],
-        correctAnswer: q.correctAnswer,
-      })),
-
-      null, 2
-    )}
-
-${unanswered.length > 0
-        ? `UNANSWERED ITEMS:
-${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 2)}`
-
-        : ""}
-`.trim();
-
-    return { promptText, correct, incorrect, unanswered, allQuestions, finalScore };
-  };
 
   const handleAnswer = (questionId: string, answer: string) => {
     const currentAnswer = getAnswer(questionId);
@@ -164,12 +112,13 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
     if (examState === 'start') {
       return (
         <LandingPage
-          localConfig={localConfig}
-          setLocalConfig={setLocalConfig}
+          localConfig={config}
+          setLocalConfig={setConfig}
           onStartExam={handleStartExam}
           onStudyMode={() => setAppMode('study')}
           onQuickReview={() => setAppMode('quick-review')}
         />
+
       );
     }
 
@@ -247,66 +196,25 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
                 </div>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-2">
-              <button
-                onClick={() => {
-                  const { correct, incorrect, unanswered, allQuestions } = getAIPromptData();
 
-                  const questionsWithAnswers = allQuestions.map((q, i) =>
-                    `${i + 1}. ${q.question}\nStudent Answer: ${answers[q.id] || '(Unanswered)'}\nCorrect Answer: ${q.correctAnswer}\n`
-                  ).join('\n---\n');
-
-
-                  const summary = {
-                    total: allQuestions.length,
-                    correct: correct.length,
-                    wrong: incorrect.length,
-                    unanswered: unanswered.length,
-                    deduction,
-                    finalScore,
-                    rightMinusWrong: config.rightMinusWrong
-                  };
-
-                  const content = `EXAM RECAP\n==========\n\n${questionsWithAnswers}\n\nSUMMARY JSON:\n${JSON.stringify(summary, null, 2)}`;
-
-                  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-                  const url = URL.createObjectURL(blob);
-                  const link = document.createElement('a');
-                  link.setAttribute("href", url);
-                  link.setAttribute("download", `exam_recap_${new Date().toISOString().split('T')[0]}.txt`);
-                  document.body.appendChild(link);
-                  link.click();
-                  link.remove();
-                  setTimeout(() => URL.revokeObjectURL(url), 100);
-                }}
-                className="text-[10px] border border-black px-4 py-1.5 font-bold uppercase tracking-widest hover:bg-gray-100 transition-colors"
-              >
-                Export (.txt)
-              </button>
-              <button
-                onClick={() => {
-                  const { promptText, correct, incorrect } = getAIPromptData();
-                  const compactData = `Correct:${correct.length},Incorrect:${incorrect.length},Mistakes:${JSON.stringify(incorrect.map(q => ({ id: q.id, u: answers[q.id], c: q.correctAnswer })))}`;
-
-                  const fullContent = `${promptText}\n\n[DATA: ${compactData}]`;
-                  const aiLink = `https://claude.ai/new?q=${encodeURIComponent(fullContent).replace(/%20/g, '+')}`;
-                  window.open(aiLink, "_blank");
-                }}
-                className="text-[10px] border border-black px-4 py-1.5 font-bold uppercase tracking-widest bg-black text-white hover:bg-gray-800 transition-colors"
-              >
-                Send to AI (Yuck)
-              </button>
-            </div>
             <button
               onClick={() => {
                 clearAllAnswers();
-                localStorage.clear();
+                // Selective clearing: keep config and appMode
+                localStorage.removeItem('curve_examState');
+                localStorage.removeItem('curve_sectionIndex');
+                localStorage.removeItem('curve_fatigueLevel');
+                localStorage.removeItem('curve_endTime');
+                localStorage.removeItem('curve_answers');
+                localStorage.removeItem('curve_crossouts');
+                localStorage.removeItem('curve_changes');
                 window.location.reload();
               }}
               className="mt-6 text-[10px] uppercase tracking-widest underline opacity-50 hover:opacity-100 transition-opacity block mx-auto"
             >
               Retake Exam
             </button>
+
           </div>
         </div>
       );
@@ -385,6 +293,8 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
             <PaperView
               groups={currentSectionGroups}
               fatigueLevel={fatigueLevel}
+              answers={answers}
+              quickFeedback={config.quickFeedback}
             />
           </div>
           <div className="w-full shrink-0 snap-center md:w-64 h-full">
@@ -394,6 +304,7 @@ ${JSON.stringify(unanswered.map(q => ({ id: q.id, prompt: q.question })), null, 
               crossouts={crossouts}
               changesRemaining={changesRemaining}
               onAnswer={handleAnswer}
+              quickFeedback={config.quickFeedback}
             />
           </div>
         </div>

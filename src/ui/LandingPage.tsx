@@ -29,7 +29,7 @@ export function LandingPage({
   const [isConfigOpen, setIsConfigOpen] = useState(false);
 
   return (
-    <div className="h-screen w-full bg-neutral-950 flex flex-col items-center justify-center font-sans text-white p-6 overflow-hidden">
+    <div className="h-screen w-full bg-neutral-950 flex flex-col items-center justify-center font-sans text-white p-6 overflow-y-auto">
       <div className="w-full max-w-sm flex flex-col items-center text-center">
         {/* Header Section */}
         <motion.div
@@ -67,9 +67,10 @@ export function LandingPage({
             </button>
             <button
               onClick={onStudyMode}
-              className="border border-white/10 bg-white/5 py-3 text-[9px] font-bold uppercase tracking-[0.15em] hover:bg-white/10 transition-colors active:scale-[0.96]"
+              className="relative border border-white/10 bg-white/5 py-3 text-[9px] font-bold uppercase tracking-[0.15em] hover:bg-white/10 transition-colors active:scale-[0.96]"
             >
               Study Mode
+              <span className="absolute -top-1.5 -right-1.5 bg-white text-black text-[7px] px-1 font-black shadow-sm">WIP</span>
             </button>
           </div>
         </motion.div>
@@ -101,7 +102,7 @@ export function LandingPage({
                         onChange={(e) => setLocalConfig(prev => ({ ...prev, customTimeLimit: e.target.value ? Number(e.target.value) : null }))}
                         className="bg-transparent text-[10px] font-bold focus:outline-none text-right cursor-pointer"
                       >
-                        <option value="" className="bg-neutral-900">Standard</option>
+                        <option value="" className="bg-neutral-900">Standard (60m)</option>
                         <option value="900" className="bg-neutral-900">15m / Sec</option>
                         <option value="1800" className="bg-neutral-900">30m / Sec</option>
                         <option value="3600" className="bg-neutral-900">60m / Sec</option>
@@ -142,6 +143,20 @@ export function LandingPage({
                         className={`w-4 h-4 border border-white/30 flex items-center justify-center transition-all ${localConfig.rightMinusWrong ? 'bg-white' : 'bg-transparent'}`}
                       >
                         {localConfig.rightMinusWrong && <div className="w-2 h-2 bg-black" />}
+                      </button>
+                    </div>
+
+                    {/* Quick Feedback */}
+                    <div className="flex items-center justify-between pt-1">
+                      <div className="flex flex-col">
+                        <span className="text-[9px] font-bold uppercase tracking-widest opacity-60">Quick Feedback</span>
+                        <span className="text-[7px] opacity-30 italic leading-none mt-0.5">Show correct answer after each item</span>
+                      </div>
+                      <button 
+                        onClick={() => setLocalConfig(prev => ({ ...prev, quickFeedback: !prev.quickFeedback }))}
+                        className={`w-4 h-4 border border-white/30 flex items-center justify-center transition-all ${localConfig.quickFeedback ? 'bg-white' : 'bg-transparent'}`}
+                      >
+                        {localConfig.quickFeedback && <div className="w-2 h-2 bg-black" />}
                       </button>
                     </div>
                   </div>

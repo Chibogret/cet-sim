@@ -9,7 +9,15 @@ interface QuickReviewProps {
 }
 
 export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
-  const [batchCount, setBatchCount] = useState(1);
+  const [batchCount, setBatchCount] = useState(() => {
+    const saved = localStorage.getItem('curve_quickReview_batchCount');
+    return saved ? Number(saved) : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('curve_quickReview_batchCount', batchCount.toString());
+  }, [batchCount]);
+
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});

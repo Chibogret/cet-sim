@@ -5,16 +5,19 @@ export const readingPassages: ReadingPassage[] = [
     {
         groupId: "RC-PASS-1",
         contextTitle: "Passage 1",
+        instruction: "Basahin ang tula at sagutin ang mga tanong.",
         passage: "Babahagya ko nang sa noo nahagkan,\nSa mata ko'y luha ang nangag-unahan,\nisang panyong puti ang ikinakaway\nnang siya'y iwan ko sa tabi ng hagdan!...\nSa gayong kalungkot na paghihiwalay,\nnalulumbay ako't siya'y nalulumbay!\n\nNang sa tarangkahan ako'y makabagtas,\npasigaw ang sabing \"Umuwi ka agad,\"\nAng sagot ko'y \"Oo, hindi magluluwat!...\"\nNakangiti ako, luha'y nalalaglag!\nAt ako'y nagtuloy, tinunton ang landas,\nna kabyak ang puso't, naiwan ang kabyak…\n\nLubog na ang Araw, kalat na ang dilim\nat ang Buwan nama'y ibig nang magningning;\nNakaurasyon na noong aking datnin\nang pinagsadya kong malayong lupain;\nk'wagong nasa kubo't may ibong itim\nang nagsasalubong sa aking pagdating!\n\nSa pinto ng nar'ong tahana'y kumatok,\nako'y pinatuloy ng magandang loob;\nkumain ng konti, natulog sa lungkot\nna ang puso'y tila ayaw nang tumibok;\nang kawiakaan ko, pusong naglalagot,\ntumigil kung ako'y talaga nang tulog!\n\nNang kinabukasang magawak ang dilim,\nAraw'y namintanang mata'y nagniningning,\nsinimulan ko na ang dapat kong gawin:\nAko'y nag-araro, naglinang, nagtanim,\nnang magdi-Disyembre, tanim sa kaingin,\nAy ginapas ko na't sa irog dadalhin!\n\nAt umuwi akong taglay ko ang lahat,\nmga bungangkahoy at sansakong bigas,\nbulaklak ng damo sa gilid ng landas\nay sinisinop ko't panghandog sa liyag,\nnang ako'y umalis siya'y umiiyak,\nO! ngayon marahil siya'y magagalak!\n\nAt ako'y nagtulin halos lakad-takbo!\nSa may dakong ami'y mayroon pang musiko,\nang aming tahana'y masayang totoo\nat ang panauhin ay nagkakagulo!\n\"Salamat sa Diyos!\" ang naibigkas ko,\n\"nalalaman nila na darating ako!\"\n\nNgunit, O! Tadhana! Pinto nang mabuksan,\nako'y napapikit sa aking namasdan!\napat na kandila ang nangagbabantay\nsa paligid-ligid ng irog kong bangkay,\nmukhang nakangiti at nang aking hagkan\nang parang sinabi'y…\"Paalam! Paalam!\"\n\n- Ang Pagbabalik, Jose Corazon de Jesus"
     },
     {
         groupId: "RC-PASS-2",
         contextTitle: "Passage 2",
+        instruction: "Read the following passage and answer the questions that follow.",
         passage: "Not everyone flies. In fact, some people go to a good deal of trouble to avoid taking airplanes altogether. This attitude may be difficult to understand, particularly for veteran air travelers, who appreciate the benefits of airplane travel and could not accomplish half of what they do if they did not fly. Confirmed nonfliers, however, mention problems of air travel, and those most hostile to flying cite the dates and locations of airplane disasters. Yet in spite of complaints and some travelers' deep-seated fears of flying, air transport continues to offer a combination of convenience, speed, and safety unmatched by any other means of transportation.\n\nOpponents of flying point out that air travel can be inconvenient. They maintain, for example, that passengers on closely connecting flights may have to wait several hours at their destinations before their luggage appears. Actually, though, airlines provide conveniences unparalleled anywhere else in the travel industry. Luggage is almost never lost or mishandled, and if it should be delayed, the airlines always arrange to deliver the luggage to the passenger. Statistics vary among airlines, but most confirm that only one passenger in ten thousand will suffer a loss or delay with baggage. Unlike train and bus stations, most airports also have set aside long-term parking areas where passengers can safely leave their cars for extended periods of time. In addition, most have rapid transfer systems, such as buses and carts, which conduct passengers and their luggage from the parking areas to the terminal. The airlines also relieve their customers of the burden of hauling their luggage with curbside check-in service.\n\nSome people may say that flights are often delayed or cancelled, but such problems are really infrequent and do not lessen the overall speed of air travel. Even with an occasional few hours' delay, travel time by air is well ahead of travel by car, bus, or train. No one can deny that airplanes cut to a fraction the traveling time between two points. And for great distances, anything but air transport is inconceivable. Imagine spending three and one-half days of a short vacation or of a work week sitting on a bus between Washington, D.C., and San Francisco, when an airplane could have flown you from coast to coast in about five hours.\n\nDespite the speed and convenience of air travel, however, many people are troubled by an overwhelming fear of flying, based quite understandably on the attention given to airplane crashes. But these events are truly rare, almost freakish occurrences. In fact, it is their rarity that makes them newsworthy. The chances of being involved in an airplane accident are miniscule for any air traveler. Those who ride in automobiles are one hundred times more likely to suffer injury than are air passengers, yet people ride in and drive automobiles every day. Most people do not realize that airplanes actually enjoy the best safety record of all the modes of travel, given the huge numbers of people they carry and the millions of miles they cover every year.\n\nClearly, flying makes traveling easier, faster, and safer than other methods of transportation. While those who shun airplanes constitute only a small percentage of travelers, they might be fewer still if they examined the facts and statistics. And if these people could conquer their fears enough to give flying a chance, they might make some pleasant discoveries. With veteran travelers, they might come to enjoy the automatic ramps that whiz passengers from one end of a terminal to another, the thrill of takeoffs, and the view of clean clouds, rainbow sunsets, and the earth curving thousands of feet below. These people would then know why they fly.\n\n- Why Fly?, Prentice Hall Grammar and Composition 2"
     },
     {
         groupId: "RC-PASS-3",
         contextTitle: "Passage 3",
+        instruction: "Basahin ang sumusunod na teksto at sagutin ang mga tanong.",
         passage: "Ang ningning ay nakasisilaw at nakasisira sa paningin. Ang liwanag ay kinakailangan ng mata, upang mapagwari ang buong katunayan ng mga bagay-bagay.\nAng bubog kung tinatamaan ng nag-aapoy na sikat ng araw ay nagniningning; ngunit sumusugat sa kamay ng nagaganyak na dumampot.\nAng ningning ay madaya.\nAting hanapin ang liwanag, tayo'y huwag mabighani sa ningning. Sa katunayan ng masamang kaugalian: Nagdaraan ang isang karwaheng maningning na hinihila ng kabayong matulin. Tayo'y nagpupugay at ang isasaloob ay mahal na tao ang nakalulan. Datapwa'y marahil naman ay isang magnanakaw; marahil sa ilalim ng kanyang ipinatatanghal na kamahalan at mga hiyas na tinataglay ay natatago ang isang pusong sukaban.\nNagdaraan ang isang maralita na nagkakanghirap sa pinapasan. Tayo'y mapapangiti at isasaloob: Saan kaya ninakaw? Datapwa'y maliwanag nating nakikita sa pawis ng kanyang noo at sa hapo ng kanyang katawan na siya'y nabubuhay sa sipag at kapagalang tunay.\nAy! Sa ating pang-uga-ugali ay lubhang nangapit ang pagsamba sa ningning at pagtakwil sa liwanag.\nIto na nga ang dahilang isa pa na kung kaya ang tao at ang mga bayan ay namumuhay sa hinagpis at dalita.\nIto na nga ang dahilan na kung kaya ang mga loob na inaakay ng kapalaluan at ng kasakiman ay nagpupumilit na lumitaw na maningning, lalung-lalo na nga ang mga hari at mga pinuno na pinagkatiwalaan ng sa ikagiginhawa ng kanilang mga kampon, at walang ibang nasa kundi ang mamalagi sa kapangyarihan sukdang ikainis at ikamatay ng Bayan na nagbigay sa kanila ng kapangyarihang ito.\nTayo'y mapagsampalataya sa ningning; huwag nating pagtakhan na ang ibig mabuhay sa dugo ng ating mga ugat ay magbalatkayo ng maningning.\nAy! Kung an gating dinudulugan at hinahainan ng puspos na galang ay ang maliwanag at magandang-asal at matapat na loob, ang kahit sino ay walang mapagningning pagkat di natin pahahalagahan, at ang mga isip at akalang ano pa man ay hindi hihiwalay sa maliwanag na banal na landas ng katwiran.\nAng kaliluhan at ang katampalasanan ay humahanap ng ningning upang huwag mapagmalas ng mga matang tumatanghal ang kanilang kapangitan; ngunit ang kagalingan at ang pag-ibig na dalisay ay hubad, mahinhin, at maliwanag na napatatanaw sa paningin.\nAng lumipas na pinapanginoon ng Tagalog ay labis na nagpapatunay ng katotohanan nito.\nMapalad ang araw ng liwanag!\nAy! Ang anak ng Bayan, ang kapatid ko, ay matututo kayang kumuha ng halimbawa at lakas sa pinagdaanang mga hirap at binatang mga kaapihan?\n\n- Ang Ningning at Ang Liwanag, Emilio Jacinto"
     },
     {
@@ -30,6 +33,7 @@ export const readingPassages: ReadingPassage[] = [
     {
         groupId: "RC-PASS-6A",
         contextTitle: "Passage 6A",
+        instruction: "Suriin ang sumusunod na talahanayan ng iskedyul ng barko at sagutin ang mga tanong.",
         passage: "Suriin ang sumusunod na talahanayan ng iskedyul ng barko at sagutin ang mga sumusunod na tanong.\n\n| RUTA | ARAW | ORAS |\n|---|---|---|\n| Cebu – Manila | Lunes | 6:45 n.u. |\n| Cebu – Manila | Martes | 9:45 n.u. |\n| Cebu – Manila | Huwebes | 9:45 n.u. |\n| Cebu – Manila | Biyernes | 9:15 n.u. |\n| Manila – Cebu | Miyerkules | 7:45 n.g. |\n| Manila – Cebu | Huwebes | 10:45 n.g. |\n| Manila – Cebu | Biyernes | 6:45 n.g. |\n| Manila – Cebu | Linggo | 8:45 n.u. |\n| Cebu – Cagayan de Oro | Lunes | 9:45 n.u. |\n| Cebu – Cagayan de Oro | Huwebes | 8:45 n.g. |\n| Cebu – Cagayan de Oro | Sabado | 9:15 n.g. |\n| Cagayan de Oro – Cebu | Lunes | 10:45 n.g. |\n| Cagayan de Oro – Cebu | Miyerkules | 11:15 n.g. |\n| Cagayan de Oro – Cebu | Biyernes | 10:15 n.u. |\n| Cebu – Nasipit | Sabado | 9:15 n.g. |\n| Nasipit – Cebu | Martes | 5:45 n.u. |\n| Cebu – Zamboanga | Biyernes | 11:59 n.g. |\n| Zamboanga – Cebu | Linggo | 10:15 n.g. |\n| Cebu – Cotabato (via Zamboanga) | Biyernes | 11:59 n.g. |\n| Cotabato – Cebu (via Zamboanga) | Linggo | 10:45 n.u. |"
     },
     {
@@ -701,7 +705,7 @@ export const readingQuestions: Question[] = [
             "ekspositori",
             "naratibo",
             "argumentatibo",
-            "destriptibo"
+            "deskriptibo"
         ],
         "correctAnswer": "ekspositori",
         "explanation": "Ito ay nagpapaliwanag at naglalahad ng impormasyon o konsepto hinggil sa mga uri ng kaluluwa at kalikasan ng tao, kaya't ito ay ekspositori."
@@ -826,6 +830,21 @@ export const readingQuestions: Question[] = [
         "correctAnswer": "The author's son",
         "explanation": "The speaker repeatedly refers to the listener as 'son' (e.g., 'Once upon a time, son,' and 'So show me, son'), indicating the poem is addressed to his son."
     },
+    // {
+    //     "id": "RC-1301-51",
+    //     "subject": "Reading Comprehension",
+    //     "subtopic": "Poetry",
+    //     "groupId": "RC-PASS-8",
+    //     "question": "Okara contrasts the past with the present. What does this signify?",
+    //     "options": [
+    //         "People before laughed with their hearts. Now, their laughter lacks warmth and spirit.",
+    //         "Once, showing hospitality to guests was a common thing. But these days, no one wants visitors.",
+    //         "Hypocrisy and pretensions are the salient features of human behavior today.",
+    //         "The concept of friendship is not what it used to be."
+    //     ],
+    //     "correctAnswer": "People before laughed with their hearts. Now, their laughter lacks warmth and spirit.",
+    //     "explanation": "The opening lines specifically draw the contrast: 'they used to laugh with their hearts... but now they only laugh with their teeth, while their ice-block-cold eyes...' showing a shift from genuine warmth to spirited coldness."
+    // },
     {
         "id": "RC-1301-51",
         "subject": "Reading Comprehension",
@@ -838,8 +857,8 @@ export const readingQuestions: Question[] = [
             "Hypocrisy and pretensions are the salient features of human behavior today.",
             "The concept of friendship is not what it used to be."
         ],
-        "correctAnswer": "People before laughed with their hearts. Now, their laughter lacks warmth and spirit.",
-        "explanation": "The opening lines specifically draw the contrast: 'they used to laugh with their hearts... but now they only laugh with their teeth, while their ice-block-cold eyes...' showing a shift from genuine warmth to spirited coldness."
+        "correctAnswer": "Hypocrisy and pretensions are the salient features of human behavior today.",
+        "explanation": "The contrast between the past (laughing/shaking hands with the heart) and the present (laughing with teeth/shaking hands without hearts) signifies the overarching theme of the poem: the prevalence of hypocrisy, superficiality, and pretension in modern society.",
     },
     {
         "id": "RC-1301-52",
@@ -1021,6 +1040,21 @@ export const readingQuestions: Question[] = [
         "correctAnswer": "III and IV only",
         "explanation": "In poetic contexts, one's 'remains' that are scattered to the winds refer typically to one's physical ashes (dead body) and one's literary remains (surviving writings) scattered throughout time."
     },
+    // {
+    //     "id": "RC-1301-64",
+    //     "subject": "Reading Comprehension",
+    //     "subtopic": "Poetry",
+    //     "groupId": "RC-PASS-10",
+    //     "question": "As the word is used in line 14, \"particular\" describes the speaker's \"remains\" as all the following EXCEPT",
+    //     "options": [
+    //         "apart from others.",
+    //         "personal.",
+    //         "special rather than general.",
+    //         "precise."
+    //     ],
+    //     "correctAnswer": "special rather than general.",
+    //     "explanation": "Here, 'particular' refers to his precise, individual, specific personal particles (apart from others) rather than something 'special' as in exalted or superior."
+    // },
     {
         "id": "RC-1301-64",
         "subject": "Reading Comprehension",
@@ -1033,8 +1067,8 @@ export const readingQuestions: Question[] = [
             "special rather than general.",
             "precise."
         ],
-        "correctAnswer": "special rather than general.",
-        "explanation": "Here, 'particular' refers to his precise, individual, specific personal particles (apart from others) rather than something 'special' as in exalted or superior."
+        "correctAnswer": "precise.",
+        "explanation": "In the phrase 'particular remains', 'particular' means specific, individual, or personal (apart from others). While 'special rather than general' is a synonym for specific, 'precise' typically refers to exactness or accuracy, which is not the intended meaning in this context.",
     },
     {
         "id": "RC-1301-65",
@@ -1243,7 +1277,7 @@ export const readingQuestions: Question[] = [
             "laganap ang mapagkunwari sa iba't-ibang panig ng daigdig.",
             "puro huwad ang makikita natin sa ating paligid."
         ],
-        "correctAnswer": "laganap ang pagbabalatkayo sa ating bansa.",
+        "correctAnswer": "laganap ang mapagkunwari sa iba't-ibang panig ng daigdig.",
         "explanation": "Ang pamagat na 'May Plastik ang Mundo' na naka-adres kay 'Huwan' (Juan, na tumutukoy sa lipunang Pilipino) ay nagpapahiwatig ng talamak na pagbabalatkayo (hypocrisy) ng mga tao."
     }
 ];
