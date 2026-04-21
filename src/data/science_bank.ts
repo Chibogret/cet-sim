@@ -224,7 +224,7 @@ export const scienceQuestions: Question[] = [
         groupId: 'sc-chem-urea-synthesis-1',
         contextTitle: 'Urea Synthesis',
         passage: 'A chemist wanted to synthesize urea through $NH_3$ and $CO_2$ to be utilized as fertilizer in their farm. Arriving at his laboratory, he saw that only 532 grams of ammonia and 1142g of carbon dioxide were left for him to use. ($N=14~g/mol$, $H=1~g/mol$, $C=12~g/mol$, $O=16~g/mol$)\n\nChemical equation: $2NH_3+CO_2\\rightarrow(NH_2)_2CO+H_2O$',
-        question: 'Would the ammonia left in his laboratory be sufficient enough to produce at least 1kg of urea?',
+        question: 'Would the ammonia left in his laboratory be sufficient to produce at least 1kg of urea?',
         options: [
             'A. Yes, since the maximum yield would be 937.27 g of urea',
             'B. No, since the maximum yield would be 938.82 g of urea',
@@ -349,10 +349,9 @@ export const scienceQuestions: Question[] = [
         question: 'What type of relationship is observed when a barnacle attaches to the shells of marine mollusks and turtles?',
         options: [
             'A. Commensalism',
-            'B. Competition',
-            'C. Parasitism',
-            'D. Mutualism',
-            'E. None of these'
+            'B. Parasitism',
+            'C. Mutualism',
+            'D. None of these'
         ],
         correctAnswer: 'A. Commensalism',
         explanation: 'This is a classic example of commensalism. The barnacle benefits significantly by finding a hard surface to attach to and being transported to nutrient-rich waters, while the host (the turtle) is generally neither helped nor harmed.'
@@ -445,14 +444,14 @@ export const scienceQuestions: Question[] = [
         id: 'SC-501-30',
         subject: 'Science',
         subtopic: 'Structure of a Cell',
-        question: 'Which of the following describes the function of lysosome inside the cell?',
+        question: 'Which of the following describes the function of lysosomes inside the cell?',
         options: [
-            'A. It contains digestive enzymes which degrades extracellular internalized by the cell and worn-out organelles.',
+            'A. They contain digestive enzymes that degrade extracellular materials internalized by the cell and worn-out organelles.',
             'B. It helps in the transfer of ribosomes in the other parts of the cells',
             'C. It bundles macromolecules such as proteins as they are being synthesized in the cell',
             'D. It is in charge in synthesizing hormones and lipids'
         ],
-        correctAnswer: 'A. It contains digestive enzymes which degrades extracellular internalized by the cell and worn-out organelles.',
+        correctAnswer: 'A. They contain digestive enzymes that degrade extracellular materials internalized by the cell and worn-out organelles.',
         explanation: 'Lysosomes are specialized membrane-bound organelles that act as the cell\'s waste disposal system. They contain strong hydrolytic digestive enzymes capable of breaking down biomolecules, foreign debris, and worn-out organelles.'
     },
     {
@@ -571,7 +570,7 @@ export const scienceQuestions: Question[] = [
         id: 'SC-401-39',
         subject: 'Science',
         subtopic: 'Rocks and Minerals',
-        question: 'A professor in Earth Science wanted to demonstrate the effect of acid rain on certain types of rocks using 3 setups of beaker with a vinegar solution of pH 3.0. After some time, the pH of each of the setup was tested. It was observed that some setups maintained pH 3 while the others increased to pH 7. What can be best inferred from the experiment?',
+        question: 'A professor in Earth Science wanted to demonstrate the effect of acid rain on certain types of rocks using 3 beaker setups with a vinegar solution of pH 3.0. After some time, the pH of each setup was tested. It was observed that some setups maintained pH 3 while the others increased to pH 7. What can be best inferred from the experiment?',
         options: [
             'A. The experiment is incomplete due to the fact that not all setups reached pH change from 3-7.',
             'B. Vinegar reacts unpredictably with inorganic rocks',
@@ -613,7 +612,7 @@ export const scienceQuestions: Question[] = [
         id: 'SC-402-42',
         subject: 'Science',
         subtopic: 'The Solar System',
-        question: 'The density of Saturn is significantly lesser when compared to the Earth. However, the diameter of Saturn is ten times of that of Earth. The disparity in density of the two planets is due to...',
+        question: 'The density of Saturn is significantly lower than Earth\'s. However, the diameter of Saturn is ten times that of Earth. The disparity in density of the two planets is due to...',
         options: [
             'A. Earth is nearer to the sun',
             'B. Earth has a shorter revolution around the sun',
@@ -683,7 +682,7 @@ export const scienceQuestions: Question[] = [
         id: 'SC-701-47',
         subject: 'Science',
         subtopic: 'Displacement, Velocity, Time',
-        question: 'Object X is moving at a speed of $Y~m/s$ at a given time interval. Which of the following correctly is always true about the average speed of object X?',
+        question: 'Object X is moving during a given time interval. Which of the following is always true about the average speed of object X?',
         options: [
             'A. The magnitude of its average velocity over a given time interval',
             'B. One half its speed as it reached the end of the time interval',
@@ -725,7 +724,7 @@ export const scienceQuestions: Question[] = [
         id: 'SC-703-50',
         subject: 'Science',
         subtopic: 'Newton\'s Laws of Motion',
-        question: 'A group of friends in a road trip is driving at a speed of $x~m/s$. The driver then hits the break due to a dog that suddenly crossed the road. Which of the following is observed in this phenomenon?',
+        question: 'A group of friends on a road trip is driving at a speed of $x~m/s$. The driver then hits the brake due to a dog that suddenly crossed the road. Which of the following is observed in this phenomenon?',
         options: [
             'A. The people and objects inside the car will not move significantly',
             'B. The people and objects inside the car will lurch backward',

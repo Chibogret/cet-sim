@@ -41,11 +41,20 @@ export function useSheetEngine() {
   const answersRef = useRef(answers);
   const crossoutsRef = useRef(crossouts);
   const changesRef = useRef(changesRemaining);
+  const skipNextPersistRef = useRef(false);
 
   useEffect(() => {
     answersRef.current = answers;
     crossoutsRef.current = crossouts;
     changesRef.current = changesRemaining;
+    if (skipNextPersistRef.current) {
+      skipNextPersistRef.current = false;
+      localStorage.removeItem('curve_answers');
+      localStorage.removeItem('curve_crossouts');
+      localStorage.removeItem('curve_changes');
+      return;
+    }
+
     localStorage.setItem('curve_answers', JSON.stringify(answers));
     localStorage.setItem('curve_crossouts', JSON.stringify(crossouts));
     localStorage.setItem('curve_changes', changesRemaining.toString());
@@ -88,13 +97,19 @@ export function useSheetEngine() {
     }));
   };
 
-  const clearAllAnswers = () => {
+  const clearAllAnswers = (persist = true) => {
+    if (!persist) skipNextPersistRef.current = true;
     setAnswers({});
     setCrossouts({});
     setChangesRemaining(3);
     answersRef.current = {};
     crossoutsRef.current = {};
     changesRef.current = 3;
+    if (!persist) {
+      localStorage.removeItem('curve_answers');
+      localStorage.removeItem('curve_crossouts');
+      localStorage.removeItem('curve_changes');
+    }
   };
 
   const removeAnswer = (questionId: string) => {

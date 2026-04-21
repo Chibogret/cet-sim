@@ -5,9 +5,10 @@ interface TimerBarProps {
   totalTime: number;
   sectionName: string;
   timerActive: boolean;
+  isUntimed?: boolean;
 }
 
-export const TimerBar: React.FC<TimerBarProps> = ({ timeLeft, totalTime, sectionName, timerActive }) => {
+export const TimerBar: React.FC<TimerBarProps> = ({ timeLeft, totalTime, sectionName, timerActive, isUntimed = false }) => {
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -23,15 +24,20 @@ export const TimerBar: React.FC<TimerBarProps> = ({ timeLeft, totalTime, section
           </div>
           <div className="flex items-center gap-2">
             <h2 className="text-sm sm:text-lg font-bold uppercase tracking-widest truncate max-w-[120px] sm:max-w-none">{sectionName}</h2>
-            {!timerActive && (
+            {!timerActive && !isUntimed && (
               <span className="text-[8px] sm:text-[10px] bg-black text-white px-1.5 py-0.5 font-bold animate-pulse shrink-0">PAUSED</span>
+            )}
+            {isUntimed && (
+              <span className="text-[8px] sm:text-[10px] bg-black text-white px-1.5 py-0.5 font-bold shrink-0">UNTIMED</span>
             )}
           </div>
           <p className="hidden md:block text-[10px] italic opacity-60">Do not turn the page until instructed.</p>
         </div>
         <div className="flex items-center sm:block">
           <span className="hidden xs:inline text-[10px] sm:text-xs uppercase tracking-widest mr-2 opacity-70">Remaining:</span>
-          <span className={`text-base sm:text-xl font-mono font-bold ${!timerActive ? 'opacity-30' : ''}`}>{formatTime(timeLeft)}</span>
+          <span className={`text-base sm:text-xl font-mono font-bold ${!timerActive && !isUntimed ? 'opacity-30' : ''}`}>
+            {isUntimed ? '--:--' : formatTime(timeLeft)}
+          </span>
         </div>
       </div>
     </div>

@@ -168,7 +168,7 @@ export const getInstruction = (q: Question) => {
     const instruction = isTagalogErr
       ? 'Piliin ang salita o parirala na nagpapamali sa pangungusap. Kung ang pangungusap ay walang mali, piliin ang WALANG MALI.'
       : 'Choose the word or phrase that makes the sentence grammatically incorrect. If the sentence is correct, choose NO ERROR.';
-    return { typeHeader, instruction, isFilipino: true }; // Error ID always has instructions
+    return { typeHeader, instruction, isFilipino: isTagalogErr };
   }
 
   const vocabularySubtopics = ['Use of Context Clues', 'Talasalitaan'];

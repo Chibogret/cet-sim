@@ -25,6 +25,7 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, answ
 
   return (
     <div
+      data-testid="paper-view"
       className="w-full h-full overflow-y-auto p-6 md:p-8 font-serif text-sm text-justify bg-white text-black transition-all duration-300"
       style={{
         letterSpacing,
@@ -86,7 +87,7 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, answ
                 const hasAnswered = !!answers[q.id];
 
                 return (
-                  <div key={q.id} id={`q-${q.id}`} className={`${q.subject === 'Science' ? 'mb-6' : 'mb-8'} break-inside-avoid relative`}>
+                  <div key={q.id} id={`q-${q.id}`} data-testid={`question-${currentNumber}`} className={`${q.subject === 'Science' ? 'mb-6' : 'mb-8'} break-inside-avoid relative`}>
                     {(() => {
                       const isErrorId = q.variant === 'error-identification';
                       const isTagalogErr = q.subtopic === 'Pagkilala ng Mali';
@@ -215,12 +216,32 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, answ
                       });
 
                       return (
-                        <div className={`pl-6 ${isCompact ? 'flex flex-wrap gap-x-8 gap-y-2' : 'space-y-2 md:space-y-1'}`}>
+                        <div className={`pl-6 ${isCompact ? 'flex flex-wrap gap-x-8 gap-y-[2px]' : 'space-y-[2px]'}`}>
                           {q.options.map((opt, optIdx) => {
                             const letter = String.fromCharCode(65 + optIdx);
                             const displayOpt = opt.replace(/^(\(?[A-E]\)[\.\s-]*|[A-E]\.[\s-]*)/, '').trim() || opt;
+                            const isSelected = answers[q.id] === opt;
+                            const isCorrect = hasAnswered && answers[q.id]?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase();
+                            const isCorrectOption = opt.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase();
+                            const showChoiceFeedback = quickFeedback && hasAnswered;
+                            let feedbackClass = '';
+
+                            if (showChoiceFeedback) {
+                              if (isSelected && isCorrect) {
+                                feedbackClass = 'bg-green-50 text-green-800 ring-1 ring-green-700/25';
+                              } else if (isSelected && !isCorrect) {
+                                feedbackClass = 'bg-red-50 text-red-800 ring-1 ring-red-700/25';
+                              } else if (isCorrectOption && !isCorrect) {
+                                feedbackClass = 'bg-green-50 text-green-800 ring-1 ring-green-700/25';
+                              }
+                            }
+
                             return (
-                              <div key={optIdx} className="flex gap-2 whitespace-pre-wrap">
+                              <div
+                                key={optIdx}
+                                data-testid={`paper-choice-${currentNumber}-${letter}`}
+                                className={`flex gap-2 whitespace-pre-wrap rounded-sm px-1 py-0.5 -mx-1 transition-colors ${feedbackClass}`}
+                              >
                                 <span className="font-bold">{letter}.</span>
                                 <span>{renderTextWithFormatting(displayOpt)}</span>
                               </div>

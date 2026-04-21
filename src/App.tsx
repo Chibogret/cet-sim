@@ -9,8 +9,12 @@ import { AnswerSheet } from './ui/AnswerSheet';
 import { LandingPage } from './ui/LandingPage';
 import { TimerBar } from './ui/TimerBar';
 
-import { DailyStudy } from './ui/DailyStudy';
-import { QuickReview } from './ui/QuickReview';
+import { calculateScoreSummary } from './engine/scoringAudit';
+import { canChangeAnswer } from './engine/answerRules';
+import { isUntimedConfig } from './engine/examConfig';
+
+const DailyStudy = React.lazy(() => import('./ui/DailyStudy').then(module => ({ default: module.DailyStudy })));
+const QuickReview = React.lazy(() => import('./ui/QuickReview').then(module => ({ default: module.QuickReview })));
 
 export default function App() {
   const {
@@ -23,6 +27,7 @@ export default function App() {
     timerActive,
     fatigueLevel,
     startExam,
+    abortExam,
     nextSection,
     toggleTimer,
     setTimeLeft,
@@ -56,6 +61,25 @@ export default function App() {
     localStorage.setItem('curve_appMode', appMode);
   }, [appMode]);
 
+  React.useEffect(() => {
+    if (examState !== 'running') return;
+
+    const state = {
+      examState: 'running',
+      sectionIndex: currentSectionIndex
+    };
+
+    window.history.replaceState(state, '', window.location.href);
+    window.history.pushState(state, '', window.location.href);
+
+    const handlePopState = () => {
+      window.history.pushState(state, '', window.location.href);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [currentSectionIndex, examState]);
+
 
   // Whiter, more textured paper SVG filter
   const paperTexture = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23ffffff'/%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`;
@@ -63,7 +87,9 @@ export default function App() {
   React.useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden && examState === 'running') {
-        setTimeLeft(prev => Math.max(0, prev - 5));
+        if (!isUntimedConfig(config.customTimeLimit)) {
+          setTimeLeft(prev => Math.max(0, prev - 5));
+        }
         setProctorPenalty(true);
         logEvent('PROCTOR_PENALTY', { reason: 'TAB_HIDDEN' });
       } else if (!document.hidden && examState === 'running') {
@@ -72,7 +98,7 @@ export default function App() {
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [examState, setTimeLeft, logEvent]);
+  }, [config.customTimeLimit, examState, setTimeLeft, logEvent]);
 
   React.useEffect(() => {
     if (examState === 'running') {
@@ -87,6 +113,19 @@ export default function App() {
     startExam();
   };
 
+  const clearExamSessionState = () => {
+    clearAllAnswers(false);
+    clearTelemetry(false);
+    localStorage.removeItem('curve_examState');
+    localStorage.removeItem('curve_sectionIndex');
+    localStorage.removeItem('curve_fatigueLevel');
+    localStorage.removeItem('curve_endTime');
+    localStorage.removeItem('curve_answers');
+    localStorage.removeItem('curve_crossouts');
+    localStorage.removeItem('curve_changes');
+    localStorage.removeItem('curve_telemetry');
+  };
+
 
 
 
@@ -95,12 +134,14 @@ export default function App() {
     if (currentAnswer === answer) return;
 
     if (currentAnswer && currentAnswer !== answer) {
-      if (crossouts[questionId] || changesRemaining < 1) {
+      if (!canChangeAnswer(currentAnswer, answer, changesRemaining)) {
         return; // Unable to change
       }
 
       // Doubt mechanic: Changing an answer penalizes time
-      setTimeLeft(prev => Math.max(0, prev - 5));
+      if (!isUntimedConfig(config.customTimeLimit)) {
+        setTimeLeft(prev => Math.max(0, prev - 5));
+      }
       logEvent('ANSWER_CHANGED_PENALTY', { questionId, oldAnswer: currentAnswer, newAnswer: answer });
     }
     logEvent('SELECT_OPTION', { questionId, answer });
@@ -149,11 +190,10 @@ export default function App() {
 
     if (examState === 'finished') {
       const allQuestions = dailyQuestions;
-      const correctCount = allQuestions.filter(q => answers[q.id]?.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()).length;
-      const wrongCount = allQuestions.filter(q => answers[q.id] && answers[q.id].trim().toLowerCase() !== q.correctAnswer.trim().toLowerCase()).length;
-      
-      const deduction = config.rightMinusWrong ? Math.floor(wrongCount / 4) : 0;
-      const finalScore = correctCount - deduction;
+      const scoreSummary = calculateScoreSummary(allQuestions, answers, config.rightMinusWrong);
+      const correctCount = scoreSummary.correct;
+      const deduction = scoreSummary.deduction;
+      const finalScore = scoreSummary.finalScore;
 
       const subjectScores = allQuestions.reduce((acc, q) => {
         if (!acc[q.subject]) acc[q.subject] = { correct: 0, total: 0 };
@@ -240,7 +280,7 @@ export default function App() {
           </div>
         )}
 
-        <div className="bg-white border-b border-black z-10 sticky top-0"
+        <div data-testid="exam-header" className="bg-white border-b border-black z-10 sticky top-0"
           style={{ backgroundImage: paperTexture, backgroundSize: '200px 200px' }}
         >
           <div className="px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-6">
@@ -250,15 +290,18 @@ export default function App() {
                 totalTime={currentSection.timeLimitSeconds}
                 sectionName={currentSection.name}
                 timerActive={timerActive}
+                isUntimed={isUntimedConfig(config.customTimeLimit)}
               />
             </div>
             <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
-              <button
-                onClick={toggleTimer}
-                className={`text-[9px] sm:text-[10px] border border-black px-2 sm:px-3 py-1.5 font-bold uppercase tracking-widest transition-all shrink-0 ${!timerActive ? 'bg-black text-white' : 'hover:bg-gray-100'}`}
-              >
-                {timerActive ? 'Pause' : 'Resume'}
-              </button>
+              {!config.quickFeedback && !isUntimedConfig(config.customTimeLimit) && (
+                <button
+                  onClick={toggleTimer}
+                  className={`text-[9px] sm:text-[10px] border border-black px-2 sm:px-3 py-1.5 font-bold uppercase tracking-widest transition-all shrink-0 ${!timerActive ? 'bg-black text-white' : 'hover:bg-gray-100'}`}
+                >
+                  {timerActive ? 'Pause' : 'Resume'}
+                </button>
+              )}
               <button
                 onClick={() => {
                   if (window.confirm("Advance to next section? You cannot return to this section.")) {
@@ -273,7 +316,8 @@ export default function App() {
               <button
                 onClick={() => {
                   if (window.confirm("Abort current examination? This will lose all progress.")) {
-                    setExamState('start');
+                    clearExamSessionState();
+                    abortExam();
                   }
                 }}
                 className="text-[9px] sm:text-[10px] border border-red-700 text-red-700 px-2 sm:px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all shrink-0"
@@ -289,7 +333,7 @@ export default function App() {
             <span>Swipe</span>
             <span className="text-lg leading-none">↔</span>
           </div>
-          <div className="w-full shrink-0 snap-center md:flex-1 h-full">
+          <div data-testid="question-pane" className="w-full min-w-0 shrink-0 snap-center md:flex-1 h-full">
             <PaperView
               groups={currentSectionGroups}
               fatigueLevel={fatigueLevel}
@@ -297,7 +341,7 @@ export default function App() {
               quickFeedback={config.quickFeedback}
             />
           </div>
-          <div className="w-full shrink-0 snap-center md:w-64 h-full">
+          <div data-testid="answer-sheet-pane" className="w-full min-w-0 shrink-0 snap-center md:w-64 h-full">
             <AnswerSheet
               questions={sectionQuestions}
               answers={answers}
@@ -338,7 +382,9 @@ export default function App() {
               background: '#F7F8FA' 
             }}
           >
-            <DailyStudy onExit={() => setAppMode('exam')} />
+            <React.Suspense fallback={null}>
+              <DailyStudy onExit={() => setAppMode('exam')} />
+            </React.Suspense>
           </motion.div>
         )}
         {appMode === 'quick-review' && (
@@ -355,7 +401,9 @@ export default function App() {
             }}
             className="fixed inset-0 z-50 overflow-hidden bg-black"
           >
-            <QuickReview onExit={() => setAppMode('exam')} />
+            <React.Suspense fallback={null}>
+              <QuickReview onExit={() => setAppMode('exam')} />
+            </React.Suspense>
           </motion.div>
         )}
       </AnimatePresence>

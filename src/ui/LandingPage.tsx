@@ -98,7 +98,7 @@ export function LandingPage({
                     <div className="flex items-center justify-between border-b border-white/10 pb-2">
                       <label className="text-[9px] font-bold uppercase tracking-widest opacity-60">Timer</label>
                       <select
-                        value={localConfig.customTimeLimit || ''}
+                        value={localConfig.customTimeLimit ?? ''}
                         onChange={(e) => setLocalConfig(prev => ({ ...prev, customTimeLimit: e.target.value ? Number(e.target.value) : null }))}
                         className="bg-transparent text-[10px] font-bold focus:outline-none text-right cursor-pointer"
                       >
@@ -106,7 +106,7 @@ export function LandingPage({
                         <option value="900" className="bg-neutral-900">15m / Sec</option>
                         <option value="1800" className="bg-neutral-900">30m / Sec</option>
                         <option value="3600" className="bg-neutral-900">60m / Sec</option>
-                        <option value="1" className="bg-neutral-900">Untimed</option>
+                        <option value="0" className="bg-neutral-900">Untimed</option>
                       </select>
                     </div>
 

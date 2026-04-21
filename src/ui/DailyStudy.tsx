@@ -54,11 +54,11 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
     const [flashcardIndex, setFlashcardIndex] = useState(0);
     const [heroIndex, setHeroIndex] = useState(0);
 
-    const { srTimestamp, updateSR } = useVocabSR();
+    const { srTimestamp, updateSR, loadSRData } = useVocabSR();
     const dailySeed = useMemo(() => getDailySeed(), []);
 
     const dailyContent = useMemo(() => {
-        const selectedVocab = selectDailyVocab(dailySeed, words, 8);
+        const selectedVocab = selectDailyVocab(dailySeed, words, 8, loadSRData());
         const availableTopicIds = Object.keys(lessonRegistry).map(Number);
         const selectedTopics = selectDailyTopics(dailySeed, topicsData as TopicsData, availableTopicIds);
 
@@ -67,7 +67,7 @@ export const DailyStudy: React.FC<{ onExit: () => void }> = ({ onExit }) => {
             .filter(Boolean) as Lesson[];
 
         return { vocab: selectedVocab, lessons: selectedLessons };
-    }, [dailySeed, srTimestamp]);
+    }, [dailySeed, srTimestamp, loadSRData]);
 
     const filteredWords = useMemo(() => {
         const term = searchTerm.toLowerCase();

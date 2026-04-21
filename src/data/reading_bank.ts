@@ -295,12 +295,12 @@ export const readingQuestions: Question[] = [
         "subject": "Reading Comprehension",
         "subtopic": "Essays, Articles, Speeches",
         "groupId": "RC-PASS-2",
-        "question": "Which of the following statements would the author be likely to agree with?",
+        "question": "Based on the author's argument about air travel, which statement would the author be most likely to agree with?",
         "options": [
             "People must be forced to board planes.",
             "Airplanes should be the basic mode of transportation.",
             "Flying makes travel experience more enjoyable.",
-            "People who fear flying have known someone die of plane crash."
+            "People who fear flying have known someone who died in a plane crash."
         ],
         "correctAnswer": "Flying makes travel experience more enjoyable.",
         "explanation": "In the concluding paragraph, the author notes that if people conquered their fears, they would 'make some pleasant discoveries' and enjoy the thrill and sights from the sky, thereby making travel more enjoyable."
@@ -343,7 +343,7 @@ export const readingQuestions: Question[] = [
         "question": "Which of the following best summarizes the passage?",
         "options": [
             "Airlines provide conveniences not provided in other modes of travel.",
-            "The chances of being involved in an airplane accident are miniscule for any air traveler.",
+            "The chances of being involved in an airplane accident are minuscule for any air traveler.",
             "For great distances, anything but air transport is inconceivable.",
             "Flying makes traveling easier, faster, and safer than other methods of transportation."
         ],
@@ -985,7 +985,7 @@ export const readingQuestions: Question[] = [
         "subject": "Reading Comprehension",
         "subtopic": "Essays, Articles, Speeches",
         "groupId": "RC-PASS-9",
-        "question": "Which of the following statements would the author be likely to agree with?",
+        "question": "Based on the author's argument about war and survival, which statement would the author be most likely to agree with?",
         "options": [
             "As long as men believe that killing is a means of survival, war will never cease to exist.",
             "Men do not fear war.",

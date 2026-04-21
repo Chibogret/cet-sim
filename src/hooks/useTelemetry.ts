@@ -17,8 +17,16 @@ export function useTelemetry() {
   });
 
   const eventsRef = useRef(events);
+  const skipNextPersistRef = useRef(false);
 
   useEffect(() => {
+    if (skipNextPersistRef.current) {
+      skipNextPersistRef.current = false;
+      localStorage.removeItem('curve_telemetry');
+      eventsRef.current = events;
+      return;
+    }
+
     localStorage.setItem('curve_telemetry', JSON.stringify(events));
     eventsRef.current = events;
   }, [events]);
@@ -33,7 +41,8 @@ export function useTelemetry() {
     });
   }, []);
 
-  const clearTelemetry = useCallback(() => {
+  const clearTelemetry = useCallback((persist = true) => {
+    if (!persist) skipNextPersistRef.current = true;
     setEvents([]);
     localStorage.removeItem('curve_telemetry');
   }, []);

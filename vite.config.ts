@@ -91,5 +91,32 @@ export default defineConfig(({mode}) => {
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            const normalizedId = id.replaceAll('\\', '/');
+
+            if (normalizedId.includes('node_modules/react') || normalizedId.includes('node_modules/react-dom')) {
+              return 'react-vendor';
+            }
+
+            if (normalizedId.includes('node_modules/motion')) {
+              return 'motion-vendor';
+            }
+
+            if (normalizedId.includes('node_modules/katex') || normalizedId.includes('node_modules/react-katex')) {
+              return 'math-rendering';
+            }
+
+            if (normalizedId.includes('/src/data/')) {
+              return 'question-data';
+            }
+
+            return undefined;
+          },
+        },
+      },
+    },
   };
 });

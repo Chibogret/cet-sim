@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { sections } from '../data/sections';
 import { questionsBank } from '../data/questions_bank';
 import { Question } from '../types/question';
+import { getSectionTimeLimit, isUntimedConfig } from './examConfig';
 
 export type ExamState = 'start' | 'running' | 'section_end' | 'finished';
 
@@ -52,7 +53,7 @@ function shuffleWithSeed<T>(array: T[], seed: number): T[] {
 }
 
 export interface ExamConfig {
-  customTimeLimit: number | null; // in seconds
+  customTimeLimit: number | null; // in seconds; 0 means untimed
   subjectLimits: Record<string, number | null>;
   rightMinusWrong: boolean;
   quickFeedback: boolean;
@@ -112,6 +113,13 @@ export function useExamEngine() {
   const [fatigueLevel, setFatigueLevel] = useState(() => {
     return parseStoredNumber('curve_fatigueLevel') ?? 0;
   });
+
+  useEffect(() => {
+    if (examState !== 'running' || !isUntimedConfig(config.customTimeLimit)) return;
+    setTimerActive(false);
+    setEndTime(null);
+    setTimeLeftState(0);
+  }, [config.customTimeLimit, examState]);
 
   // Disable auto-progress to allow users to see the section end screen
   const autoProgress = false;
@@ -234,10 +242,18 @@ export function useExamEngine() {
   }, [sectionQuestions]);
 
   useEffect(() => {
+    localStorage.setItem('curve_examConfig', JSON.stringify(config));
+    if (examState === 'start') {
+      localStorage.removeItem('curve_examState');
+      localStorage.removeItem('curve_sectionIndex');
+      localStorage.removeItem('curve_fatigueLevel');
+      localStorage.removeItem('curve_endTime');
+      return;
+    }
+
     localStorage.setItem('curve_examState', examState);
     localStorage.setItem('curve_sectionIndex', currentSectionIndex.toString());
     localStorage.setItem('curve_fatigueLevel', fatigueLevel.toString());
-    localStorage.setItem('curve_examConfig', JSON.stringify(config));
     if (endTime !== null) {
       localStorage.setItem('curve_endTime', endTime.toString());
     } else {
@@ -248,14 +264,16 @@ export function useExamEngine() {
   const setTimeLeft = useCallback((value: number | ((prev: number) => number)) => {
     setTimeLeftState(prev => {
       const newVal = typeof value === 'function' ? value(prev) : value;
-      if (timerActive) {
+      if (timerActive && !isUntimedConfig(config.customTimeLimit)) {
         setEndTime(Date.now() + newVal * 1000);
       }
       return newVal;
     });
-  }, [timerActive]);
+  }, [config.customTimeLimit, timerActive]);
 
   const toggleTimer = useCallback(() => {
+    if (isUntimedConfig(config.customTimeLimit)) return;
+
     setTimerActive(prev => {
       const nextActive = !prev;
       if (nextActive) {
@@ -267,7 +285,7 @@ export function useExamEngine() {
       }
       return nextActive;
     });
-  }, [timeLeft]);
+  }, [config.customTimeLimit, timeLeft]);
 
   const startExam = (newConfig?: ExamConfig) => {
     if (newConfig) setConfig(newConfig);
@@ -279,21 +297,34 @@ export function useExamEngine() {
     setExamState('running');
     setCurrentSectionIndex(0);
     
-    const initialTime = activeConfig.customTimeLimit || sections[0].timeLimitSeconds;
-    setTimeLeftState(initialTime);
-    setEndTime(Date.now() + initialTime * 1000);
-    setTimerActive(true);
+    const initialTime = getSectionTimeLimit(activeConfig.customTimeLimit, sections[0].timeLimitSeconds);
+    setTimeLeftState(initialTime ?? 0);
+    setEndTime(initialTime === null ? null : Date.now() + initialTime * 1000);
+    setTimerActive(initialTime !== null);
     setFatigueLevel(0);
   };
+
+  const abortExam = useCallback(() => {
+    setTimerActive(false);
+    setEndTime(null);
+    setTimeLeftState(sections[0]?.timeLimitSeconds || 0);
+    setCurrentSectionIndex(0);
+    setFatigueLevel(0);
+    setExamState('start');
+    localStorage.removeItem('curve_examState');
+    localStorage.removeItem('curve_sectionIndex');
+    localStorage.removeItem('curve_fatigueLevel');
+    localStorage.removeItem('curve_endTime');
+  }, []);
 
   const nextSection = useCallback(() => {
     setCurrentSectionIndex(prev => {
       if (prev < sections.length - 1) {
         const nextIdx = prev + 1;
-        const nextTime = config.customTimeLimit || sections[nextIdx].timeLimitSeconds;
-        setTimeLeftState(nextTime);
-        setEndTime(Date.now() + nextTime * 1000);
-        setTimerActive(true);
+        const nextTime = getSectionTimeLimit(config.customTimeLimit, sections[nextIdx].timeLimitSeconds);
+        setTimeLeftState(nextTime ?? 0);
+        setEndTime(nextTime === null ? null : Date.now() + nextTime * 1000);
+        setTimerActive(nextTime !== null);
         setExamState('running');
         setFatigueLevel(f => f + 1);
         return nextIdx;
@@ -343,6 +374,7 @@ export function useExamEngine() {
     timerActive,
     fatigueLevel,
     startExam,
+    abortExam,
     nextSection,
     toggleTimer,
     setTimerActive,

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Question, SubjectType } from '../types/question';
 import { questionsBank } from '../data/questions_bank';
 import { renderTextWithFormatting, deservesFigureBelow, MediaRenderer, getInstruction } from './SharedFormatting';
+import { buildQuickReviewSet, getQuestionInstructionLabel } from './quickReviewSelection';
 
 interface QuickReviewProps {
   onExit: () => void;
@@ -63,20 +64,9 @@ export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
 
   const generateQuestions = (batches: number) => {
     const subjects: SubjectType[] = ['Language Proficiency', 'Science', 'Mathematics', 'Reading Comprehension'];
-    let newQuestions: Question[] = [];
+    const reviewQuestions = subjects.flatMap(subject => getReviewQuestions(subject));
+    const newQuestions = buildQuickReviewSet(reviewQuestions, batches);
 
-    for (let i = 0; i < batches; i++) {
-      subjects.forEach(subject => {
-        const subjectQuestions = getReviewQuestions(subject);
-        if (subjectQuestions.length > 0) {
-          const randomIndex = Math.floor(Math.random() * subjectQuestions.length);
-          newQuestions.push(subjectQuestions[randomIndex]);
-        }
-      });
-    }
-
-    // Shuffle the final list to mix subjects
-    newQuestions = newQuestions.sort(() => Math.random() - 0.5);
     setQuestions(newQuestions);
     setCurrentIndex(0);
     setAnswers({});
@@ -108,7 +98,7 @@ export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
 
   if (!currentQuestion && !isFinished) return null;
 
-  const { instruction, typeHeader, isFilipino } = currentQuestion ? getInstruction(currentQuestion) : { instruction: '', typeHeader: '', isFilipino: false };
+  const { instruction, typeHeader } = currentQuestion ? getInstruction(currentQuestion) : { instruction: '', typeHeader: '' };
 
   return (
     <div className="flex flex-col h-screen bg-black text-black font-serif overflow-hidden select-none">
@@ -176,7 +166,7 @@ export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
                   <div className="text-sm leading-relaxed border-l-4 border-black pl-4 py-1 bg-black/5">
                     <div className="text-[10px] font-bold uppercase tracking-widest mb-1 opacity-60">{typeHeader}</div>
                     <div>
-                      <span className="font-bold">{isFilipino ? 'Panuto: ' : 'Instructions: '}</span>
+                      <span className="font-bold">{getQuestionInstructionLabel(currentQuestion)}: </span>
                       {instruction}
                     </div>
                   </div>

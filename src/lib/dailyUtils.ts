@@ -1,4 +1,5 @@
 import { Topic, TopicsData, SubjectCategory } from '../types/lesson';
+import { SRMetadata, VocabWord } from '../types/vocab';
 
 /**
  * Generates a consistent seed for a given date (YYYY-MM-DD format or Date object).
@@ -78,8 +79,27 @@ export function selectDailyTopics(seed: number, topicsData: TopicsData, availabl
 /**
  * Helper to get X daily vocab words using a seed.
  */
-export function selectDailyVocab(seed: number, vocabList: any[], count: number = 8) {
-  const shuffled = [...vocabList];
+export function selectDailyVocab(
+  seed: number,
+  vocabList: VocabWord[],
+  count: number = 8,
+  srData: Record<string, SRMetadata> = {},
+  now: number = Date.now()
+) {
+  const dueWords = vocabList
+    .filter(word => {
+      const metadata = srData[word.word];
+      return metadata && metadata.nextReview <= now;
+    })
+    .sort((a, b) => {
+      const aDue = srData[a.word]?.nextReview ?? 0;
+      const bDue = srData[b.word]?.nextReview ?? 0;
+      if (aDue !== bDue) return aDue - bDue;
+      return a.word.localeCompare(b.word);
+    });
+
+  const dueSet = new Set(dueWords.map(word => word.word));
+  const shuffled = vocabList.filter(word => !dueSet.has(word.word));
   let m = shuffled.length;
   let currSeed = seed;
   
@@ -88,5 +108,5 @@ export function selectDailyVocab(seed: number, vocabList: any[], count: number =
     [shuffled[m], shuffled[i]] = [shuffled[i], shuffled[m]];
   }
   
-  return shuffled.slice(0, count);
+  return [...dueWords, ...shuffled].slice(0, count);
 }

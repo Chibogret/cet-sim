@@ -206,7 +206,7 @@ export const mathQuestions: Question[] = [
         id: 'MA-1203-1',
         subject: 'Mathematics',
         subtopic: 'Combination and Permutation',
-        question: 'In a certain school, a student ID constitutes 2 letters and then 3 digits (ex. \'ab123\') which cannot be jumbled. If repetition of the letters and digits is allowed, how many student IDs are possible?',
+        question: 'In a certain school, a student ID has 2 letters followed by 3 digits (ex. \'ab123\'). If repetition of the letters and digits is allowed, how many student IDs are possible?',
         options: ['316,000', '410,000', '650,000', '676,000'],
         correctAnswer: '676,000',
         explanation: 'Letters = $26 \\times 26 = 676$. Digits = $10 \\times 10 \\times 10 = 1000$. Total combinations = $676 \\times 1000 = 676,000$.'
