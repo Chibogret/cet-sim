@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Question } from '../types/question';
 import 'katex/dist/katex.min.css';
 import { renderTextWithFormatting, deservesFigureBelow, MediaRenderer, getInstruction } from './SharedFormatting';
+import { Copy, Check } from 'lucide-react';
 
 interface PaperViewProps {
   groups: Question[][];
@@ -12,6 +13,82 @@ interface PaperViewProps {
 
 
 export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, answers, quickFeedback }) => {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = async (q: Question, firstQ: Question) => {
+    const passage = firstQ.passage || q.passage;
+    const figure = firstQ.figure || q.figure;
+    
+    const contextText = [];
+    if (passage) contextText.push(`[PASSAGE CONTENT]\n${passage}`);
+    if (figure) {
+      const absoluteFigureUrl = new URL(figure, window.location.origin).href;
+      contextText.push(`[FIGURE URL]\n${absoluteFigureUrl}`);
+    }
+
+    const textToCopy = `
+Explain this question to me in a fun, engaging, and definitely not boring way! Break down why the correct answer is right and why the others are wrong, as if you're a friendly (and slightly witty) tutor.
+
+--- CET SIMULATION QUESTION DATA ---
+ID: ${q.id}
+Subject: ${q.subject}
+Subtopic: ${q.subtopic}
+
+[CONTEXT]
+${contextText.join('\n\n') || 'None'}
+
+[QUESTION]
+${q.question}
+
+[OPTIONS]
+${q.options.map((opt, i) => `${String.fromCharCode(65 + i)}. ${opt}`).join('\n')}
+
+[CORRECT ANSWER]
+${q.correctAnswer}
+
+[EXPLANATION]
+${q.explanation}
+
+--- RAW JSON ---
+${JSON.stringify(q, null, 2)}
+`.trim();
+
+    try {
+      const absoluteFigureUrl = figure ? new URL(figure, window.location.origin).href : '';
+      const htmlText = `
+        <div style="font-family: sans-serif;">
+          <p>${textToCopy.replace(/\n/g, '<br>')}</p>
+          ${figure ? `<img src="${absoluteFigureUrl}" alt="Figure" />` : ''}
+        </div>
+      `.trim();
+
+      const items: Record<string, Blob> = {
+        'text/plain': new Blob([textToCopy], { type: 'text/plain' }),
+        'text/html': new Blob([htmlText], { type: 'text/html' })
+      };
+
+      if (figure) {
+        try {
+          const response = await fetch(figure);
+          const blob = await response.blob();
+          if (blob.type.startsWith('image/')) {
+            items[blob.type] = blob;
+          }
+        } catch (e) {
+          console.error("Failed to fetch figure for clipboard", e);
+        }
+      }
+
+      await navigator.clipboard.write([new ClipboardItem(items)]);
+    } catch (err) {
+      // Fallback to simple text copy if ClipboardItem fails
+      console.error("ClipboardItem failed, falling back to writeText", err);
+      navigator.clipboard.writeText(textToCopy);
+    }
+
+    setCopiedId(q.id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
   // Cognitive Load: increase density
   const letterSpacing = fatigueLevel > 1 ? '-0.02em' : 'normal';
   const lineHeight = fatigueLevel > 2 ? '1.1' : '1.3';
@@ -253,8 +330,27 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, answ
 
                     {/* Quick Feedback Explanation */}
                     {quickFeedback && hasAnswered && q.explanation && (
-                      <div className="mt-4 ml-6 p-4 border-l-2 border-black bg-black/5 text-xs animate-in fade-in slide-in-from-left-2 duration-300">
-                        <div className="font-bold uppercase tracking-widest text-[9px] mb-1 opacity-60">Explanation</div>
+                      <div className="mt-4 ml-6 p-4 border-l-2 border-black bg-black/5 text-xs animate-in fade-in slide-in-from-left-2 duration-300 relative group/feedback">
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="font-bold uppercase tracking-widest text-[9px] opacity-60">Explanation</div>
+                          <button
+                            onClick={() => handleCopy(q, firstQ)}
+                            className="p-1 hover:bg-black/10 rounded transition-colors flex items-center gap-1 opacity-0 group-hover/feedback:opacity-100 focus:opacity-100"
+                            title="Copy for AI"
+                          >
+                            {copiedId === q.id ? (
+                              <>
+                                <Check size={12} className="text-green-600" />
+                                <span className="text-[9px] font-bold text-green-600 uppercase tracking-tighter">Copied!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy size={12} className="opacity-60" />
+                                <span className="text-[9px] font-bold uppercase tracking-tighter opacity-60">Copy for AI</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
                         <div className="leading-relaxed">
                           {renderTextWithFormatting(q.explanation)}
                         </div>
@@ -273,5 +369,3 @@ export const PaperView: React.FC<PaperViewProps> = ({ groups, fatigueLevel, answ
     </div>
   );
 };
-
-
