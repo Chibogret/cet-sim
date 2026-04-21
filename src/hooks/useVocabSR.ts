@@ -3,10 +3,33 @@ import { SRMetadata } from '../types/vocab';
 
 const SR_KEY = 'vocab_sr_metrics';
 
+const isSRMetadata = (value: unknown): value is SRMetadata => {
+    if (!value || typeof value !== 'object') return false;
+
+    const metadata = value as Partial<SRMetadata>;
+    return (
+        typeof metadata.nextReview === 'number' &&
+        Number.isFinite(metadata.nextReview) &&
+        typeof metadata.interval === 'number' &&
+        Number.isFinite(metadata.interval) &&
+        typeof metadata.repetition === 'number' &&
+        Number.isFinite(metadata.repetition) &&
+        typeof metadata.easeFactor === 'number' &&
+        Number.isFinite(metadata.easeFactor)
+    );
+};
+
 const loadSRData = (): Record<string, SRMetadata> => {
     try {
         const data = localStorage.getItem(SR_KEY);
-        return data ? JSON.parse(data) : {};
+        if (!data) return {};
+
+        const parsed = JSON.parse(data);
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+
+        return Object.fromEntries(
+            Object.entries(parsed).filter((entry): entry is [string, SRMetadata] => isSRMetadata(entry[1]))
+        );
     } catch {
         return {};
     }

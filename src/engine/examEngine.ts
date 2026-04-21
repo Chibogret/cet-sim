@@ -3,6 +3,7 @@ import { sections } from '../data/sections';
 import { questionsBank } from '../data/questions_bank';
 import { Question } from '../types/question';
 import { getSectionTimeLimit, isUntimedConfig } from './examConfig';
+import { parseStoredExamNumber, sanitizeSectionIndex } from './storageAudit';
 
 export type ExamState = 'start' | 'running' | 'section_end' | 'finished';
 
@@ -14,23 +15,23 @@ function isExamState(value: string | null): value is ExamState {
 
 function parseStoredNumber(key: string): number | null {
   const saved = localStorage.getItem(key);
-  if (!saved) return null;
+  const parsed = parseStoredExamNumber(saved);
 
-  const parsed = Number.parseInt(saved, 10);
-  if (Number.isFinite(parsed)) return parsed;
+  if (parsed !== null) return parsed;
 
-  localStorage.removeItem(key);
+  if (saved !== null) localStorage.removeItem(key);
   return null;
 }
 
 function parseStoredSectionIndex(): number {
   const parsed = parseStoredNumber('curve_sectionIndex');
-  if (parsed === null) return 0;
-  if (parsed < 0 || parsed >= sections.length) {
+  const sanitized = sanitizeSectionIndex(parsed, sections.length);
+
+  if (parsed !== null && sanitized !== parsed) {
     localStorage.removeItem('curve_sectionIndex');
-    return 0;
   }
-  return parsed;
+
+  return sanitized;
 }
 
 // Simple seeded random for deterministic "Daily" shuffle
@@ -199,6 +200,22 @@ export function useExamEngine() {
   }, [dailySeed, config.subjectLimits]);
 
   const currentSection = sections[currentSectionIndex] ?? sections[0];
+
+  useEffect(() => {
+    if (
+      examState !== 'running' ||
+      !timerActive ||
+      endTime !== null ||
+      isUntimedConfig(config.customTimeLimit)
+    ) {
+      return;
+    }
+
+    const recoveredTime = getSectionTimeLimit(config.customTimeLimit, currentSection.timeLimitSeconds) ?? 0;
+    setTimeLeftState(recoveredTime);
+    setEndTime(Date.now() + recoveredTime * 1000);
+  }, [config.customTimeLimit, currentSection.timeLimitSeconds, endTime, examState, timerActive]);
+
   const sectionQuestions = useMemo(() => {
     return dailyQuestions.filter(q => q.subject === currentSection?.name);
   }, [dailyQuestions, currentSection]);

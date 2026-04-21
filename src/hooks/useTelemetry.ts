@@ -6,15 +6,27 @@ export interface TelemetryEvent {
   data?: any;
 }
 
+function isTelemetryEvent(value: unknown): value is TelemetryEvent {
+  if (!value || typeof value !== 'object') return false;
+
+  const event = value as Partial<TelemetryEvent>;
+  return typeof event.timestamp === 'number' && Number.isFinite(event.timestamp) && typeof event.type === 'string';
+}
+
+function loadStoredTelemetry(): TelemetryEvent[] {
+  try {
+    const saved = localStorage.getItem('curve_telemetry');
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed.filter(isTelemetryEvent) : [];
+  } catch {
+    return [];
+  }
+}
+
 export function useTelemetry() {
-  const [events, setEvents] = useState<TelemetryEvent[]>(() => {
-    try {
-      const saved = localStorage.getItem('curve_telemetry');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [events, setEvents] = useState<TelemetryEvent[]>(loadStoredTelemetry);
 
   const eventsRef = useRef(events);
   const skipNextPersistRef = useRef(false);
