@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, type Dispatch, type SetStateAction } from 'react';
 import { sections } from '../data/sections';
 import { questionsBank } from '../data/questions_bank';
 import { Question } from '../types/question';
@@ -8,6 +8,16 @@ import { parseStoredExamNumber, sanitizeSectionIndex } from './storageAudit';
 export type ExamState = 'start' | 'running' | 'section_end' | 'finished';
 
 const examStates: ExamState[] = ['start', 'running', 'section_end', 'finished'];
+const compactSeedPattern = /^C1([0-9A-Z]{6})([0-9A-Z]{2})$/;
+const compactSeedCounts = [null, 5, 10, 25] as const;
+const seedSubjectKeys = [
+  'Language Proficiency',
+  'Science',
+  'Mathematics',
+  'Reading Comprehension'
+] as const;
+
+type SeedSubjectKey = typeof seedSubjectKeys[number];
 
 function isExamState(value: string | null): value is ExamState {
   return value !== null && examStates.includes(value as ExamState);
@@ -58,11 +68,105 @@ export interface ExamConfig {
   subjectLimits: Record<string, number | null>;
   rightMinusWrong: boolean;
   quickFeedback: boolean;
+  customSeed: string | null;
+}
+
+interface CompactExamSeed {
+  shuffleKey: string;
+  subjectLimits: Record<SeedSubjectKey, number | null>;
+}
+
+function normalizeCustomSeed(seed: unknown): string | null {
+  if (typeof seed !== 'string') return null;
+  const trimmed = seed.trim();
+  return trimmed.length > 0 ? trimmed.slice(0, 80) : null;
+}
+
+function encodeSubjectLimits(subjectLimits: Record<string, number | null>): string {
+  const packed = seedSubjectKeys.reduce((value, subject, index) => {
+    const limitIndex = compactSeedCounts.indexOf(subjectLimits[subject] as null | 5 | 10 | 25);
+    const safeLimitIndex = limitIndex >= 0 ? limitIndex : 0;
+    return value | (safeLimitIndex << (index * 2));
+  }, 0);
+
+  return packed.toString(36).toUpperCase().padStart(2, '0');
+}
+
+function decodeSubjectLimits(encodedLimits: string): Record<SeedSubjectKey, number | null> {
+  const packed = Number.parseInt(encodedLimits, 36);
+
+  return seedSubjectKeys.reduce((limits, subject, index) => {
+    limits[subject] = compactSeedCounts[(packed >> (index * 2)) & 3];
+    return limits;
+  }, {} as Record<SeedSubjectKey, number | null>);
+}
+
+function createSeedKey(): string {
+  return Math.random().toString(36).slice(2, 8).toUpperCase().padEnd(6, '0').slice(0, 6);
+}
+
+export function parseCompactExamSeed(seed: string | null): CompactExamSeed | null {
+  const normalizedSeed = normalizeCustomSeed(seed);
+  if (!normalizedSeed) return null;
+
+  const match = compactSeedPattern.exec(normalizedSeed.toUpperCase());
+  if (!match) return null;
+
+  return {
+    shuffleKey: match[1],
+    subjectLimits: decodeSubjectLimits(match[2])
+  };
+}
+
+export function buildCompactExamSeed(
+  subjectLimits: Record<string, number | null>,
+  shuffleKey = createSeedKey()
+): string {
+  const normalizedKey = shuffleKey.replace(/[^0-9a-z]/gi, '').toUpperCase().padEnd(6, '0').slice(0, 6);
+  return `C1${normalizedKey}${encodeSubjectLimits(subjectLimits)}`;
+}
+
+export function refreshCompactExamSeed(
+  subjectLimits: Record<string, number | null>,
+  currentSeed: string | null
+): string {
+  return buildCompactExamSeed(subjectLimits, parseCompactExamSeed(currentSeed)?.shuffleKey);
+}
+
+function readUrlCustomSeed(): string | null {
+  try {
+    return normalizeCustomSeed(new URLSearchParams(window.location.search).get('seed'));
+  } catch {
+    return null;
+  }
+}
+
+function seedTextToNumber(seed: string): number {
+  let hash = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    hash ^= seed.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return Math.abs(hash) || 1;
+}
+
+function normalizeExamConfig(config: ExamConfig): ExamConfig {
+  const customSeed = normalizeCustomSeed(config.customSeed);
+  const compactSeed = parseCompactExamSeed(customSeed);
+
+  return {
+    ...config,
+    customSeed,
+    subjectLimits: compactSeed
+      ? { ...config.subjectLimits, ...compactSeed.subjectLimits }
+      : config.subjectLimits
+  };
 }
 
 export function useExamEngine() {
-  const [config, setConfig] = useState<ExamConfig>(() => {
+  const [config, setConfigState] = useState<ExamConfig>(() => {
     const saved = localStorage.getItem('curve_examConfig');
+    const urlCustomSeed = readUrlCustomSeed();
     const defaultConfig: ExamConfig = { 
       customTimeLimit: null, 
       subjectLimits: {
@@ -72,19 +176,35 @@ export function useExamEngine() {
         'Reading Comprehension': null
       },
       rightMinusWrong: false,
-      quickFeedback: false
+      quickFeedback: false,
+      customSeed: urlCustomSeed
     };
 
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        return { ...defaultConfig, ...parsed, subjectLimits: { ...defaultConfig.subjectLimits, ...(parsed.subjectLimits || {}) } };
+        return normalizeExamConfig({
+          ...defaultConfig,
+          ...parsed,
+          customSeed: urlCustomSeed ?? normalizeCustomSeed(parsed.customSeed),
+          subjectLimits: { ...defaultConfig.subjectLimits, ...(parsed.subjectLimits || {}) }
+        });
       } catch (e) {
         console.error("Failed to parse config", e);
       }
     }
-    return defaultConfig;
+    return normalizeExamConfig(defaultConfig);
   });
+
+  const setConfig: Dispatch<SetStateAction<ExamConfig>> = useCallback((nextConfig) => {
+    setConfigState(prevConfig => {
+      const resolvedConfig = typeof nextConfig === 'function'
+        ? nextConfig(prevConfig)
+        : nextConfig;
+
+      return normalizeExamConfig(resolvedConfig);
+    });
+  }, []);
 
   const [examState, setExamState] = useState<ExamState>(() => {
     const saved = localStorage.getItem('curve_examState');
@@ -125,10 +245,13 @@ export function useExamEngine() {
   // Disable auto-progress to allow users to see the section end screen
   const autoProgress = false;
 
-  const dailySeed = useMemo(() => {
+  const examSeed = useMemo(() => {
     const d = new Date();
-    return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
-  }, []);
+    const dailySeed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+    const compactSeed = parseCompactExamSeed(config.customSeed);
+    const seedText = compactSeed?.shuffleKey ?? config.customSeed;
+    return seedText ? seedTextToNumber(seedText) : dailySeed;
+  }, [config.customSeed]);
 
   const dailyQuestions = useMemo(() => {
     const groups: Record<string, Question[]> = {};
@@ -169,7 +292,7 @@ export function useExamEngine() {
       groups[key].push(q);
     });
 
-    const shuffledGroups = shuffleWithSeed(Object.values(groups), dailySeed);
+    const shuffledGroups = shuffleWithSeed(Object.values(groups), examSeed);
     
     // Apply per-subject limits
     const subjectBuckets: Record<string, Question[]> = {};
@@ -197,7 +320,7 @@ export function useExamEngine() {
     });
 
     return Object.values(subjectBuckets).flat();
-  }, [dailySeed, config.subjectLimits]);
+  }, [examSeed, config.subjectLimits]);
 
   const currentSection = sections[currentSectionIndex] ?? sections[0];
 

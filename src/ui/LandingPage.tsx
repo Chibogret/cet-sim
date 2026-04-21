@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExamConfig } from '../engine/examEngine';
+import { buildCompactExamSeed, refreshCompactExamSeed, type ExamConfig } from '../engine/examEngine';
+import { Check, Copy, Shuffle } from 'lucide-react';
 
 interface LandingPageProps {
   localConfig: ExamConfig;
@@ -27,6 +28,42 @@ export function LandingPage({
   onQuickReview,
 }: LandingPageProps) {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
+  const [copiedShareLink, setCopiedShareLink] = useState(false);
+
+  const generateSeed = () => {
+    const seed = buildCompactExamSeed(localConfig.subjectLimits);
+    setLocalConfig(prev => ({ ...prev, customSeed: seed }));
+    return seed;
+  };
+
+  const updateSeed = (seed: string) => {
+    setLocalConfig(prev => ({ ...prev, customSeed: seed.trim() || null }));
+  };
+
+  const updateSubjectLimit = (subject: string, value: string) => {
+    setLocalConfig(prev => {
+      const subjectLimits = {
+        ...prev.subjectLimits,
+        [subject]: value ? Number(value) : null
+      };
+
+      return {
+        ...prev,
+        subjectLimits,
+        customSeed: prev.customSeed ? refreshCompactExamSeed(subjectLimits, prev.customSeed) : prev.customSeed
+      };
+    });
+  };
+
+  const copyShareLink = async () => {
+    const seed = refreshCompactExamSeed(localConfig.subjectLimits, localConfig.customSeed);
+    setLocalConfig(prev => ({ ...prev, customSeed: seed }));
+    const url = new URL(window.location.href);
+    url.searchParams.set('seed', seed);
+    await navigator.clipboard.writeText(url.toString());
+    setCopiedShareLink(true);
+    window.setTimeout(() => setCopiedShareLink(false), 2000);
+  };
 
   return (
     <div className="h-screen w-full bg-neutral-950 flex flex-col items-center justify-center font-sans text-white p-6 overflow-y-auto">
@@ -117,10 +154,7 @@ export function LandingPage({
                           <label className="text-[8px] font-bold uppercase opacity-40">{subj.label}</label>
                           <select
                             value={localConfig.subjectLimits[subj.key] === null ? '' : localConfig.subjectLimits[subj.key]}
-                            onChange={(e) => setLocalConfig(prev => ({
-                              ...prev,
-                              subjectLimits: { ...prev.subjectLimits, [subj.key]: e.target.value ? Number(e.target.value) : null }
-                            }))}
+                            onChange={(e) => updateSubjectLimit(subj.key, e.target.value)}
                             className="bg-transparent text-[10px] font-bold focus:outline-none text-right cursor-pointer"
                           >
                             <option value="" className="bg-neutral-900">Full</option>
@@ -158,6 +192,43 @@ export function LandingPage({
                       >
                         {localConfig.quickFeedback && <div className="w-2 h-2 bg-black" />}
                       </button>
+                    </div>
+
+                    {/* Exam Version */}
+                    <div className="pt-2 border-t border-white/10 space-y-2">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex flex-col">
+                          <label className="text-[9px] font-bold uppercase tracking-widest opacity-60" htmlFor="custom-seed">
+                            Exam Seed
+                          </label>
+                          <span className="text-[7px] opacity-30 italic leading-none mt-0.5">Short code includes item counts</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={generateSeed}
+                          className="h-7 w-7 border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
+                          title="Generate seed"
+                        >
+                          <Shuffle size={13} />
+                        </button>
+                      </div>
+                      <div className="flex gap-2">
+                        <input
+                          id="custom-seed"
+                          value={localConfig.customSeed ?? ''}
+                          onChange={(e) => updateSeed(e.target.value)}
+                          placeholder="daily if empty"
+                          className="min-w-0 flex-1 border border-white/10 bg-black/20 px-2 py-2 text-[10px] font-bold tracking-wider focus:outline-none focus:border-white/50"
+                        />
+                        <button
+                          type="button"
+                          onClick={copyShareLink}
+                          className="h-8 w-8 border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
+                          title="Copy share link"
+                        >
+                          {copiedShareLink ? <Check size={13} /> : <Copy size={13} />}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

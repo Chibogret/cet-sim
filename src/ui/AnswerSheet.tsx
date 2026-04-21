@@ -35,7 +35,7 @@ export const AnswerSheet: React.FC<AnswerSheetProps> = ({ questions, answers, cr
           const showFeedback = quickFeedback && hasAnswered;
 
           return (
-            <div key={q.id} className="flex items-center gap-4 md:gap-3 justify-center md:justify-start">
+            <div key={q.id} className="flex items-center gap-4 md:gap-2 justify-center md:justify-start">
               <span className="w-6 text-right font-bold text-sm md:text-xs">{index + 1}.</span>
               <div className="flex gap-1 md:gap-1">
                 {q.options.map((option, optIdx) => {
@@ -56,7 +56,7 @@ export const AnswerSheet: React.FC<AnswerSheetProps> = ({ questions, answers, cr
                     }
                   }
 
-                  const baseClasses = 'w-8 h-8 rounded-full flex items-center justify-center text-xs transition-colors relative shrink-0 before:absolute before:w-7 before:h-7 before:rounded-full before:border before:transition-colors';
+                  const baseClasses = 'w-11 h-11 rounded-full flex items-center justify-center text-xs transition-colors relative shrink-0 before:absolute before:w-9 before:h-9 before:rounded-full before:border before:transition-colors';
 
                   let stateClasses: string;
                   if (feedbackState) {
