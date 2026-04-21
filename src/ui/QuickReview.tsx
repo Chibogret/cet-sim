@@ -4,6 +4,7 @@ import { Question, SubjectType } from '../types/question';
 import { questionsBank } from '../data/questions_bank';
 import { renderTextWithFormatting, deservesFigureBelow, MediaRenderer, getInstruction } from './SharedFormatting';
 import { buildQuickReviewSet, getQuestionInstructionLabel } from './quickReviewSelection';
+import { RefreshCw, LogOut, Settings2 } from 'lucide-react';
 
 interface QuickReviewProps {
   onExit: () => void;
@@ -103,36 +104,45 @@ export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
   return (
     <div className="flex flex-col h-screen bg-black text-black font-serif overflow-hidden select-none">
       {/* Header */}
-      <header className="bg-white border-b-2 border-black p-4 flex justify-between items-center z-10 shrink-0">
-        <div>
-          <h1 className="font-bold uppercase tracking-widest text-lg">Quick Review Mode</h1>
-          <p className="text-xs italic opacity-70">Immediate Feedback Active</p>
+      <header className="bg-white border-b-2 border-black px-4 py-3 md:py-4 flex flex-col md:flex-row justify-between items-start md:items-center z-10 shrink-0 gap-3">
+        <div className="flex flex-col">
+          <h1 className="font-black uppercase tracking-tighter text-base md:text-lg leading-none">Quick Review</h1>
+          <p className="text-[10px] uppercase font-bold opacity-40 tracking-widest mt-0.5">Immediate Feedback Active</p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-widest">Batches (x4 items):</span>
+        
+        <div className="flex items-center justify-between w-full md:w-auto gap-2 md:gap-4">
+          <div className="flex items-center gap-2 bg-black/5 px-2 py-1 rounded-sm border border-black/10">
+            <Settings2 size={14} className="opacity-60" />
+            <span className="text-[10px] font-bold uppercase tracking-widest hidden sm:inline">Batches:</span>
             <select 
               value={batchCount} 
               onChange={(e) => setBatchCount(Number(e.target.value))}
-              className="border border-black p-1 text-sm bg-white outline-none"
+              className="bg-transparent text-xs font-bold outline-none cursor-pointer"
             >
               {[1, 2, 3, 4, 5].map(n => (
-                <option key={n} value={n}>{n}</option>
+                <option key={n} value={n} className="bg-white">{n} ({n*4} items)</option>
               ))}
             </select>
           </div>
-          <button 
-            onClick={() => generateQuestions(batchCount)}
-            className="text-[10px] border border-black px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors"
-          >
-            New Set
-          </button>
-          <button 
-            onClick={onExit}
-            className="text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-colors"
-          >
-            Exit
-          </button>
+          
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => generateQuestions(batchCount)}
+              className="flex items-center gap-1.5 text-[10px] border border-black px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all active:scale-95"
+              title="Generate New Set"
+            >
+              <RefreshCw size={12} />
+              <span className="hidden xs:inline">New Set</span>
+            </button>
+            <button 
+              onClick={onExit}
+              className="flex items-center gap-1.5 text-[10px] border border-red-700 text-red-700 px-3 py-1.5 font-bold uppercase tracking-widest hover:bg-red-700 hover:text-white transition-all active:scale-95"
+              title="Exit Mode"
+            >
+              <LogOut size={12} />
+              <span className="hidden xs:inline">Exit</span>
+            </button>
+          </div>
         </div>
       </header>
 
