@@ -535,7 +535,7 @@ export const mathQuestions: Question[] = [
         figure: '/assets/figures/MA-1003-2.png',
         options: ['MT', 'TH', 'MH', 'Cannot be determined'],
         correctAnswer: 'MT',
-        explanation: 'Angle M is $30^\\circ$, Angle T is $70^\\circ$. Therefore, Angle H is $180^\\circ - (30^\\circ + 70^\\circ) = 80^\\circ$. The longest side is always opposite the largest angle, so it is MT.'
+        explanation: 'Angle M is $38^\\circ$, Angle T is $70^\\circ$. Therefore, Angle H is $180^\\circ - (38^\\circ + 70^\\circ) = 72^\\circ$. The longest side is always opposite the largest angle, so it is MT.'
     },
     {
         id: 'MA-1006-1',
