@@ -172,7 +172,7 @@ export const scienceQuestions: Question[] = [
             "C. 33.3",
             "D. .333"
         ],
-        correctAnswer: "0.333",
+        correctAnswer: "D. .333",
         explanation: "Assuming a 100g sample, convert masses to moles: $n_C = 41.92\\text{g} / 12\\text{ g/mol} = 3.493\\text{ mol}$; $n_H = 3.58\\text{g} / 1\\text{ g/mol} = 3.58\\text{ mol}$; $n_O = 54.50\\text{g} / 16\\text{ g/mol} = 3.406\\text{ mol}$. Total moles $n_{total} = 3.493 + 3.58 + 3.406 = 10.479\\text{ mol}$. The mole fraction of Carbon ($x_C$) is $n_C / n_{total} = 3.493 / 10.479 = 0.333$."
     },
     {

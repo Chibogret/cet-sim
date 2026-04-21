@@ -5,6 +5,33 @@ import { Question } from '../types/question';
 
 export type ExamState = 'start' | 'running' | 'section_end' | 'finished';
 
+const examStates: ExamState[] = ['start', 'running', 'section_end', 'finished'];
+
+function isExamState(value: string | null): value is ExamState {
+  return value !== null && examStates.includes(value as ExamState);
+}
+
+function parseStoredNumber(key: string): number | null {
+  const saved = localStorage.getItem(key);
+  if (!saved) return null;
+
+  const parsed = Number.parseInt(saved, 10);
+  if (Number.isFinite(parsed)) return parsed;
+
+  localStorage.removeItem(key);
+  return null;
+}
+
+function parseStoredSectionIndex(): number {
+  const parsed = parseStoredNumber('curve_sectionIndex');
+  if (parsed === null) return 0;
+  if (parsed < 0 || parsed >= sections.length) {
+    localStorage.removeItem('curve_sectionIndex');
+    return 0;
+  }
+  return parsed;
+}
+
 // Simple seeded random for deterministic "Daily" shuffle
 function seededRandom(seed: number) {
   const x = Math.sin(seed) * 10000;
@@ -59,35 +86,31 @@ export function useExamEngine() {
 
   const [examState, setExamState] = useState<ExamState>(() => {
     const saved = localStorage.getItem('curve_examState');
-    return (saved as ExamState) || 'start';
+    return isExamState(saved) ? saved : 'start';
   });
   
   const [currentSectionIndex, setCurrentSectionIndex] = useState(() => {
-    const saved = localStorage.getItem('curve_sectionIndex');
-    return saved ? parseInt(saved, 10) : 0;
+    return parseStoredSectionIndex();
   });
   
   const [endTime, setEndTime] = useState<number | null>(() => {
-    const saved = localStorage.getItem('curve_endTime');
-    return saved ? parseInt(saved, 10) : null;
+    return parseStoredNumber('curve_endTime');
   });
   
   const [timeLeft, setTimeLeftState] = useState(() => {
-    const savedEndTime = localStorage.getItem('curve_endTime');
-    if (savedEndTime) {
-      const remaining = Math.max(0, Math.floor((parseInt(savedEndTime, 10) - Date.now()) / 1000));
+    const savedEndTime = parseStoredNumber('curve_endTime');
+    if (savedEndTime !== null) {
+      const remaining = Math.max(0, Math.floor((savedEndTime - Date.now()) / 1000));
       return remaining;
     }
-    const savedIndex = localStorage.getItem('curve_sectionIndex');
-    const idx = savedIndex ? parseInt(savedIndex, 10) : 0;
+    const idx = parseStoredSectionIndex();
     
     // We'll trust the saved end time if it exists, otherwise we'll initialize on start
     return sections[idx]?.timeLimitSeconds || 0;
   });
   const [timerActive, setTimerActive] = useState(() => examState === 'running');
   const [fatigueLevel, setFatigueLevel] = useState(() => {
-    const saved = localStorage.getItem('curve_fatigueLevel');
-    return saved ? parseInt(saved, 10) : 0;
+    return parseStoredNumber('curve_fatigueLevel') ?? 0;
   });
 
   // Disable auto-progress to allow users to see the section end screen
@@ -167,7 +190,7 @@ export function useExamEngine() {
     return Object.values(subjectBuckets).flat();
   }, [dailySeed, config.subjectLimits]);
 
-  const currentSection = sections[currentSectionIndex];
+  const currentSection = sections[currentSectionIndex] ?? sections[0];
   const sectionQuestions = useMemo(() => {
     return dailyQuestions.filter(q => q.subject === currentSection?.name);
   }, [dailyQuestions, currentSection]);

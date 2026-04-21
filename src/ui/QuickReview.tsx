@@ -8,6 +8,40 @@ interface QuickReviewProps {
   onExit: () => void;
 }
 
+const getReviewQuestions = (subject: SubjectType): Question[] => {
+  const subjectQuestions = questionsBank.filter(q => q.subject === subject);
+  const contextByGroup = new Map<string, Partial<Question>>();
+
+  subjectQuestions.forEach(q => {
+    if (!q.groupId) return;
+    if (!q.passage && !q.figure && !q.contextTitle && !q.instruction) return;
+
+    contextByGroup.set(q.groupId, {
+      contextTitle: q.contextTitle,
+      passage: q.passage,
+      passageType: q.passageType,
+      figure: q.figure,
+      instruction: q.instruction
+    });
+  });
+
+  return subjectQuestions.map(q => {
+    if (!q.groupId) return q;
+
+    const context = contextByGroup.get(q.groupId);
+    if (!context) return q;
+
+    return {
+      ...q,
+      contextTitle: q.contextTitle ?? context.contextTitle,
+      passage: q.passage ?? context.passage,
+      passageType: q.passageType ?? context.passageType,
+      figure: q.figure ?? context.figure,
+      instruction: q.instruction ?? context.instruction
+    };
+  });
+};
+
 export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
   const [batchCount, setBatchCount] = useState(() => {
     const saved = localStorage.getItem('curve_quickReview_batchCount');
@@ -33,7 +67,7 @@ export const QuickReview: React.FC<QuickReviewProps> = ({ onExit }) => {
 
     for (let i = 0; i < batches; i++) {
       subjects.forEach(subject => {
-        const subjectQuestions = questionsBank.filter(q => q.subject === subject);
+        const subjectQuestions = getReviewQuestions(subject);
         if (subjectQuestions.length > 0) {
           const randomIndex = Math.floor(Math.random() * subjectQuestions.length);
           newQuestions.push(subjectQuestions[randomIndex]);

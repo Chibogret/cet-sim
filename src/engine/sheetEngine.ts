@@ -1,19 +1,41 @@
 import { useState, useEffect, useRef } from 'react';
 
+const loadStoredRecord = (key: string): Record<string, string> => {
+  const saved = localStorage.getItem(key);
+  if (!saved) return {};
+
+  try {
+    const parsed = JSON.parse(saved);
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+
+    return Object.fromEntries(
+      Object.entries(parsed).filter((entry): entry is [string, string] => typeof entry[1] === 'string')
+    );
+  } catch {
+    localStorage.removeItem(key);
+    return {};
+  }
+};
+
+const loadStoredCount = (key: string, fallback: number): number => {
+  const saved = localStorage.getItem(key);
+  if (!saved) return fallback;
+
+  const parsed = Number.parseInt(saved, 10);
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
 export function useSheetEngine() {
   const [answers, setAnswers] = useState<Record<string, string>>(() => {
-    const saved = localStorage.getItem('curve_answers');
-    return saved ? JSON.parse(saved) : {};
+    return loadStoredRecord('curve_answers');
   });
 
   const [crossouts, setCrossouts] = useState<Record<string, string>>(() => {
-    const saved = localStorage.getItem('curve_crossouts');
-    return saved ? JSON.parse(saved) : {};
+    return loadStoredRecord('curve_crossouts');
   });
 
   const [changesRemaining, setChangesRemaining] = useState<number>(() => {
-    const saved = localStorage.getItem('curve_changes');
-    return saved ? parseInt(saved, 10) : 3;
+    return loadStoredCount('curve_changes', 3);
   });
 
   const answersRef = useRef(answers);

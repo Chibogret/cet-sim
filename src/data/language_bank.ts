@@ -694,8 +694,8 @@ export const languageQuestions: Question[] = [
         "subtopic": "Pandiwa",
         "question": "Bago ang lahat, ________ ito sa akin para sa iyo.",
         "options": ["binilin", "ibiinilin", "ibibilin", "pinagbilan"],
-        "correctAnswer": "ibibilin",
-        "explanation": "The phrase 'Bago ang lahat' implies something that will happen first, requiring the future aspect 'ibibilin'."
+        "correctAnswer": "binilin",
+        "explanation": "The phrase 'Bago ang lahat' means 'First of all.' The sentence refers to something that was already entrusted to the speaker for the listener, so the completed aspect 'binilin' is required."
     },
     {
         "id": "LP-201-66",
